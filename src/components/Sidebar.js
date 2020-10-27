@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
     Button, 
     Icon, 
@@ -10,7 +10,12 @@ import {
 } from '@blueprintjs/core';
 import './Sidebar.css';
 
-const exampleMenu = (
+import db from '../firebase';
+import { useParams } from 'react-router-dom';
+import SelectRoom from './SelectRoom';
+import CreateRoom from './CreateRoom';
+
+const popupMenu = (
     <Menu>
         <MenuItem icon="graph" text="Graph" />
         <MenuItem icon="map" text="Map" />
@@ -25,6 +30,24 @@ const exampleMenu = (
 );
 
 function Sidebar() {
+
+    const { workspaceId } = useParams();
+
+    // Init rooms with an empty array (arrays of room) || Assume rooms is empty 
+    const [rooms, setRooms] = useState([]);
+
+    useEffect(() => {
+        // Go into db => collection and take a snapshot of the collection (realtime)
+        db.collection('workspaces').doc(workspaceId).collection('rooms').onSnapshot(snapshot => (
+            // Go to the snaphot => doc and map (Loop through every single doc)
+            // And for every doc do...
+            setRooms(snapshot.docs.map(doc => ({
+                id: doc.id,
+                name: doc.data().name
+            })))
+        ))
+    }, [])
+    
     return (
         <div className="sidebar">
                 <Card className="sidebar_card left">
@@ -39,17 +62,19 @@ function Sidebar() {
                 <Card className="sidebar_card right">
                     <div>
                         <h2 className="bp3-heading">Smart Labs</h2>
-                        <Popover content={exampleMenu}>
+                        <Popover content={popupMenu}>
                             <Button icon="chevron-down" minimal />
                         </Popover>
                     </div>
-                    <Button text="Channels" icon="plus" minimal outlined />
+
+                    {/* <Button text="Rooms" icon="plus" minimal outlined /> */}
+                    <CreateRoom />
                     <Menu>
-                        <MenuItem text="# General" />
-                        <MenuItem text="# Random" />
-                        <MenuItem text="# Marketing" />
-                        <MenuItem text="# Product" />
+                        {rooms.map(room => (
+                            <SelectRoom text={room.name} id={room.id} />
+                        ))}
                     </Menu>
+
                     <div></div>
                     <Button text="People" icon="new-person" minimal outlined />
                     <Menu>
