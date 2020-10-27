@@ -66,8 +66,6 @@ function Sidebar() {
                             <Button icon="chevron-down" minimal />
                         </Popover>
                     </div>
-
-                    {/* <Button text="Rooms" icon="plus" minimal outlined /> */}
                     <CreateRoom />
                     <Menu>
                         {rooms.map(room => (

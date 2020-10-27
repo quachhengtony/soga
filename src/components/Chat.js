@@ -6,7 +6,8 @@ import {
 } from '@blueprintjs/core';
 import { useParams } from 'react-router-dom';
 import db from '../firebase';
-import Message from './Message'
+import Message from './Message';
+import ChatInput from './ChatInput';
 
 function Chat() {
     const { roomId, workspaceId } = useParams();
@@ -48,6 +49,8 @@ function Chat() {
                 ))}
            </div>
            </Card>
+
+           <ChatInput roomName={roomDetails?.name} roomId={roomId} workspaceId={workspaceId} />
         </div>
     );
 }

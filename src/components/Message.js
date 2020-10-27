@@ -1,8 +1,5 @@
 import React from 'react';
 import './Message.css';
-import {
-    Card
-} from '@blueprintjs/core';
 
 function Message({ message, user, timestamp, userImage }) {
     return (
