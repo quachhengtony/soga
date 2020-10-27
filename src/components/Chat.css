@@ -1,0 +1,15 @@
+.chat {
+    display: flex;
+    flex: 0.8;
+    height: 100vh;
+}
+
+.chat_card {
+    width: 100%;
+    border-radius: 0;
+    margin: 0;
+}
+
+.chat_header {
+    margin: 0 20px 0;
+}
