@@ -1,6 +1,8 @@
 .sidebar {
     display: flex;
-    flex: 0.2;
+    position: absolute;
+    left: 0;
+    width: 25%;
     height: 100vh;
 }
 
@@ -14,10 +16,23 @@
     justify-content: space-between;
 }
 
+.left {
+    flex: 0.2;
+}
+
+.right {
+    flex: 0.8;
+}
+
 .left > div {
     margin: 10px 0 0;
 }
 
 .right > div {
     margin: 0 0 20px;
+}
+
+.people {
+    margin-bottom: 0 !important;
+    justify-content: space-between;
 }

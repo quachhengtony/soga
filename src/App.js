@@ -1,14 +1,15 @@
 import React from 'react';
-import './App.css';
-import Sidebar from './components/Sidebar';
-import Chat from './components/Chat';
-import Login from './components/Login';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
+
+import './App.css';
+import Sidebar from './components/Sidebar';
+import Chat from './components/Chat';
+import Login from './components/Login';
 import { useStateValue } from './StateProvider';
 
 function App() {

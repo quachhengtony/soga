@@ -1,7 +1,9 @@
 import React from 'react';
 import { Button } from '@blueprintjs/core';
-import db from '../firebase';
 import { useParams } from 'react-router-dom';
+
+import db from '../firebase';
+import './CreateRoom.css';
 
 function CreateRoom() {
 
@@ -17,7 +19,10 @@ function CreateRoom() {
     }
 
     return (
-        <Button text="Rooms" icon="plus" minimal outlined onClick={createRoom} />
+        <div className="createRoom">
+            <Button text="Rooms" icon="new-layers" minimal outlined onClick={createRoom} />
+            <Button icon="caret-down" minimal />
+        </div>
     );
 }
 

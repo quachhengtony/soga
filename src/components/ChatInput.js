@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import "./ChatInput.css";
+import firebase from 'firebase';
+import {
+    Button, 
+    InputGroup
+} from '@blueprintjs/core';
+
+import './ChatInput.css';
 import db from '../firebase';
 import { useStateValue } from '../StateProvider';
-import firebase from 'firebase';
 
 function ChatInput({ roomName, roomId, workspaceId }) {
 
@@ -21,12 +26,20 @@ function ChatInput({ roomName, roomId, workspaceId }) {
         }
     }
 
+    const sendButton = (
+        <Button icon="send-message" minimal onClick={sendMessage} />
+    )
+
     return (
         <div className="chatInput">
-            <form>
-                <input value={input} onChange={e => setInput(e.target.value)} />
-                <button type="submit" onClick={sendMessage}>SEND</button>
-            </form>
+            <InputGroup 
+                className="chatInput_input"
+                placeholder="Talk to your team"
+                rightElement={sendButton}
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                large
+            />
         </div>
     );
 }

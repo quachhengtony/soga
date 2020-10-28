@@ -6,26 +6,32 @@ import {
     MenuItem, 
     MenuDivider, 
     Card,
-    Popover
+    Popover, 
+    ButtonGroup
 } from '@blueprintjs/core';
-import './Sidebar.css';
 
+import './Sidebar.css';
 import db from '../firebase';
 import { useParams } from 'react-router-dom';
 import SelectRoom from './SelectRoom';
 import CreateRoom from './CreateRoom';
+import { useStateValue } from '../StateProvider';
 
 const popupMenu = (
     <Menu>
-        <MenuItem icon="graph" text="Graph" />
-        <MenuItem icon="map" text="Map" />
-        <MenuItem icon="th" text="Table" shouldDismissPopover={false} />
-        <MenuItem icon="zoom-to-fit" text="Nucleus" disabled={true} />
+        <MenuItem icon="link" text="Invite people to your workspace" />
+        <MenuItem icon="new-layer" text="Create a room" />
+        <MenuDivider/>
+        <MenuItem icon="control" text="Preferences" />
+        <MenuItem icon="settings" text="Settings & Administration" />
         <MenuDivider />
-        <MenuItem icon="cog" text="Settings...">
+        <MenuItem icon="timeline-line-chart" text="Analytics" />
+        <MenuDivider />
+        <MenuItem icon="log-out" text="Sign out of workspace" />
+        {/* <MenuItem icon="cog" text="Settings...">
             <MenuItem icon="add" text="Add new application" disabled={true} />
             <MenuItem icon="remove" text="Remove application" />
-        </MenuItem>
+        </MenuItem> */}
     </Menu>
 );
 
@@ -35,6 +41,7 @@ function Sidebar() {
 
     // Init rooms with an empty array (arrays of room) || Assume rooms is empty 
     const [rooms, setRooms] = useState([]);
+    const [{ user }] = useStateValue();
 
     useEffect(() => {
         // Go into db => collection and take a snapshot of the collection (realtime)
@@ -63,7 +70,7 @@ function Sidebar() {
                     <div>
                         <h2 className="bp3-heading">Smart Labs</h2>
                         <Popover content={popupMenu}>
-                            <Button icon="chevron-down" minimal />
+                            <Button icon="menu" minimal />
                         </Popover>
                     </div>
                     <CreateRoom />
@@ -72,11 +79,17 @@ function Sidebar() {
                             <SelectRoom text={room.name} id={room.id} />
                         ))}
                     </Menu>
-
                     <div></div>
-                    <Button text="People" icon="new-person" minimal outlined />
+                    <div className="people">
+                        <Button text="People" icon="new-person" minimal outlined />
+                        <Button icon="caret-down" minimal />
+                    </div>
                     <Menu>
-                        <MenuItem text="Tony Quach" />
+                        {user ? (
+                            <MenuItem text={user.displayName} />
+                        ) : (
+                            console.log("No user")
+                        )}
                     </Menu>
                 </Card>
         </div>

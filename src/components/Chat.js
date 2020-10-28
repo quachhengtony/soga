@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import './Chat.css';
 import {
     Divider,
     Card
 } from '@blueprintjs/core';
 import { useParams } from 'react-router-dom';
+
+import './Chat.css';
 import db from '../firebase';
 import Message from './Message';
 import ChatInput from './ChatInput';
 
 function Chat() {
+
     const { roomId, workspaceId } = useParams();
     const [roomDetails, setRoomDetails] = useState(null);
     const [roomMessages, setRoomMessages] = useState([]);
@@ -23,7 +25,6 @@ function Chat() {
                 .onSnapshot((snapshot) => setRoomDetails(snapshot.data())
                 )
         }
-
         db.collection('workspaces').doc(workspaceId).collection('rooms').doc(roomId)
             .collection('messages')
             .orderBy('timestamp', 'asc')
@@ -39,18 +40,19 @@ function Chat() {
                 <Divider />
             </div>
             <div className="chat_body">
-                {roomMessages.map(({ message, timestamp, user, userImage }) => (
-                    <Message
-                        message={message}
-                        timestamp={timestamp}
-                        user={user}
-                        userImage={userImage}
-                    />
-                ))}
+                <div className="chat_message">
+                    {roomMessages.map(({ message, timestamp, user, userImage }) => (
+                        <Message
+                            message={message}
+                            timestamp={timestamp}
+                            user={user}
+                            userImage={userImage}
+                        />
+                    ))}
+                </div>
            </div>
-           </Card>
-
            <ChatInput roomName={roomDetails?.name} roomId={roomId} workspaceId={workspaceId} />
+           </Card>
         </div>
     );
 }
