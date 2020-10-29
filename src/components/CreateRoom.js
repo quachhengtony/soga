@@ -12,7 +12,7 @@ function CreateRoom() {
     const createRoom = () => {
         const roomName = prompt('Enter room name:');
         if (roomName) {
-            db.collection('workspaces').doc('GkT58bhptzQjZCQFzQAS').collection('rooms').add({
+            db.collection('workspaces').doc(workspaceId).collection('rooms').add({
                     name: roomName,
                 })
             }

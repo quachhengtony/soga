@@ -6,8 +6,7 @@ import {
     MenuItem, 
     MenuDivider, 
     Card,
-    Popover, 
-    ButtonGroup
+    Popover,
 } from '@blueprintjs/core';
 
 import './Sidebar.css';
