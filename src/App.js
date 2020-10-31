@@ -11,6 +11,7 @@ import Sidebar from './components/Sidebar';
 import Chat from './components/Chat';
 import Login from './components/Login';
 import { useStateValue } from './StateProvider';
+import Console from './components/Console';
 
 function App() {
 
@@ -22,6 +23,9 @@ function App() {
       <div className="app">
       {!user ? (<Login />) : (
         <Switch>
+          <Route path="/console">
+            <Console />
+          </Route>
           <Route path="/workspace/:workspaceId/room/:roomId">
             <Sidebar />
             <Chat />

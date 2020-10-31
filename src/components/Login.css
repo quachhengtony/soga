@@ -5,3 +5,8 @@
     height: 100vh;
     text-align: center;
 }
+
+.login_card {
+    width: 25vw;
+    height: 25vh;
+}

@@ -1,0 +1,28 @@
+body {
+    background-color: #f8f8f8;
+}
+
+.console {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 25%;
+}
+
+.console > div {
+    display: block;
+    margin: 0 12.5% 0;
+}
+
+.console_card {
+    background-color: white;
+    width: 25vw;
+    height: 75vh;
+}
+
+.talents_listing {
+    height: 50vh;
+    overflow-y: scroll;
+    margin: 12.5px 0 0;
+}
