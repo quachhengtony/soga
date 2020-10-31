@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Console.css';
 import { useHistory } from 'react-router-dom';
 import db from '../firebase';
 import { Button, Card } from '@blueprintjs/core';
 import Navbarr from './Navbar';
+import { useStateValue } from '../StateProvider';
 
 function Console() {
 
     const [workspaces, setWorkspaces] = useState([]);
     const history = useHistory();
 
+    const [{ user }] = useStateValue();
+
     const createWorkspace = () => {
         const workspaceName = prompt('Enter workspace name:');
         if (workspaceName) {
             db.collection('workspaces').add({
                 name: workspaceName,
+                user: user.email,
             })
         }
         db.collection('workspaces').onSnapshot(snapshot => {
@@ -79,8 +83,8 @@ function Console() {
                     <Card className="talents_listing">
                         <ul>
                             <li>Product</li>
-                            <li>Marketing</li>
-                            <li>Project Awesome</li>
+                            <li>Sales</li>
+                            <li>Awesome Project</li>
                             <li>My Company</li>
                         </ul>
                     </Card>

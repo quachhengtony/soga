@@ -65,7 +65,7 @@ function Sidebar() {
                         <Button icon="plus" minimal fill large />
                     </div>
                 </Card>
-                <Card className="sidebar_card right">
+                <Card className="sidebar_card right" elevation={1}>
                     <div>
                         <h2 className="bp3-heading">Smart Labs</h2>
                         <Popover content={popupMenu}>
