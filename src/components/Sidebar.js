@@ -38,15 +38,11 @@ function Sidebar() {
 
     const { workspaceId } = useParams();
 
-    // Init rooms with an empty array (arrays of room) || Assume rooms is empty 
     const [rooms, setRooms] = useState([]);
     const [{ user }] = useStateValue();
 
     useEffect(() => {
-        // Go into db => collection and take a snapshot of the collection (realtime)
         db.collection('workspaces').doc(workspaceId).collection('rooms').onSnapshot(snapshot => (
-            // Go to the snaphot => doc and map (Loop through every single doc)
-            // And for every doc do...
             setRooms(snapshot.docs.map(doc => ({
                 id: doc.id,
                 name: doc.data().name

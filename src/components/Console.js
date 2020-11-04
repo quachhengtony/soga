@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import './Console.css';
-import { useHistory } from 'react-router-dom';
-import db from '../firebase';
 import { Button, Card } from '@blueprintjs/core';
+
+import './Console.css';
+import db from '../firebase';
 import Navbarr from './Navbar';
 import { useStateValue } from '../StateProvider';
+import ListWorkspace from './ListWorkspace';
 
 function Console() {
 
     const [workspaces, setWorkspaces] = useState([]);
-    const history = useHistory();
-
     const [{ user }] = useStateValue();
+
+    useEffect(() => {
+        listWorkspaces();
+    })
 
     const createWorkspace = () => {
         const workspaceName = prompt('Enter workspace name:');
@@ -21,19 +24,15 @@ function Console() {
                 user: user.email,
             })
         }
-        db.collection('workspaces').onSnapshot(snapshot => {
-            setWorkspaces(snapshot.docs.map(doc => ({
-                id: doc.id,
-            })))
-        })
     }
 
-    const initWorkspace = (workspaceId) => {
-        const roomName = prompt('Enter 2 room names:');
-        db.collection('workspaces').doc(workspaceId).collection('rooms').add({
-            name: roomName,
-        })
-        history.push(`/workspace/${workspaceId}/room/undefined`)
+    const listWorkspaces = () => {
+        db.collection('workspaces').where("user", "==", user.email).onSnapshot(snapshot => (
+                setWorkspaces(snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    name: doc.data().name
+                })))
+        ))
     }
 
     return (
@@ -77,18 +76,11 @@ function Console() {
                     <h5 className="bp3-heading">Workspace</h5>
                     <p>Managing your talented remote teams via dedicated workspaces</p>
                     <Button className="console_button" text="Create workspace" icon="new-layers" minimal outlined onClick={createWorkspace} />
-                    {workspaces.map(workspace => (
-                        <Button onClick={initWorkspace(workspace.id)} />
-                    ))}
                     <Card className="talents_listing">
-                        <ul>
-                            <li>Product</li>
-                            <li>Sales</li>
-                            <li>Awesome Project</li>
-                            <li>My Company</li>
-                        </ul>
+                        {workspaces.map(workspace => (
+                            <ListWorkspace text={workspace.name} id={workspace.id} />
+                        ))}
                     </Card>
-                    
                 </Card>
             </div>
         </div>
@@ -96,3 +88,4 @@ function Console() {
 }
 
 export default Console;
+
