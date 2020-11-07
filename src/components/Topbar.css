@@ -1,0 +1,14 @@
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.navbar_container {
+    background-color: #fafbfc;
+}
+
+.navbar_right {
+    position: fixed;
+    right: 0;
+}

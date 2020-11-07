@@ -4,12 +4,16 @@ import './Message.css';
 function Message({ message, user, timestamp, userImage }) {
     return (
         <div className="message">
-            <p>{user}, {new Date(timestamp?.toDate()).toUTCString()}</p>
-            <blockquote className="bp3-blockquote">
+            <div >
+                <img src={userImage} alt="Avatar" className="message_avatar"></img>
+            </div>
+            <div>
+                <p>{user}</p>
                 {message}
-            </blockquote>
+            </div>
         </div>
     );
 }
+// <p>{user}, {new Date(timestamp?.toDate()).toUTCString()}</p>
 
 export default Message;

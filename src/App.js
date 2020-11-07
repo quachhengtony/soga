@@ -12,6 +12,8 @@ import Chat from './components/Chat';
 import Login from './components/Login';
 import { useStateValue } from './StateProvider';
 import Console from './components/Console';
+import Topbar from './components/Topbar';
+import Account from './components/Account';
 
 function App() {
 
@@ -21,9 +23,20 @@ function App() {
   return (
     <Router>
       <div className="app">
-      {!user ? (<Login />) : (
+      {!user ? (
+        <>
+        <Topbar />
+          <Login />
+        </>
+      ) : (
+        <>
         <Switch>
+        <Route path="/account">
+            <Topbar />
+            <Account />
+          </Route>
           <Route path="/console">
+          <Topbar />
             <Console />
           </Route>
           <Route path="/workspace/:workspaceId/room/:roomId">
@@ -31,6 +44,7 @@ function App() {
             <Chat />
           </Route>
         </Switch>
+        </>
         )
       }
       </div>

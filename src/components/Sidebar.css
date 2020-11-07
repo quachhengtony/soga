@@ -18,10 +18,14 @@
 
 .left {
     flex: 0.2;
+    padding: 0;
+    background-color: #fafbfc;
+    border-left: 5px solid #00ff77;
 }
 
 .right {
     flex: 0.8;
+    background-color: #fafbfc;
 }
 
 .left > div {
@@ -35,4 +39,8 @@
 .people {
     margin-bottom: 0 !important;
     justify-content: space-between;
+}
+
+.menu {
+    background-color: #fafbfc;
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button } from '@blueprintjs/core';
+import { Button, Card } from '@blueprintjs/core';
+
+import './ListWorkspace.css';
 
 function ListWorkspace({ text, id }) {
 
@@ -16,9 +18,15 @@ function ListWorkspace({ text, id }) {
     
     return (
         <div className="listWorkspace">
-            <ul>
-                <Button text={text} id={id} onClick={goToWorkspace} minimal outlined/>
-            </ul>
+            <Card className="listWorkspace_card">
+                <p className="bp3-text-large"><a>{text}</a></p>
+                <p>Rooms: ##</p>
+                <p>People: ##</p>
+                <p>Created at: ##/##/##</p>
+                <Button className="listWorkspace_openButton" text="Open workspace" id={id} onClick={goToWorkspace} minimal outlined small />
+                <Button className="listWorkspace_settingsButton" text="Settings" minimal outlined small />
+        
+            </Card>
         </div>
     );
 }

@@ -30,12 +30,28 @@ function ChatInput({ roomName, roomId, workspaceId }) {
         <Button icon="send-message" minimal onClick={sendMessage} />
     )
 
+    const emojiButton = (
+        <Button icon="thumbs-up" minimal />
+    )
+
+    const attachFileButton = (
+        <Button icon="paperclip" minimal />
+    )
+
+    const callButton = (
+        <Button icon="mobile-video" minimal />
+    )
+
+    const screenShareButton = (
+        <Button icon="desktop" minimal />
+    )
+
     return (
         <div className="chatInput">
             <InputGroup 
                 className="chatInput_input"
                 placeholder="Talk to your team"
-                rightElement={sendButton}
+                rightElement={[sendButton, emojiButton, attachFileButton, callButton, screenShareButton]}
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 large

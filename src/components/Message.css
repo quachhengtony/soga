@@ -1,2 +1,16 @@
 .message {
+    display: flex;
+    align-items: center;
+    margin: 0 0 15px;
+}
+
+.message > div {
+    margin-right: 5px;
+}
+
+.message_avatar {
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
 }

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
     Divider,
-    Card
+    Card,
+    Button
 } from '@blueprintjs/core';
 import { useParams } from 'react-router-dom';
 
@@ -52,6 +53,14 @@ function Chat() {
                 </div>
            </div>
            <ChatInput roomName={roomDetails?.name} roomId={roomId} workspaceId={workspaceId} />
+            <Card className="chat_buttons">
+                <div>
+                    <Button icon="chat" minimal large fill />
+                </div>
+                <div>
+                    <Button icon="th" minimal large fill />
+                </div>
+            </Card>
            </Card>
         </div>
     );

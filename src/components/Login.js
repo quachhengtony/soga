@@ -5,7 +5,6 @@ import { Button, Card, Divider} from '@blueprintjs/core';
 import { auth, provider } from '../firebase';
 import { useStateValue } from '../StateProvider';
 import { actionTypes } from '../reducer';
-import Navbarr from './Navbar';
 
 function Login() {
 
@@ -28,7 +27,6 @@ function Login() {
 
     return (
         <div className="login">
-            <Navbarr />
             <Card className="login_card" elevation={1}>
                 <h5 className="bp3-heading">Soga.io</h5>
                 <p className="bp3-ui-text">Lorem ipsum dolor sit amet</p>
