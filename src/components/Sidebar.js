@@ -35,7 +35,9 @@ function Sidebar() {
 
     const { workspaceId } = useParams();
 
+    const [workspaceName, setWorkspaceName] = useState("");
     const [rooms, setRooms] = useState([]);
+
     const [{ user }] = useStateValue();
 
     const history = useHistory();
@@ -45,6 +47,9 @@ function Sidebar() {
     }
 
     useEffect(() => {
+        db.collection('workspaces').doc(workspaceId).get().then(function(doc) {
+            setWorkspaceName(doc.data().name)
+        })
         db.collection('workspaces').doc(workspaceId).collection('rooms').onSnapshot(snapshot => (
             setRooms(snapshot.docs.map(doc => ({
                 id: doc.id,
@@ -69,7 +74,7 @@ function Sidebar() {
                 </Card>
                 <Card className="sidebar_card right" elevation={1}>
                     <div>
-                        <h2 className="bp3-heading">Smart Labs</h2>
+                        <h2 className="bp3-heading">{workspaceName}</h2>
                         <Popover content={popupMenu}>
                             <Button icon="menu" minimal />
                         </Popover>
@@ -82,7 +87,7 @@ function Sidebar() {
                     </Menu>
                     <div></div>
                     <div className="people">
-                        <Button text="People" icon="new-person" minimal outlined intent="success" />
+                        <Button text="People" icon="new-person" minimal outlined />
                         <Button icon="caret-down" minimal />
                     </div>
                     <Menu className="menu">

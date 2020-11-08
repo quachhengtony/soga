@@ -28,9 +28,9 @@ function Login() {
     return (
         <div className="login">
             <Card className="login_card" elevation={1}>
-                <h5 className="bp3-heading">Soga.io</h5>
+                <h3 className="bp3-heading"><code>Soga</code></h3>
                 <p className="bp3-ui-text">Lorem ipsum dolor sit amet</p>
-                <Button text="Login with Google" icon="log-in" onClick={login} minimal outlined large />
+                <Button text="Login with Google" icon="log-in" onClick={login} minimal outlined large intent="success" />
             </Card>
         </div>
     );
