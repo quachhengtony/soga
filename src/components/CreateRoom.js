@@ -6,9 +6,7 @@ import db from '../firebase';
 import './CreateRoom.css';
 
 function CreateRoom() {
-
     const { workspaceId } = useParams();
-
     const createRoom = () => {
         const roomName = prompt('Enter room name:');
         if (roomName) {
@@ -20,7 +18,7 @@ function CreateRoom() {
 
     return (
         <div className="createRoom">
-            <Button text="Rooms" icon="new-layers" minimal outlined onClick={createRoom} />
+            <Button text="Rooms" icon="new-layer" minimal outlined onClick={createRoom} />
             <Button icon="caret-down" minimal />
         </div>
     );
