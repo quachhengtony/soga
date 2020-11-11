@@ -24,10 +24,10 @@
     height: 75vh;
     overflow-y: scroll;
 }
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 0px;
     background: transparent;
-}
+} */
 
 .chat_buttons {
     padding: 0 0 10px;

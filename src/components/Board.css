@@ -1,0 +1,18 @@
+.board {
+    display: flex;
+    height: 600px;
+    overflow-y: hidden;
+    margin: 0;
+}
+
+.board_column {
+    margin: 10px;
+    width: 300px;
+    height: 75vh;
+    background-color: #FAFBFC;
+}
+
+.board_addButton {
+   width: 100px;
+   height: 100px;
+}
