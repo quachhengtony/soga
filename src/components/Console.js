@@ -75,8 +75,8 @@ function Console() {
                     <p>Managing your talented remote teams via dedicated workspaces</p>
                     <Button className="console_button" text="Create workspace" icon="new-layers" minimal outlined large onClick={createWorkspace} />
                     <Card className="talents_listing">
-                        {workspaces.map(workspace => (
-                            <ListWorkspace text={workspace.name} id={workspace.id} />
+                        {workspaces.map((workspace, index) => (
+                            <ListWorkspace text={workspace.name} id={workspace.id} key={index} />
                         ))}
                     </Card>
                 </Card>

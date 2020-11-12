@@ -1,4 +1,4 @@
-import { Card, H5 } from '@blueprintjs/core';
+import { Button, Card, H5 } from '@blueprintjs/core';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import db from '../firebase';
@@ -25,8 +25,9 @@ function ListCard({ columnId }) {
     return (
         <div className="listCard">
             {cards.map(card => (
-                <Card className="listCard_card" elevation={1}>
+                <Card className="listCard_card">
                     <p>{card.body}</p>
+                    {/* <Button className='listCard_moreButton' icon='more' minimal /> */}
                 </Card>
             ))}
         </div>

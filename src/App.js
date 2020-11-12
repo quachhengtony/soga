@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,13 +12,32 @@ import Chat from './components/Chat';
 import Login from './components/Login';
 import { useStateValue } from './StateProvider';
 import Console from './components/Console';
-import Topbar from './components/Topbar';
+import { Topbar, TopbarForPaidUser } from './components/Topbar';
 import Account from './components/Account';
+import db from './firebase';
 
 function App() {
 
-  // pul from data layer
   const [{ user }, dispatch] = useStateValue();
+  const [isPaidUser, setIsPaidUser] = useState();
+
+  useEffect(() => {
+    checkPaidUser();
+  })
+
+  const checkPaidUser = () => {
+    if (user) {
+      db.collection('paidUsers').doc(user.uid).get().then(function(doc) {
+        if (doc.exists) {
+            setIsPaidUser(true);
+        } else {
+          setIsPaidUser(false);
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });    
+    }
+  }
 
   return (
     <Router>
@@ -30,16 +49,35 @@ function App() {
         </>
       ) : (
         <>
-        <Switch>
+        {isPaidUser ? (
+          <>
+          <Switch>
         <Route path="/account">
-            <Topbar />
+        <TopbarForPaidUser />
+            <Account />
+          </Route>
+          <Route path="/console">
+          <TopbarForPaidUser />
+              <Console />
+          </Route>
+        </Switch>
+        </>
+        ) : (
+          <>
+          <Switch>
+        <Route path="/account">
+        <Topbar />
             <Account />
           </Route>
           <Route path="/console">
           <Topbar />
-            <Console />
+              <Console />
           </Route>
-          <Route path="/workspace/:workspaceId/room/:roomId">
+        </Switch>
+        </>
+        )}
+        <Switch>
+        <Route path="/workspace/:workspaceId/room/:roomId">
             <Sidebar />
             <Chat />
           </Route>

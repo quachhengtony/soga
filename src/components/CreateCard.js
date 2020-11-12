@@ -2,6 +2,7 @@ import { Button } from '@blueprintjs/core';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import db from '../firebase';
+import './CreateCard.css';
 
 function CreateCard({ columnId }) {
 
@@ -18,8 +19,8 @@ function CreateCard({ columnId }) {
     }
 
     return (
-        <div className="addCard">
-            <Button text="Add card" onClick={addCard} minimal outlined />
+        <div className="createCard">
+            <Button className="createCard_button" text="Add card" icon="plus" onClick={addCard} minimal outlined />
         </div>
     );
 }

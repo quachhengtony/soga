@@ -42,8 +42,8 @@ function Sidebar() {
 
     const history = useHistory();
 
-    const goToConsole = () => {
-        history.push('/console');
+    const goToHome = () => {
+        history.push('/home');
     }
 
     useEffect(() => {
@@ -62,11 +62,17 @@ function Sidebar() {
         <div className="sidebar">
                 <Card className="sidebar_card left">
                     <div>
-                        <Button icon="control" onClick={goToConsole} minimal fill large />
+                        <Button icon="selection" onClick={goToHome} minimal fill large />
                     </div>
                     <div>
                         {/* helper-management th-derived timeline-events*/}
                         <Button icon="th-derived" minimal fill large />
+                    </div>
+                    <div>
+                        <Button icon="doughnut-chart" minimal fill large />
+                    </div>
+                    <div>
+                        <Button icon="timeline-line-chart" minimal fill large />
                     </div>
                     <div>
                         <Button icon="cog" minimal fill large />
@@ -81,8 +87,8 @@ function Sidebar() {
                     </div>
                     <CreateRoom />
                     <Menu className="menu">
-                        {rooms.map(room => (
-                            <SelectRoom text={room.name} id={room.id} />
+                        {rooms.map((room, index) => (
+                            <SelectRoom text={room.name} id={room.id} key={index} />
                         ))}
                     </Menu>
                     <div></div>
