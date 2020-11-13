@@ -25,9 +25,8 @@ function ListCard({ columnId }) {
     return (
         <div className="listCard">
             {cards.map(card => (
-                <Card className="listCard_card">
+                <Card className="listCard_card nbr">
                     <p>{card.body}</p>
-                    {/* <Button className='listCard_moreButton' icon='more' minimal /> */}
                 </Card>
             ))}
         </div>

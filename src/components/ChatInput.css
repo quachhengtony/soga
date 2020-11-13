@@ -7,4 +7,5 @@
 }
 
 .chatInput_input {
+    border-radius: 0 !important;
 }

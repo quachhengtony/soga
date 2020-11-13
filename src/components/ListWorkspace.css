@@ -1,17 +1,20 @@
 .listWorkspace_card {
     margin: 0 0 10px;
     background-color: #f8f8f8;
-    border-left: 2px solid #00ff77;
+    border-left: 5px solid var(--blue);
     padding: 5px;
+    border-radius: 0;
 }
 
 .listWorkspace_openButton {
    border-top-right-radius: 0;
    border-bottom-right-radius: 0;
    border-right: none !important;
+   border-radius: 0;
 }
 
 .listWorkspace_settingsButton {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    border-radius: 0;
  }

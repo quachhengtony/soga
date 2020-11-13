@@ -2,17 +2,19 @@
     display: flex;
     height: 600px;
     overflow-y: hidden;
-    margin: 0;
 }
 
 .board_column {
     margin: 10px;
     width: 260px;
     height: 75vh;
-    background-color: #FAFBFC;
+    border-radius: 0 !important;
+    border-top: 5px solid #34a853;
+    /* background-color: #FAFBFC; */
 }
 
 .board_addButton {
-   width: 100px;
+   width: 260px;
    height: 100px;
+   margin: 10px;
 }

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { 
-    Button, 
-    Icon, 
-    Menu, 
-    MenuItem, 
-    MenuDivider, 
+import {
+    Button,
+    Icon,
+    Menu,
+    MenuItem,
+    MenuDivider,
     Card,
     Popover,
 } from '@blueprintjs/core';
@@ -43,7 +43,7 @@ function Sidebar() {
     const history = useHistory();
 
     const goToHome = () => {
-        history.push('/home');
+        history.push('/console');
     }
 
     useEffect(() => {
@@ -57,25 +57,39 @@ function Sidebar() {
             })))
         ))
     }, [])
-    
+
     return (
         <div className="sidebar">
                 <Card className="sidebar_card left">
                     <div>
-                        <Button icon="selection" onClick={goToHome} minimal fill large />
+                        <Button onClick={goToHome} minimal fill large>
+                            <Icon icon='clean' iconSize='30' color='#ffffff' />
+                        </Button>
                     </div>
                     <div>
                         {/* helper-management th-derived timeline-events*/}
-                        <Button icon="th-derived" minimal fill large />
+                        {/* <Button icon="th-derived" minimal fill large /> */}
+                        <Button minimal fill large>
+                            <Icon icon='th-derived' iconSize='18' color='#ffffff' />
+                        </Button>
                     </div>
                     <div>
-                        <Button icon="doughnut-chart" minimal fill large />
+                        {/* <Button icon="doughnut-chart" minimal fill large /> */}
+                        <Button minimal fill large>
+                            <Icon icon='doughnut-chart' iconSize='18' color='#ffffff' />
+                        </Button>
                     </div>
                     <div>
-                        <Button icon="timeline-line-chart" minimal fill large />
+                        {/* <Button icon="timeline-line-chart" minimal fill large /> */}
+                        <Button minimal fill large>
+                            <Icon icon='timeline-line-chart' iconSize='18' color='#ffffff' />
+                        </Button>
                     </div>
                     <div>
-                        <Button icon="cog" minimal fill large />
+                        {/* <Button icon="cog" minimal fill large /> */}
+                        <Button minimal fill large>
+                            <Icon icon='cog' iconSize='18' color='#ffffff' />
+                        </Button>
                     </div>
                 </Card>
                 <Card className="sidebar_card right" elevation={1}>
@@ -93,7 +107,7 @@ function Sidebar() {
                     </Menu>
                     <div></div>
                     <div className="people">
-                        <Button text="People" icon="new-person" minimal outlined />
+                        <Button text="People" icon="new-person" className='nbr' intent='primary' minimal outlined />
                         <Button icon="caret-down" minimal />
                     </div>
                     <Menu className="menu">

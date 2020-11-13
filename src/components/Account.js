@@ -28,17 +28,17 @@ function Account() {
                 <p>Name: {user.displayName}</p>
                 <p>Email: {user.email}</p>
                 <p>Plan: Free</p>
-                <Button text="Delete account" icon="delete" minimal outlined intent="danger" />
+                <Button text="Delete account" className='nbr' icon="delete" minimal outlined intent="warning" />
             </Card>
             <Card className='account_card_plans' elevatrion={1}>
                 <H3>Plans</H3>
-                <Card classname='account_card_plan'>
+                <Card className='account_card_plan'>
                     <H5>Free</H5>
-                    <Button text='Current plan' minimal outlined disabled/>
+                    <Button text='Current plan' className='nbr' minimal outlined disabled/>
                 </Card>
-                <Card classname='account_card_plan'>
+                <Card className='account_card_plan'>
                     <H5>$$$</H5>
-                    <Button text='Choose plan' onClick={setPaidUser} minimal outlined intent='success' />
+                    <Button text='Choose plan' className='nbr' onClick={setPaidUser} minimal outlined intent='success' />
                 </Card>
             </Card>
         </div>

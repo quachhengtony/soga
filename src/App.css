@@ -1,3 +1,16 @@
+:root {
+    /* --green: #74FFAE; */
+    --green: #34a853;
+    --yellow: #fbc034;
+    --blue: #4285f4;
+    --red: #ea4335;
+}
+
 app {
     display: flex;
 }
+
+.nbr {
+    border-radius: 0;
+}
+

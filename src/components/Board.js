@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, H3, Button } from '@blueprintjs/core';
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+// import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import db from '../firebase';
 import './Board.css'
@@ -33,10 +33,6 @@ function Board() {
         })
     }
 
-    const onEnd = (result) => {
-        console.log(result);
-    }
-
     return (
         <div className='board'>
             {columns.map(column => (
@@ -47,7 +43,7 @@ function Board() {
                 </Card>
             ))}
             <div>
-                <Button className="board_addButton" text="Add column" icon='plus' onClick={addColumn} minimal outlined />
+                <Button className="board_addButton nbr" intent='primary' text="Add column" icon='plus' onClick={addColumn} minimal outlined />
             </div>
         </div>
     );

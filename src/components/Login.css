@@ -10,5 +10,6 @@
     width: 25vw;
     height: 25vh;
     background-color: #fafbfc;
-    border-left: 5px solid #00ff77;
+    border-left: 5px solid var(--red);
+    border-radius: 0;
 }

@@ -21,6 +21,9 @@ function Chat() {
     const [chatVisible, setChatVisible] = useState('');
     const [boardVisible, setBoardVisible] = useState('none');
 
+    const [chatButtonIntent, setChatButtonIntent] = useState();
+    const [boardButtonIntent, setBoardButtonIntent] = useState();
+
     useEffect(() => {
         if (roomId) {
             db.collection('workspaces')
@@ -40,21 +43,32 @@ function Chat() {
     const handleChatVisibility = () => {
         setChatVisible('none');
         setBoardVisible('');
+        setBoardButtonIntent('primary');
+        setChatButtonIntent('');
     }
 
     const handleBoardVisibility = () => {
         setBoardVisible('none');
         setChatVisible('');
+        setChatButtonIntent('primary');
+        setBoardButtonIntent('');
     }
 
     return (
         <div className="chat">
             <Card className="chat_card">
-            <div style={{display: chatVisible}}>
-                <div className="chat_header">
-                    <h2 className="bp3-heading">{roomDetails?.name}</h2>
-                    <Divider />
+            <div className="chat_header">
+                    <Card className='chat_header_card nbr'>
+                        <div>
+                            <h5 className="bp3-heading">{roomDetails?.name}</h5>
+                        </div>
+                        <div>
+                        <Button text='Chat' icon="chat" intent={chatButtonIntent} onClick={handleBoardVisibility} minimal />
+                            <Button text='Board' icon="th" intent={boardButtonIntent} onClick={handleChatVisibility} minimal />
+                        </div>
+                    </Card>
                 </div>
+            <div style={{display: chatVisible}}>
                 <div className="chat_body">
                     <div className="chat_message">
                         {roomMessages.map(({ message, timestamp, user, userImage }) => (
@@ -72,14 +86,14 @@ function Chat() {
             <div style={{display: boardVisible}}>
                 <Board />
             </div>
-            <Card className="chat_buttons">
+            {/* <Card className="chat_buttons">
                 <div>
                     <Button icon="chat" onClick={handleBoardVisibility} minimal large fill />
                 </div>
                 <div>
                     <Button icon="th" onClick={handleChatVisibility} minimal large fill />
                 </div>
-            </Card>
+            </Card> */}
            </Card>
         </div>
     );

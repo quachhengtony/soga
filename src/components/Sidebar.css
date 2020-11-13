@@ -19,13 +19,14 @@
 .left {
     flex: 0.2;
     padding: 0;
-    background-color: #fafbfc;
-    border-left: 5px solid #00ff77;
+    background-color: var(--red);
+    border-right: none !important;
 }
 
 .right {
     flex: 0.8;
     background-color: #fafbfc;
+    border-left: none !important;
 }
 
 .left > div {
