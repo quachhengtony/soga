@@ -1,6 +1,7 @@
 .listWorkspace_card {
-    margin: 0 0 10px;
-    background-color: #f8f8f8;
+    margin: 10px 0 10px;
+    /* background-color: #f8f8f8; */
+    background-color: var(--blue-bg);
     border-left: 5px solid var(--blue);
     padding: 5px;
     border-radius: 0;

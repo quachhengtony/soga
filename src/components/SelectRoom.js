@@ -23,7 +23,7 @@ function SelectRoom({ text, id }) {
 
     return (
         <div className="selectRoom">
-            <MenuItem text={`${text}`} id={id} onClick={selectRoom} icon="dot" className='nbr'intent="primary" active={checkRoom} />
+            <MenuItem text={`${text}`} id={id} onClick={selectRoom} icon="dot" className='nbr' active={checkRoom} />
         </div>
     );
 }

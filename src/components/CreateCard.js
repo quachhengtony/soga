@@ -20,7 +20,7 @@ function CreateCard({ columnId }) {
 
     return (
         <div className="createCard">
-            <Button className="createCard_button" text="Add card" icon="plus" onClick={addCard} minimal outlined />
+            <Button className="createCard_button" text="Add card" icon="plus" onClick={addCard} minimal alignText='left' />
         </div>
     );
 }

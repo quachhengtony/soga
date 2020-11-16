@@ -1,8 +1,9 @@
 import { Button, Card, H5 } from '@blueprintjs/core';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import { useParams } from 'react-router-dom';
 import db from '../firebase';
 import './ListCard.css';
+import { Draggable } from 'react-beautiful-dnd';
 
 function ListCard({ columnId }) {
 
@@ -24,10 +25,20 @@ function ListCard({ columnId }) {
 
     return (
         <div className="listCard">
-            {cards.map(card => (
-                <Card className="listCard_card nbr">
-                    <p>{card.body}</p>
-                </Card>
+            {cards.map((card, index) => (
+                <Draggable draggableId={card.id} index={index}>
+                    {(provided, snapshot) => (
+                        <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        >
+                            <Card className="listCard_card nbr" elevation={1}>
+                                <p>{card.body}</p>
+                            </Card>
+                        </div>
+                    )}
+                </Draggable>
             ))}
         </div>
     );

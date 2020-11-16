@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, H3, Button } from '@blueprintjs/core';
-// import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import db from '../firebase';
 import './Board.css'
@@ -34,18 +34,31 @@ function Board() {
     }
 
     return (
-        <div className='board'>
-            {columns.map(column => (
-                <Card className="board_column" elevation={1}>
-                    <H3 className="bp3-text-muted">{column.name}</H3>
-                    <ListCard columnId={column.id} />
-                    <CreateCard columnId={column.id} />
-                </Card>
-            ))}
+        <DragDropContext onDragEnd={() => console.log("Drag end")}>
+            <div className='board'>
+                {columns.map(column => (
+                    <Droppable droppableId={column.id}>
+                        {(provided, snapshot) => (
+                            <div
+                            ref={provided.innerRef}
+                            style={{ backgroundColor: snapshot.isDraggingOver ? '#4285F4' : '#FFF' }}
+                            {...provided.droppableProps}
+                            >
+                                <Card className="board_column" elevation={1}>
+                                    <H3><div style={{backgroundColor: '#37e9c5'}}>{column.name}</div></H3>
+                                    <ListCard columnId={column.id} />
+                                    <CreateCard columnId={column.id} />
+                                </Card>
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                ))}
             <div>
                 <Button className="board_addButton nbr" intent='primary' text="Add column" icon='plus' onClick={addColumn} minimal outlined />
             </div>
-        </div>
+            </div>
+        </DragDropContext>
     );
 }
 

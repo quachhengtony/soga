@@ -12,6 +12,7 @@
     border-radius: 0;
     margin: 0;
     padding: 0;
+    background-color: #fafbfc;
 }
 
 .chat_header {
@@ -22,6 +23,7 @@
 .chat_header_card {
     flex: 1;
     padding: 5px;
+    background-color: #fafbfc;
 }
 
 .chat_header_card > div {

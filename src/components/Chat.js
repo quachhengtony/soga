@@ -21,7 +21,7 @@ function Chat() {
     const [chatVisible, setChatVisible] = useState('');
     const [boardVisible, setBoardVisible] = useState('none');
 
-    const [chatButtonIntent, setChatButtonIntent] = useState();
+    const [chatButtonIntent, setChatButtonIntent] = useState('primary');
     const [boardButtonIntent, setBoardButtonIntent] = useState();
 
     useEffect(() => {
@@ -60,11 +60,12 @@ function Chat() {
             <div className="chat_header">
                     <Card className='chat_header_card nbr'>
                         <div>
-                            <h5 className="bp3-heading">{roomDetails?.name}</h5>
+                            <h5 className="bp3-heading" style={{backgroundColor: '#e9f1fe'}}>{roomDetails?.name}</h5>
                         </div>
                         <div>
-                        <Button text='Chat' icon="chat" intent={chatButtonIntent} onClick={handleBoardVisibility} minimal />
+                            <Button text='Chat' icon="chat" intent={chatButtonIntent} onClick={handleBoardVisibility} minimal />
                             <Button text='Board' icon="th" intent={boardButtonIntent} onClick={handleChatVisibility} minimal />
+                            <Button text='Calendar' icon="calendar" minimal />
                         </div>
                     </Card>
                 </div>

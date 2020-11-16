@@ -1,3 +1,4 @@
+import { Blockquote } from '@blueprintjs/core';
 import React from 'react';
 import './Message.css';
 

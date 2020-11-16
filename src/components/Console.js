@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card } from '@blueprintjs/core';
+import { Button, Card, H1, H2, H3, H4, H5, InputGroup, Icon } from '@blueprintjs/core';
 
 import './Console.css';
 import db from '../firebase';
@@ -37,49 +37,16 @@ function Console() {
     return (
         <div className="console">
             <div>
-                <Card className="console_card" elevation={1}>
-                    <h5 className="bp3-heading">Talent</h5>
-                    <p>Hiring, recruiting, and employer branding solutions for remote teams</p>
-                    <Button className="console_button" text="Find talent" icon="mugshot" intent='primary' minimal outlined large />
-                    <Card className="talents_listing">
-                        <ul>
-                            <li>Lorem Ipsum Dolor Sit Amet</li>
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                            <li>Lorem Ipsum Dolor Sit Amet</li> 
-                        </ul>
-                    </Card>
-                </Card>
-            </div>
-            <div>
-                <Card className="console_card" elevation={1}>
-                    <h5 className="bp3-heading">Workspace</h5>
+                    <H3 className="bp3-heading">Workspace</H3>
                     <p>Managing your talented remote teams via dedicated workspaces</p>
-                    <Button className="console_button" text="Create workspace" icon="new-layers" intent='primary' minimal outlined large onClick={createWorkspace} />
-                    <Card className="talents_listing">
+                    <div className='container'>
+                        <Button className="console_button" text="Create workspace" intent='primary' large onClick={createWorkspace} />
+                    </div>
+                    <div className='workspace_list'>
                         {workspaces.map((workspace, index) => (
                             <ListWorkspace text={workspace.name} id={workspace.id} key={index} />
                         ))}
-                    </Card>
-                </Card>
+                    </div>
             </div>
         </div>
     );

@@ -19,7 +19,7 @@
 .left {
     flex: 0.2;
     padding: 0;
-    background-color: var(--red);
+    background-color: var(--blue);
     border-right: none !important;
 }
 
@@ -27,6 +27,7 @@
     flex: 0.8;
     background-color: #fafbfc;
     border-left: none !important;
+    ;
 }
 
 .left > div {
@@ -44,4 +45,16 @@
 
 .menu {
     background-color: #fafbfc;
+}
+
+.account {
+    align-items: flex-end;
+    margin: 0 0 10px;
+    padding: 10px;
+}
+
+.account_avatar {
+    vertical-align: middle;
+    width: 10%;
+    border-radius: 50%;
 }

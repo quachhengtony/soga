@@ -42,8 +42,8 @@ function Sidebar() {
 
     const history = useHistory();
 
-    const goToHome = () => {
-        history.push('/console');
+    const push = (destination) => {
+        history.push(destination);
     }
 
     useEffect(() => {
@@ -62,34 +62,37 @@ function Sidebar() {
         <div className="sidebar">
                 <Card className="sidebar_card left">
                     <div>
-                        <Button onClick={goToHome} minimal fill large>
+                        <Button onClick={push.bind(this, '/console')} minimal fill large>
                             <Icon icon='clean' iconSize='30' color='#ffffff' />
                         </Button>
                     </div>
                     <div>
-                        {/* helper-management th-derived timeline-events*/}
-                        {/* <Button icon="th-derived" minimal fill large /> */}
-                        <Button minimal fill large>
-                            <Icon icon='th-derived' iconSize='18' color='#ffffff' />
+                        <Button onClick={push.bind(this, `/workspace/${workspaceId}/room/undefined`)} minimal fill large>
+                            <Icon icon='layers' iconSize='18' color='#ffffff' />
                         </Button>
                     </div>
                     <div>
-                        {/* <Button icon="doughnut-chart" minimal fill large /> */}
-                        <Button minimal fill large>
+                        <Button onClick={push.bind(this, `/workspace/${workspaceId}/roadmap`)} minimal fill large>
+                            <Icon icon='gantt-chart' iconSize='18' color='#ffffff' />
+                        </Button>
+                    </div>
+                    <div>
+                        <Button onClick={push.bind(this, `/workspace/${workspaceId}/report`)} minimal fill large>
                             <Icon icon='doughnut-chart' iconSize='18' color='#ffffff' />
                         </Button>
                     </div>
                     <div>
-                        {/* <Button icon="timeline-line-chart" minimal fill large /> */}
-                        <Button minimal fill large>
+                        <Button onClick={push.bind(this, `/workspace/${workspaceId}/analytics`)} minimal fill large>
                             <Icon icon='timeline-line-chart' iconSize='18' color='#ffffff' />
                         </Button>
                     </div>
                     <div>
-                        {/* <Button icon="cog" minimal fill large /> */}
-                        <Button minimal fill large>
+                        <Button onClick={push.bind(this, `/workspace/${workspaceId}/settings`)} minimal fill large>
                             <Icon icon='cog' iconSize='18' color='#ffffff' />
                         </Button>
+                    </div>
+                    <div className='account'>
+                        <img src={user.photoURL} alt="Avatar" className="account_avatar"></img>
                     </div>
                 </Card>
                 <Card className="sidebar_card right" elevation={1}>

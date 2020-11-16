@@ -18,7 +18,7 @@ function CreateRoom() {
 
     return (
         <div className="createRoom">
-            <Button text="Rooms" icon="new-layer" className='nbr' intent='primary' minimal outlined onClick={createRoom} />
+            <Button text="Rooms" icon="new-layer" className='createRoom_button' intent='primary' minimal outlined onClick={createRoom} />
             <Button icon="caret-down" minimal />
         </div>
     );

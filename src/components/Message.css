@@ -1,7 +1,10 @@
 .message {
     display: flex;
     align-items: center;
-    margin: 0 0 15px;
+    margin: 0 0 5px;
+    background-color: #fafbfc;
+    border-left: 5px solid var(--green);
+    padding: 0 5px 0;
 }
 
 .message > div {

@@ -11,19 +11,11 @@ import { useHistory } from 'react-router-dom';
 import { useStateValue } from '../StateProvider';
 
 function Topbar() {
-    const history = useHistory();
     const [{user}] = useStateValue();
+    const history = useHistory();
 
-    const goToHome = () => {
-        history.push('/home');
-    }
-
-    const goToJobs = () => {
-        history.push('/jobs');
-    }
-
-    const goToAccount = () => {
-        history.push('/account');
+    const push = (page) => {
+        history.push(page);
     }
 
     return (
@@ -32,16 +24,17 @@ function Topbar() {
                 <NavbarGroup align="left">
     <NavbarHeading className="navbar_heading"><code>Soga</code></NavbarHeading>
                     <NavbarDivider />
-                    <Button className="navbar_button" onClick={goToHome} text='Home' minimal />
+                    <Button className="navbar_button" onClick={push.bind(this, '/home')} text='Home' minimal />
                     <Button className="navbar_button" text='Why Soga?' minimal />
                     <Button className="navbar_button" text='Solutions' minimal />
                     <Button className="navbar_button" text='Support' minimal />
                     <Button className="navbar_button" text='Company' minimal />
-                    <Button className="navbar_button" text="Find a Remote Job" icon='search-template' minimal />
-                    <Button className="navbar_button" text='My Manager' icon='helper-management' minimal />
+                    <Button className="navbar_button" text="Find a Remote Job" icon='search-template' intent='primary' minimal />
+                    <Button className="navbar_button" text="Profile" icon='user' intent='primary' minimal />
+                    <Button className="navbar_button" text='Manage' icon='helper-management' intent='primary' minimal />
                 </NavbarGroup>
                 <NavbarGroup align="right">
-                        <Button className="navbar_button" onClick={goToAccount} text="Account" icon="user" minimal />
+                        <Button className="navbar_button" onClick={push.bind(this, '/account')} text="Account" icon="user" minimal />
                 </NavbarGroup>
             </Navbar>
         </div>
@@ -51,20 +44,8 @@ function Topbar() {
 function TopbarForPaidUser() {
     const history = useHistory();
 
-    const goToHome = () => {
-        history.push('/home');
-    }
-
-    const goToJobs = () => {
-        history.push('/jobs');
-    }
-
-    const goToConsole = () => {
-        history.push('/console');
-    }
-
-    const goToAccount = () => {
-        history.push('/account');
+    const push = (page) => {
+        history.push(page);
     }
 
     return (
@@ -73,16 +54,17 @@ function TopbarForPaidUser() {
                 <NavbarGroup align="left">
     <NavbarHeading className="navbar_heading"><code>Soga</code></NavbarHeading>
                     <NavbarDivider />
-                    <Button className="navbar_button" onClick={goToHome} text='Home' minimal />
+                    <Button className="navbar_button" onClick={push.bind(this, '/home')} text='Home' minimal />
                     <Button className="navbar_button" text='Why Soga?' minimal />
                     <Button className="navbar_button" text='Solutions' minimal />
                     <Button className="navbar_button" text='Support' minimal />
                     <Button className="navbar_button" text='Company' minimal />
-                    <Button className="navbar_button" text="Find a Remote Job" icon='search-template' minimal />
-                   <Button className="navbar_button" onClick={goToConsole} text='Console' icon='control' minimal />
+                    <Button className="navbar_button" text="Find a Remote Jobs" icon='search-template' intent='primary' minimal />
+                    <Button className="navbar_button" text="Hiring" icon='people' intent='primary' minimal />
+                   <Button className="navbar_button" onClick={push.bind(this, '/console')}text='Manage' icon='helper-management' intent='primary' minimal />
                 </NavbarGroup>
                 <NavbarGroup align="right">
-                        <Button className="navbar_button" onClick={goToAccount} text="Account" icon="user" minimal />
+                        <Button className="navbar_button" onClick={push.bind(this, '/account')} text="Account" icon="user" minimal />
                 </NavbarGroup>
             </Navbar>
         </div>
