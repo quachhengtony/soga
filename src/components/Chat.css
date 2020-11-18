@@ -17,13 +17,14 @@
 
 .chat_header {
     display: flex;
-    height: 40px;
+    /* height: 40px; */
+    height: 4vh;
 }
 
 .chat_header_card {
     flex: 1;
-    padding: 5px;
-    background-color: #fafbfc;
+    padding: 0px;
+    background-color: #fafafa;
 }
 
 .chat_header_card > div {

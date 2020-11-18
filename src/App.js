@@ -14,6 +14,7 @@ import Console from './components/Console';
 import { Topbar, TopbarForPaidUser } from './components/Topbar';
 import Account from './components/Account';
 import db from './firebase';
+import Timeline from './components/Timeline';
 
 function App() {
 
@@ -76,9 +77,13 @@ function App() {
         </>
         )}
         <Switch>
-        <Route path="/workspace/:workspaceId/room/:roomId">
+          <Route path="/workspace/:workspaceId/room/:roomId">
             <Sidebar />
             <Chat />
+          </Route>
+          <Route path="/workspace/:workspaceId/timeline">
+            <Sidebar />
+            <Timeline />
           </Route>
         </Switch>
         </>

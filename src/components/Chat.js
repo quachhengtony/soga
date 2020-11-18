@@ -11,6 +11,7 @@ import db from '../firebase';
 import Message from './Message';
 import ChatInput from './ChatInput';
 import Board from './Board';
+import Schedule from './Schedule';
 
 function Chat() {
 
@@ -20,6 +21,7 @@ function Chat() {
 
     const [chatVisible, setChatVisible] = useState('');
     const [boardVisible, setBoardVisible] = useState('none');
+    const [scheduleVisible, setScheduleVisible] = useState('none');
 
     const [chatButtonIntent, setChatButtonIntent] = useState('primary');
     const [boardButtonIntent, setBoardButtonIntent] = useState();
@@ -43,6 +45,7 @@ function Chat() {
     const handleChatVisibility = () => {
         setChatVisible('none');
         setBoardVisible('');
+        setScheduleVisible('none');
         setBoardButtonIntent('primary');
         setChatButtonIntent('');
     }
@@ -50,8 +53,16 @@ function Chat() {
     const handleBoardVisibility = () => {
         setBoardVisible('none');
         setChatVisible('');
+        setScheduleVisible('none');
         setChatButtonIntent('primary');
         setBoardButtonIntent('');
+    }
+
+    const handleScheduleVisibility = () => {
+        setScheduleVisible('');
+
+        setChatVisible('none');
+        setBoardVisible('none');
     }
 
     return (
@@ -65,7 +76,7 @@ function Chat() {
                         <div>
                             <Button text='Chat' icon="chat" intent={chatButtonIntent} onClick={handleBoardVisibility} minimal />
                             <Button text='Board' icon="th" intent={boardButtonIntent} onClick={handleChatVisibility} minimal />
-                            <Button text='Calendar' icon="calendar" minimal />
+                            <Button text='Schedule' icon="calendar" onClick={handleScheduleVisibility} minimal />
                         </div>
                     </Card>
                 </div>
@@ -86,6 +97,9 @@ function Chat() {
             </div>
             <div style={{display: boardVisible}}>
                 <Board />
+            </div>
+            <div style={{display: scheduleVisible}}>
+                <Schedule />
             </div>
            </Card>
         </div>
