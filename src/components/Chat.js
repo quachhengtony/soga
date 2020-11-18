@@ -60,7 +60,7 @@ function Chat() {
             <div className="chat_header">
                     <Card className='chat_header_card nbr'>
                         <div>
-                            <h5 className="bp3-heading" style={{backgroundColor: '#e9f1fe'}}>{roomDetails?.name}</h5>
+                            <h5><mark>{roomDetails?.name}</mark></h5>
                         </div>
                         <div>
                             <Button text='Chat' icon="chat" intent={chatButtonIntent} onClick={handleBoardVisibility} minimal />
@@ -87,14 +87,6 @@ function Chat() {
             <div style={{display: boardVisible}}>
                 <Board />
             </div>
-            {/* <Card className="chat_buttons">
-                <div>
-                    <Button icon="chat" onClick={handleBoardVisibility} minimal large fill />
-                </div>
-                <div>
-                    <Button icon="th" onClick={handleChatVisibility} minimal large fill />
-                </div>
-            </Card> */}
            </Card>
         </div>
     );

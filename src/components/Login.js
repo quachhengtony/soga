@@ -1,6 +1,6 @@
 import React from 'react';
 import './Login.css';
-import { Button, Card, Divider} from '@blueprintjs/core';
+import { Button, Card, H3 } from '@blueprintjs/core';
 
 import { auth, provider } from '../firebase';
 import { useStateValue } from '../StateProvider';
@@ -28,9 +28,9 @@ function Login() {
     return (
         <div className="login">
             <Card className="login_card" elevation={1}>
-                <h3 className="bp3-heading"><code>Soga</code></h3>
-                <p className="bp3-ui-text">Lorem ipsum dolor sit amet</p>
-                <Button text="Login with Google" icon="log-in" intent='danger' className='nbr' onClick={login} minimal outlined large />
+                <H3 className="bp3-heading"><code>Soga</code></H3>
+                <p className="bp3-ui-text">Your remote success</p>
+                <Button text="Login with Google" icon="log-in" intent='success' className='nbr' onClick={login}  large />
             </Card>
         </div>
     );

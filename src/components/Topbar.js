@@ -22,7 +22,7 @@ function Topbar() {
         <div className="navbar">
             <Navbar className="navbar_container">
                 <NavbarGroup align="left">
-    <NavbarHeading className="navbar_heading"><code>Soga</code></NavbarHeading>
+                    <NavbarHeading className="navbar_heading"><code>SOGA</code></NavbarHeading>
                     <NavbarDivider />
                     <Button className="navbar_button" onClick={push.bind(this, '/home')} text='Home' minimal />
                     <Button className="navbar_button" text='Why Soga?' minimal />
@@ -34,7 +34,7 @@ function Topbar() {
                     <Button className="navbar_button" text='Manage' icon='helper-management' intent='primary' minimal />
                 </NavbarGroup>
                 <NavbarGroup align="right">
-                        <Button className="navbar_button" onClick={push.bind(this, '/account')} text="Account" icon="user" minimal />
+                        <Button className="navbar_button" onClick={push.bind(this, '/account')} text="Account" icon="user" minimal intent='primary' />
                 </NavbarGroup>
             </Navbar>
         </div>
@@ -64,7 +64,7 @@ function TopbarForPaidUser() {
                    <Button className="navbar_button" onClick={push.bind(this, '/console')}text='Manage' icon='helper-management' intent='primary' minimal />
                 </NavbarGroup>
                 <NavbarGroup align="right">
-                        <Button className="navbar_button" onClick={push.bind(this, '/account')} text="Account" icon="user" minimal />
+                        <Button className="navbar_button" onClick={push.bind(this, '/account')} text="Account" icon="user" intent='primary' minimal />
                 </NavbarGroup>
             </Navbar>
         </div>

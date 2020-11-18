@@ -5,10 +5,15 @@
 }
 
 .navbar_container {
-    background-color: #fafbfc;
+    background-color: var(--blue);
+    color: white !important;
 }
 
 .navbar_right {
     position: fixed;
     right: 0;
+}
+
+.navbar_button {
+    color: white !important;
 }

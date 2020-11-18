@@ -2,8 +2,9 @@
     display: flex;
     position: absolute;
     left: 0;
-    width: 25%;
+    width: 22.5%;
     height: 100vh;
+    resize: horizontal;
 }
 
 .sidebar_card {
@@ -27,7 +28,6 @@
     flex: 0.8;
     background-color: #fafbfc;
     border-left: none !important;
-    ;
 }
 
 .left > div {

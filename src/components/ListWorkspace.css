@@ -1,6 +1,5 @@
 .listWorkspace_card {
     margin: 10px 0 10px;
-    /* background-color: #f8f8f8; */
     background-color: var(--blue-bg);
     border-left: 5px solid var(--blue);
     padding: 5px;
@@ -8,14 +7,15 @@
 }
 
 .listWorkspace_openButton {
-   border-top-right-radius: 0;
-   border-bottom-right-radius: 0;
-   border-right: none !important;
-   border-radius: 0;
+    border-radius: 0;
+    border-right: 0 !important;
+}
+
+.listWorkspace_deleteButton {
+    border-radius: 0;
+    border-right: 0 !important;
 }
 
 .listWorkspace_settingsButton {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
     border-radius: 0;
  }

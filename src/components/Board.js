@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, H3, Button } from '@blueprintjs/core';
+import { Card, H3, H5, Button } from '@blueprintjs/core';
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import db from '../firebase';
@@ -45,7 +45,7 @@ function Board() {
                             {...provided.droppableProps}
                             >
                                 <Card className="board_column" elevation={1}>
-                                    <H3><div style={{backgroundColor: '#37e9c5'}}>{column.name}</div></H3>
+                                    <H5><mark style={{backgroundColor: 'magenta'}}>{column.name}</mark></H5>
                                     <ListCard columnId={column.id} />
                                     <CreateCard columnId={column.id} />
                                 </Card>

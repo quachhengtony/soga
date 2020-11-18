@@ -9,7 +9,7 @@ function Message({ message, user, timestamp, userImage }) {
                 <img src={userImage} alt="Avatar" className="message_avatar"></img>
             </div>
             <div>
-                <p>{user}</p>
+                <p><b>{user}</b></p>
                 {message}
             </div>
         </div>
