@@ -1,5 +1,5 @@
 import { Button, Card, H5 } from '@blueprintjs/core';
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import db from '../firebase';
 import './ListCard.css';
@@ -33,9 +33,9 @@ function ListCard({ columnId }) {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         >
-                            <Card className="listCard_card nbr" elevation={1}>
+                            <div className="listCard_card">
                                 <p>{card.body}</p>
-                            </Card>
+                            </div>
                         </div>
                     )}
                 </Draggable>

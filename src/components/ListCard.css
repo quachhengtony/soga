@@ -1,8 +1,11 @@
 .listCard_card {
-    /* border-left: 5px solid var(--green); */
     margin-bottom: 10px;
-    width: 220px;
+    width: 240px;
     height: 100px;
+    background-color: var(--blue-hover);
+    text-align: left;
+    padding: 5px;
+    border-left: 5px solid var(--yellow);
 }
 
 .listCard_moreButton {

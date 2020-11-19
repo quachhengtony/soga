@@ -12,13 +12,11 @@
     border-radius: 0;
     margin: 0;
     padding: 0;
-    background-color: #fafbfc;
+    background-color: #fff;
 }
 
 .chat_header {
     display: flex;
-    /* height: 40px; */
-    height: 4vh;
 }
 
 .chat_header_card {

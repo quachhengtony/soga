@@ -1,13 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import CustomerIcon from '@atlaskit/icon/glyph/person';
+import SettingsIcon from '@atlaskit/icon/glyph/settings';
+import LanguageIcon from '@atlaskit/icon/glyph/world';
+import PeopleGroupIcon from '@atlaskit/icon/glyph/people-group';
+import FolderIcon from '@atlaskit/icon/glyph/folder';
+import RoadmapIcon from '@atlaskit/icon/glyph/roadmap';
+import RoomMenuIcon from '@atlaskit/icon/glyph/room-menu';
+import DocumentsIcon from '@atlaskit/icon/glyph/documents';
+import HomeIcon from '@atlaskit/icon/glyph/home';
+import BoardIcon from '@atlaskit/icon/glyph/board';
+import CalendarIcon from '@atlaskit/icon/glyph/calendar';
 import {
-    Button,
-    Icon,
-    Menu,
-    MenuItem,
-    MenuDivider,
-    Card,
-    Popover,
-} from '@blueprintjs/core';
+    ButtonItem,
+    LinkItem,
+    NavigationFooter,
+    NavigationHeader,
+    Header,
+    NestableNavigationContent,
+    NestingItem,
+    Section,
+    SideNavigation,
+  } from '@atlaskit/side-navigation';
 
 import './Sidebar.css';
 import db from '../firebase';
@@ -15,21 +28,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import SelectRoom from './SelectRoom';
 import CreateRoom from './CreateRoom';
 import { useStateValue } from '../StateProvider';
-
-const popupMenu = (
-    <Menu>
-        <MenuItem icon="link" text="Invite people to your workspace" />
-        <MenuItem icon="new-layer" text="Create a room" />
-        <MenuDivider/>
-        <MenuItem icon="search-template" text="Search message" />
-        <MenuItem icon="inbox-search" text="File browser" />
-        <MenuDivider/>
-        <MenuItem icon="timeline-line-chart" text="Analytics" />
-        <MenuItem icon="settings" text="Settings & Administration" />
-        <MenuDivider />
-        <MenuItem icon="log-out" text="Sign out of workspace" />
-    </Menu>
-);
 
 function Sidebar() {
 
@@ -58,69 +56,82 @@ function Sidebar() {
         ))
     }, [])
 
+    const LanguageSettings = () => {
+        return (
+          <NestingItem
+            iconBefore={<LanguageIcon label="" />}
+            id="3-1"
+            title="Language settings"
+          >
+            <Section>
+              <ButtonItem>Customize</ButtonItem>
+      
+              <NestingItem id="3-1-1" title="German Settings">
+                <Section>
+                  <ButtonItem>Hallo Welt!</ButtonItem>
+                </Section>
+              </NestingItem>
+              <NestingItem id="3-1-2" title="English Settings">
+                <Section>
+                  <ButtonItem>Hello World!</ButtonItem>
+                </Section>
+              </NestingItem>
+            </Section>
+          </NestingItem>
+        );
+      };
+
     return (
         <div className="sidebar">
-                <Card className="sidebar_card left">
-                    <div>
-                        <Button onClick={push.bind(this, '/console')} minimal fill large>
-                            <Icon icon='clean' iconSize='30' color='#ffffff' />
-                        </Button>
+                <div className='wpBar'>
+                    <div className='wpBar_button' onClick={push.bind(this, '/console')}>
+                        <HomeIcon label='Home icon' size="medium" primaryColor='#ffffff' />
                     </div>
-                    <div>
-                        <Button onClick={push.bind(this, `/workspace/${workspaceId}/room/undefined`)} minimal fill large>
-                            <Icon icon='layers' iconSize='18' color='#ffffff' />
-                        </Button>
+                    <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/room/undefined`)}>
+                        <RoomMenuIcon label='Rooms icon' size="medium" primaryColor='#ffffff' />
                     </div>
-                    <div>
-                        <Button onClick={push.bind(this, `/workspace/${workspaceId}/roadmap`)} minimal fill large>
-                            <Icon icon='gantt-chart' iconSize='18' color='#ffffff' />
-                        </Button>
+                    <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/timeline`)}>
+                        <RoadmapIcon label='Roadmap icon' size="medium" primaryColor='#ffffff' />
                     </div>
-                    <div>
-                        <Button onClick={push.bind(this, `/workspace/${workspaceId}/report`)} minimal fill large>
-                            <Icon icon='doughnut-chart' iconSize='18' color='#ffffff' />
-                        </Button>
+                    <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/reports`)}>
+                        <DocumentsIcon label='Reports icon' size="medium" primaryColor='#ffffff' />
                     </div>
-                    <div>
-                        <Button onClick={push.bind(this, `/workspace/${workspaceId}/analytics`)} minimal fill large>
-                            <Icon icon='timeline-line-chart' iconSize='18' color='#ffffff' />
-                        </Button>
+                    <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/settings`)}>
+                        <SettingsIcon label='Settings icon' size="medium" primaryColor='#ffffff' />
                     </div>
-                    <div>
-                        <Button onClick={push.bind(this, `/workspace/${workspaceId}/settings`)} minimal fill large>
-                            <Icon icon='cog' iconSize='18' color='#ffffff' />
-                        </Button>
-                    </div>
-                    <div className='account'>
-                        <img src={user.photoURL} alt="Avatar" className="account_avatar"></img>
-                    </div>
-                </Card>
-                <Card className="sidebar_card right" elevation={1}>
-                    <div>
-                        <h2 className="bp3-heading">{workspaceName}</h2>
-                        <Popover content={popupMenu}>
-                            <Button icon="menu" minimal />
-                        </Popover>
-                    </div>
-                    <CreateRoom />
-                    <Menu className="menu">
+                </div>
+                <SideNavigation className='rBar'>
+                <NavigationHeader>
+                <Header
+                iconBefore={<FolderIcon />}
+                description="Next-gen software"
+                >
+                {workspaceName}
+                </Header>
+            </NavigationHeader>
+                <NestableNavigationContent>
+                    <Section title='Rooms'>
                         {rooms.map((room, index) => (
                             <SelectRoom text={room.name} id={room.id} key={index} />
                         ))}
-                    </Menu>
-                    <div></div>
-                    <div className="people">
-                        <Button text="People" icon="new-person" className='nbr' intent='primary' minimal outlined />
-                        <Button icon="caret-down" minimal />
-                    </div>
-                    <Menu className="menu">
-                        {user ? (
-                            <MenuItem text={user.displayName} style={{backgroundColor: '#fafbfc'}} />
-                        ) : (
-                            console.log("No user")
-                        )}
-                    </Menu>
-                </Card>
+                        <CreateRoom />
+                        <ButtonItem onClick={push.bind(this, `board`)} iconBefore={<BoardIcon/>}>Board</ButtonItem>
+                        <ButtonItem onClick={push.bind(this, `schedule`)} iconBefore={<CalendarIcon />}>Schedule</ButtonItem>
+                    </Section>
+                    <Section title='People'>
+                        <ButtonItem iconBefore={<CustomerIcon />}>{user?.displayName}</ButtonItem>
+                        <NestingItem
+                        id="1"
+                        iconBefore={<PeopleGroupIcon label="" />}
+                        title="Teams"
+                        >
+                        <Section>
+                            <ButtonItem>Jack</ButtonItem>
+                        </Section>
+                        </NestingItem>
+                    </Section>
+                </NestableNavigationContent>
+      </SideNavigation>
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, H3, H5, Button } from '@blueprintjs/core';
+import { Card, H3, H5 } from '@blueprintjs/core';
+import Button from '@atlaskit/button';
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import db from '../firebase';
@@ -34,6 +35,10 @@ function Board() {
     }
 
     return (
+        <div className='container'>
+        <div className='board_header'>
+            <Button spacing="compact" appearance="subtle-link">{roomId}'s Board</Button>
+        </div>
         <DragDropContext onDragEnd={() => console.log("Drag end")}>
             <div className='board'>
                 {columns.map(column => (
@@ -44,21 +49,22 @@ function Board() {
                             style={{ backgroundColor: snapshot.isDraggingOver ? '#4285F4' : '#FFF' }}
                             {...provided.droppableProps}
                             >
-                                <Card className="board_column" elevation={1}>
-                                    <H5><mark style={{backgroundColor: 'magenta'}}>{column.name}</mark></H5>
+                                <div className="board_column">
+                                    <H5>{column.name}</H5>
                                     <ListCard columnId={column.id} />
                                     <CreateCard columnId={column.id} />
-                                </Card>
+                                </div>
                                 {provided.placeholder}
                             </div>
                         )}
                     </Droppable>
                 ))}
             <div>
-                <Button className="board_addButton nbr" intent='primary' text="Add column" icon='plus' onClick={addColumn} minimal outlined />
+                <Button className="board_addButton" onClick={addColumn}>Create Board</Button>
             </div>
             </div>
         </DragDropContext>
+        </div>
     );
 }
 

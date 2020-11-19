@@ -11,7 +11,7 @@ function ListWorkspace({ text, id }) {
 
     const goToWorkspace = () => {
         if (id) {
-            history.push(`/workspace/${id}/room/undefined`)
+            history.push(`/workspace/${id}/room/undefined/chat`)
         } else {
             console.log('No workspace id')
         }

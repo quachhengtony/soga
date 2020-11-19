@@ -29,7 +29,8 @@ export default class Schedule extends SampleBase {
             {this.getEmployeeName(props)}</div><div className="employee-designation">{this.getEmployeeDesignation(props)}</div></div></div>);
     }
     render() {
-        return (<div className='schedule'><div className='schedule-control-section'>
+        return (
+        <div className='container'><div className='schedule-control-section'>
                 <div className='col-lg-12 control-section'>
                     <div className='control-wrapper drag-sample-wrapper'>
                         <div className="schedule-container">
@@ -47,6 +48,7 @@ export default class Schedule extends SampleBase {
                         </div>
                     </div>
                 </div>
-            </div></div>);
+            </div></div>
+        );
     }
 }

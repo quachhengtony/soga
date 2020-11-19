@@ -1,17 +1,14 @@
-import { Blockquote } from '@blueprintjs/core';
+import Avatar, { AvatarItem } from '@atlaskit/avatar';
 import React from 'react';
 import './Message.css';
 
 function Message({ message, user, timestamp, userImage }) {
     return (
         <div className="message">
-            <div >
-                <img src={userImage} alt="Avatar" className="message_avatar"></img>
-            </div>
-            <div>
-                <p><b>{user}</b></p>
-                {message}
-            </div>
+            <AvatarItem
+                avatar={<Avatar src={userImage} appearance='square' presence="online" />}
+                primaryText={user}
+                secondaryText={message} />
         </div>
     );
 }

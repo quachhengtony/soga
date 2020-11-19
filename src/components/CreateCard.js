@@ -1,4 +1,4 @@
-import { Button } from '@blueprintjs/core';
+import Button  from '@atlaskit/button';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import db from '../firebase';
@@ -20,7 +20,7 @@ function CreateCard({ columnId }) {
 
     return (
         <div className="createCard">
-            <Button className="createCard_button" text="Add card" icon="plus" onClick={addCard} minimal alignText='left' />
+            <Button className="createCard_button" onClick={addCard}>Add Card</Button>
         </div>
     );
 }

@@ -1,4 +1,5 @@
-.createCard_button {
-    width: 220px;
-    border-radius: 0;
+.createCard {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 140px;
 }

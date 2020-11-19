@@ -1,7 +1,14 @@
+.container {
+    display: flex;
+    position: absolute;
+    right: 0;
+    width: 77.5%;
+    height: 100%;
+    margin: 0;
+}
 .schedule {
     display: flex;
-    height: 95vh;
-    overflow-y: scroll;
+    height: 100%;
 }
 
 .block-events.e-schedule .template-wrap {
