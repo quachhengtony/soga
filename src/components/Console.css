@@ -1,45 +1,20 @@
-body {
-    background-color: white;
-}
-
 .console {
-    display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 100vh; */
-    height: 100vh;
+    height: 100%;
 }
 
-.console > div {
-    width: 80%;
+.console_header {
     display: block;
-    margin: 0 5% 0;
+    height: 20vh;
+    padding: 25px 25px 0;
 }
 
-.talents_listing {
-    height: 50vh;
-    overflow-y: scroll;
-    margin: 12.5px 0 0;
-    background-color: #fff;
-    border-radius: 0;
-    border: none !important;
+.button {
+    float: right;
 }
 
-.container {
-    text-align: right;
-}
-
-.console_input {
-    display: inline-block;
-    border-radius: 0 !important;
-}
-
-.console_button {
-    border-radius: 0;
-}
-
-.workspace_list {
-    overflow-y: scroll;
-    height: 60vh;
-    margin: 10px 0 0;
+.console_body {
+    height: 80vh;
+    padding: 10px 25px 10px;
 }

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Card, H1, H2, H3, H4, H5, InputGroup, Icon } from '@blueprintjs/core';
+import { useState, useEffect } from 'react';
+import Button from '@atlaskit/button';
 
 import './Console.css';
 import db from '../firebase';
@@ -36,17 +36,15 @@ function Console() {
 
     return (
         <div className="console">
-            <div>
-                    <H3 className="bp3-heading">Workspace</H3>
-                    <p>Managing your talented remote teams via dedicated workspaces</p>
-                    <div className='container'>
-                        <Button className="console_button" text="Create workspace" intent='primary' large onClick={createWorkspace} />
-                    </div>
-                    <div className='workspace_list'>
-                        {workspaces.map((workspace, index) => (
-                            <ListWorkspace text={workspace.name} id={workspace.id} key={index} />
-                        ))}
-                    </div>
+            <div className="console_header">
+                <h2>Workspace</h2>
+                <p>Managing your talented remote teams via dedicated workspaces</p>
+                <Button appearance='primary' className="button" onClick={createWorkspace}>Create a Workspace</Button>
+            </div>
+            <div className='console_body'>
+                {workspaces.map((workspace, index) => (
+                    <ListWorkspace text={workspace.name} id={workspace.id} key={index} />
+                ))}
             </div>
         </div>
     );

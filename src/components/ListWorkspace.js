@@ -1,6 +1,5 @@
-import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Card } from '@blueprintjs/core';
+import Button, { ButtonGroup } from '@atlaskit/button';
 
 import './ListWorkspace.css';
 import db from '../firebase';
@@ -22,25 +21,26 @@ function ListWorkspace({ text, id }) {
             .delete()
             .then(function() {
                 console.log("Workspace successfully deleted!");
-            }).catch(function(error) {
+            })
+            .catch(function(error) {
                 console.error("Error removing workspace: ", error);
             });
     }
     
     return (
         <div className="listWorkspace">
-            <Card className="listWorkspace_card">
-                <p className="bp3-text-large"><a>{text}</a></p>
-                <p>Rooms: ##</p>
-                <p>People: ##</p>
-                <p>Created at: ##/##/##</p>
-                <Button className="listWorkspace_openButton" text="Open workspace" id={id} onClick={goToWorkspace} minimal outlined small />
-                <Button className="listWorkspace_deleteButton" text="Delete" id={id} onClick={deleteWorkspace} minimal outlined small />
-                <Button className="listWorkspace_settingsButton" text="Settings" minimal outlined small />
-        
-            </Card>
+            <p><a>{text}</a></p>
+            <p>Rooms: ##</p>
+            <p>People: ##</p>
+            <p>Created at: ##/##/##</p>
+            <ButtonGroup>
+                <Button id={id} onClick={goToWorkspace} spacing='compact'>Open workspace</Button>
+                <Button id={id} onClick={deleteWorkspace} spacing='compact'>Delete</Button>
+                <Button spacing='compact'>Settings</Button>
+            </ButtonGroup>
         </div>
     );
 }
 
 export default ListWorkspace;
+

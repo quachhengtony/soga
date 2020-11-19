@@ -7,65 +7,12 @@
     resize: horizontal;
 }
 
-.sidebar_card {
-    border-radius: 0;
-    margin: 0;
-}
-
-.sidebar_card > div {
-    display: flex;
-    justify-content: space-between;
-}
-
-.left {
-    flex: 0.2;
-    padding: 0;
-    background-color: var(--blue);
-    border-right: none !important;
-}
-
-.right {
-    flex: 0.8;
-    background-color: red;
-    border-left: none !important;
-}
-
-.left > div {
-    margin: 10px 0 0;
-}
-
-.right > div {
-    margin: 0 0 20px;
-}
-
-.people {
-    margin-bottom: 0 !important;
-    justify-content: space-between;
-}
-
-.menu {
-    background-color: #fafbfc;
-}
-
-.account {
-    align-items: flex-end;
-    margin: 0 0 10px;
-    padding: 10px;
-}
-
-.account_avatar {
-    vertical-align: middle;
-    width: 10%;
-    border-radius: 50%;
-}
-
 .wpBar {
     height: 100%;
     flex: 0.3;
-    background-color: var(--blue);
+    background-color: var(--atlassian-blue);
 }
-
-.wpBar_button{
+.wpBar_button {
     border-radius: 50%;
     margin: 10px;
     padding: 5px;
@@ -73,6 +20,9 @@
 }
 .wpBar_button:hover {
     background-color: indigo;
+}
+.bottom {
+    margin-top: 52vh;
 }
 
 .rBar {

@@ -30,25 +30,27 @@ export default class Schedule extends SampleBase {
     }
     render() {
         return (
-        <div className='container'><div className='schedule-control-section'>
-                <div className='col-lg-12 control-section'>
-                    <div className='control-wrapper drag-sample-wrapper'>
-                        <div className="schedule-container">
-                            <ScheduleComponent ref={schedule => this.scheduleObj = schedule} cssClass='block-events' width='100%' height='650px' currentView='TimelineDay' resourceHeaderTemplate={this.resourceHeaderTemplate.bind(this)} group={{ enableCompactView: false, resources: ['Employee'] }}>
-                                <ResourcesDirective>
-                                    <ResourceDirective field='EmployeeId' title='Employees' name='Employee' allowMultiple={true} dataSource={this.employeeData} textField='Text' idField='Id' colorField='Color'>
-                                    </ResourceDirective>
-                                </ResourcesDirective>
-                                <ViewsDirective>
-                                    <ViewDirective option='TimelineDay'/>
-                                    <ViewDirective option='TimelineMonth'/>
-                                </ViewsDirective>
-                                <Inject services={[TimelineViews, TimelineMonth]}/>
-                            </ScheduleComponent>
+            <div className='container'>
+                <div className='schedule-control-section'>
+                    <div className='col-lg-12 control-section'>
+                        <div className='control-wrapper drag-sample-wrapper'>
+                            <div className="schedule-container">
+                                <ScheduleComponent ref={schedule => this.scheduleObj = schedule} cssClass='block-events' width='100%' height='650px' currentView='TimelineDay' resourceHeaderTemplate={this.resourceHeaderTemplate.bind(this)} group={{ enableCompactView: false, resources: ['Employee'] }}>
+                                    <ResourcesDirective>
+                                        <ResourceDirective field='EmployeeId' title='Employees' name='Employee' allowMultiple={true} dataSource={this.employeeData} textField='Text' idField='Id' colorField='Color'>
+                                        </ResourceDirective>
+                                    </ResourcesDirective>
+                                    <ViewsDirective>
+                                        <ViewDirective option='TimelineDay'/>
+                                        <ViewDirective option='TimelineMonth'/>
+                                    </ViewsDirective>
+                                    <Inject services={[TimelineViews, TimelineMonth]}/>
+                                </ScheduleComponent>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div></div>
+            </div>
         );
     }
 }

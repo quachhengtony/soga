@@ -1,10 +1,8 @@
-import { Card, Button, H3, H5 } from '@blueprintjs/core';
-import React from 'react';
+import Button from '@atlaskit/button';
 import { useStateValue } from '../StateProvider';
 import './Account.css';
 import db from '../firebase';
 import { useHistory } from 'react-router-dom';
-
 
 function Account() {
     
@@ -22,25 +20,32 @@ function Account() {
 
     return (
         <div className="account">
-            <Card className="account_card" elevation={1}>
-                <img src={user.photoURL} alt="Avatar" className="account_avatar"></img>
-                <p>Your ID: {user.uid}</p>
-                <p>Name: {user.displayName}</p>
-                <p>Email: {user.email}</p>
-                <p>Plan: Free</p>
-                <Button text="Delete account" className='nbr' icon="delete" minimal outlined intent="warning" />
-            </Card>
-            <Card className='account_card_plans' elevatrion={1}>
-                <H3>Plans</H3>
-                <Card className='account_card_plan'>
-                    <H5>Free</H5>
-                    <Button text='Current plan' className='nbr' minimal outlined disabled/>
-                </Card>
-                <Card className='account_card_plan'>
-                    <H5>$$$</H5>
-                    <Button text='Choose plan' className='nbr' onClick={setPaidUser} minimal outlined intent='success' />
-                </Card>
-            </Card>
+            <div className="account_info">
+                <div className="info_header">
+                    <h2>Account information:</h2>
+                </div>
+                <div className="info_body">
+                    <img src={user.photoURL} alt="Avatar" className="avatar"></img>
+                    <p>Your ID: {user.uid}</p>
+                    <p>Name: {user.displayName}</p>
+                    <p>Email: {user.email}</p>
+                    <p>Plan: Free</p>
+                    <Button appearance='danger'>Delete my account</Button>
+                </div>
+            </div>
+            <div className="account_pricing">
+                <div className="pricing_header">
+                    <h2>Pricing</h2>
+                </div>
+                <div className="pricing_body">
+                    <div>
+                        <Button shouldFitContainer isDisabled>Free (current)</Button>
+                    </div>
+                    <div>
+                        <Button shouldFitContainer onClick={setPaidUser} appearance='primary'>Bussiness (5$/Month)</Button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

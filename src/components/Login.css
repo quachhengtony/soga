@@ -1,15 +1,21 @@
 .login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    display: grid;
+    place-content: center;
+    height: 90vh;
     text-align: center;
 }
 
-.login_card {
+.login_header {
     width: 25vw;
-    height: 25vh;
+    padding: 10px 10px 0;
     background-color: #fafbfc;
-    border-left: 5px solid var(--blue);
-    border-radius: 0;
+}
+
+.login_body {
+    width: 25vw;
+    padding: 10px;
+    background-color: #fafbfc;
+}
+.login_body > div {
+    margin: 0 0 10px;
 }

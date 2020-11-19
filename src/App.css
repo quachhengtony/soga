@@ -1,5 +1,4 @@
 :root {
-    /* --green: #74FFAE; */
     --green: #34a853;
     --green-bg: #fbfbf5;
     --green-hover: #37e9c5;
@@ -9,13 +8,9 @@
     --blue-hover: #e9f1fe;
     --red: #ea4335;
     --red-bg: #fef9f8;
+    --atlassian-blue: #0747A6;
 }
-
 app {
     display: flex;
-}
-
-.nbr {
-    border-radius: 0;
 }
 

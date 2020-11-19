@@ -1,16 +1,11 @@
-import React from 'react';
-import './Topbar.css';
-import {
-    Navbar,
-    NavbarGroup,
-    NavbarHeading,
-    NavbarDivider,
-    Button
-} from '@blueprintjs/core';
+import { AtlassianNavigation, PrimaryButton } from '@atlaskit/atlassian-navigation';
 import { useHistory } from 'react-router-dom';
+
+import './Topbar.css';
 import { useStateValue } from '../StateProvider';
 
 function Topbar() {
+
     const [{user}] = useStateValue();
     const history = useHistory();
 
@@ -18,25 +13,29 @@ function Topbar() {
         history.push(page);
     }
 
+    const Home = () => (
+        <PrimaryButton onClick={push.bind(this, '/home')}>SOGA</PrimaryButton>
+    );
+
+    const Account = () => (
+        <PrimaryButton onClick={push.bind(this, '/account')}>Account</PrimaryButton>
+    );
+
     return (
         <div className="navbar">
-            <Navbar className="navbar_container">
-                <NavbarGroup align="left">
-                    <NavbarHeading className="navbar_heading"><code>SOGA</code></NavbarHeading>
-                    <NavbarDivider />
-                    <Button className="navbar_button" onClick={push.bind(this, '/home')} text='Home' minimal />
-                    <Button className="navbar_button" text='Why Soga?' minimal />
-                    <Button className="navbar_button" text='Solutions' minimal />
-                    <Button className="navbar_button" text='Support' minimal />
-                    <Button className="navbar_button" text='Company' minimal />
-                    <Button className="navbar_button" text="Find a Remote Job" icon='search-template' intent='primary' minimal />
-                    <Button className="navbar_button" text="Profile" icon='user' intent='primary' minimal />
-                    <Button className="navbar_button" text='Manage' icon='helper-management' intent='primary' minimal />
-                </NavbarGroup>
-                <NavbarGroup align="right">
-                        <Button className="navbar_button" onClick={push.bind(this, '/account')} text="Account" icon="user" minimal intent='primary' />
-                </NavbarGroup>
-            </Navbar>
+            <AtlassianNavigation
+                renderProductHome={Home}
+                primaryItems={[
+                    <PrimaryButton>Why Soga?</PrimaryButton>,
+                    <PrimaryButton>Solutions</PrimaryButton>,
+                    <PrimaryButton>Support</PrimaryButton>,
+                    <PrimaryButton>Company</PrimaryButton>,
+                    <PrimaryButton>Find a Remote Job</PrimaryButton>,
+                    <PrimaryButton>Profile</PrimaryButton>,
+                    <PrimaryButton>Manage</PrimaryButton>,
+                ]}
+                renderSignIn={Account}
+                />
         </div>
     );
 }
@@ -48,25 +47,29 @@ function TopbarForPaidUser() {
         history.push(page);
     }
 
+    const Home = () => (
+        <PrimaryButton onClick={push.bind(this, '/home')}>Soga</PrimaryButton>
+    );
+
+    const Account = () => (
+        <PrimaryButton onClick={push.bind(this, '/account')}>Account</PrimaryButton>
+    );
+
     return (
         <div className="navbar">
-            <Navbar className="navbar_container">
-                <NavbarGroup align="left">
-    <NavbarHeading className="navbar_heading"><code>Soga</code></NavbarHeading>
-                    <NavbarDivider />
-                    <Button className="navbar_button" onClick={push.bind(this, '/home')} text='Home' minimal />
-                    <Button className="navbar_button" text='Why Soga?' minimal />
-                    <Button className="navbar_button" text='Solutions' minimal />
-                    <Button className="navbar_button" text='Support' minimal />
-                    <Button className="navbar_button" text='Company' minimal />
-                    <Button className="navbar_button" text="Find a Remote Jobs" icon='search-template' intent='primary' minimal />
-                    <Button className="navbar_button" text="Hiring" icon='people' intent='primary' minimal />
-                   <Button className="navbar_button" onClick={push.bind(this, '/console')}text='Manage' icon='helper-management' intent='primary' minimal />
-                </NavbarGroup>
-                <NavbarGroup align="right">
-                        <Button className="navbar_button" onClick={push.bind(this, '/account')} text="Account" icon="user" intent='primary' minimal />
-                </NavbarGroup>
-            </Navbar>
+             <AtlassianNavigation
+                renderProductHome={Home}
+                primaryItems={[
+                    <PrimaryButton>Why Soga?</PrimaryButton>,
+                    <PrimaryButton>Solutions</PrimaryButton>,
+                    <PrimaryButton>Support</PrimaryButton>,
+                    <PrimaryButton>Company</PrimaryButton>,
+                    <PrimaryButton>Find a Remote Job</PrimaryButton>,
+                    <PrimaryButton>Hiring</PrimaryButton>,
+                    <PrimaryButton onClick={push.bind(this, '/console')}>Manage</PrimaryButton>,
+                ]}
+                renderSignIn={Account}
+                />
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import { ScheduleComponent, HeaderRowDirective, HeaderRowsDirective, TimelineMonth, Inject, ViewsDirective, ViewDirective, DragAndDrop, Resize } from '@syncfusion/ej2-react-schedule';
 import './Timeline.css';
+
 export default function Timeline() {
     return (
         <div className='timeline'>
