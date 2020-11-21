@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Card, H3, H5 } from '@blueprintjs/core';
+import { useState, useEffect } from 'react';
 import Button from '@atlaskit/button';
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
@@ -50,7 +49,7 @@ function Board() {
                             {...provided.droppableProps}
                             >
                                 <div className="board_column">
-                                    <H5>{column.name}</H5>
+                                    <h5>{column.name}</h5>
                                     <ListCard columnId={column.id} />
                                     <CreateCard columnId={column.id} />
                                 </div>

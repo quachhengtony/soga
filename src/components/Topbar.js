@@ -4,9 +4,8 @@ import { useHistory } from 'react-router-dom';
 import './Topbar.css';
 import { useStateValue } from '../StateProvider';
 
-function Topbar() {
+function PublicTopbar() {
 
-    const [{user}] = useStateValue();
     const history = useHistory();
 
     const push = (page) => {
@@ -14,7 +13,41 @@ function Topbar() {
     }
 
     const Home = () => (
-        <PrimaryButton onClick={push.bind(this, '/home')}>SOGA</PrimaryButton>
+        <PrimaryButton style={{color: "#0747A6", width: "75px", fontStyle: "italic"}} onClick={push.bind(this, '/home')}>Soga.io</PrimaryButton>
+    );
+
+    const SignIn = () => (
+        <PrimaryButton onClick={push.bind(this, '/sign-in')}>Sign In</PrimaryButton>
+    );
+
+    return (
+        <div className="navbar">
+            <AtlassianNavigation
+                renderProductHome={Home}
+                primaryItems={[
+                    <PrimaryButton>Why Soga?</PrimaryButton>,
+                    <PrimaryButton>Solutions</PrimaryButton>,
+                    <PrimaryButton>Support</PrimaryButton>,
+                    <PrimaryButton>Company</PrimaryButton>,
+                    <PrimaryButton>Find a Remote Job</PrimaryButton>
+                ]}
+                renderSignIn={SignIn}
+                />
+        </div>
+    );
+}
+
+function LoggedInTopbar() {
+
+    const [{ user }] = useStateValue();
+    const history = useHistory();
+
+    const push = (page) => {
+        history.push(page);
+    }
+
+    const Home = () => (
+        <PrimaryButton style={{color: "#0747A6", width: "75px", fontStyle: "italic"}} onClick={push.bind(this, '/home')}>SOGA</PrimaryButton>
     );
 
     const Account = () => (
@@ -31,8 +64,8 @@ function Topbar() {
                     <PrimaryButton>Support</PrimaryButton>,
                     <PrimaryButton>Company</PrimaryButton>,
                     <PrimaryButton>Find a Remote Job</PrimaryButton>,
-                    <PrimaryButton>Profile</PrimaryButton>,
-                    <PrimaryButton>Manage</PrimaryButton>,
+                    <PrimaryButton >Profile</PrimaryButton>,
+                    <PrimaryButton>Manage</PrimaryButton>
                 ]}
                 renderSignIn={Account}
                 />
@@ -40,7 +73,7 @@ function Topbar() {
     );
 }
 
-function TopbarForPaidUser() {
+function BusinessTopbar() {
     const history = useHistory();
 
     const push = (page) => {
@@ -48,7 +81,7 @@ function TopbarForPaidUser() {
     }
 
     const Home = () => (
-        <PrimaryButton onClick={push.bind(this, '/home')}>Soga</PrimaryButton>
+        <PrimaryButton style={{color: "#0747A6", width: "75px", fontStyle: "italic"}} onClick={push.bind(this, '/home')}>SOGA</PrimaryButton>
     );
 
     const Account = () => (
@@ -66,7 +99,7 @@ function TopbarForPaidUser() {
                     <PrimaryButton>Company</PrimaryButton>,
                     <PrimaryButton>Find a Remote Job</PrimaryButton>,
                     <PrimaryButton>Hiring</PrimaryButton>,
-                    <PrimaryButton onClick={push.bind(this, '/console')}>Manage</PrimaryButton>,
+                    <PrimaryButton onClick={push.bind(this, '/console')}>Manage</PrimaryButton>
                 ]}
                 renderSignIn={Account}
                 />
@@ -74,4 +107,4 @@ function TopbarForPaidUser() {
     );
 }
 
-export { Topbar, TopbarForPaidUser };
+export { PublicTopbar, LoggedInTopbar, BusinessTopbar };

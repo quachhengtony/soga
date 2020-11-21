@@ -1,4 +1,5 @@
 import Button from '@atlaskit/button';
+import GsuiteIcon from '@atlaskit/icon/glyph/gsuite';
 
 import './Login.css';
 import { auth, provider } from '../firebase';
@@ -32,7 +33,7 @@ function Login() {
             </div>
             <div className="login_body">
                 <div>
-                    <Button appearance="primary" shouldFitContainer onClick={login}>Sign In with Google</Button>
+                    <Button appearance="primary" iconBefore={<GsuiteIcon />} shouldFitContainer onClick={login}>Sign In with Google</Button>
                 </div>
                 <div>
                     <Button shouldFitContainer>Sign In with Email</Button>

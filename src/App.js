@@ -13,11 +13,12 @@ import Sidebar from './components/Sidebar';
 import Chat from './components/Chat';
 import Login from './components/Login';
 import Console from './components/Console';
-import { Topbar, TopbarForPaidUser } from './components/Topbar';
+import { PublicTopbar, LoggedInTopbar, BusinessTopbar } from './components/Topbar';
 import Account from './components/Account';
 import Timeline from './components/Timeline';
 import Board from './components/Board';
 import Schedule from './components/Schedule';
+import WorkDrive from './components/WorkDrive';
 
 function App() {
 
@@ -25,12 +26,14 @@ function App() {
   const [isPaidUser, setIsPaidUser] = useState();
 
   useEffect(() => {
-    checkPaidUser();
+    if (user) {
+      checkPaidUser(user.uid)
+    }
   })
 
-  const checkPaidUser = () => {
+  const checkPaidUser = (userUId) => {
     if (user) {
-      db.collection('paidUsers').doc(user.uid)
+      db.collection('paidUsers').doc(userUId)
         .get()
         .then(function(doc) {
           if (doc.exists) {
@@ -43,13 +46,13 @@ function App() {
           });
     }
   }
-
+  
   return (
     <Router>
       <div className="app">
         {!user ? (
           <>
-            <Topbar />
+            <PublicTopbar />
             <Login />
           </>
         ) : (
@@ -57,30 +60,37 @@ function App() {
             {isPaidUser ? (
               <>
                 <Switch>
+                  <Route path="/sign-in">
+                    <BusinessTopbar />
+                  </Route>
                   <Route path="/account">
-                    <TopbarForPaidUser />
+                    <BusinessTopbar />
                     <Account />
                   </Route>
                   <Route path="/console">
-                    <TopbarForPaidUser />
+                    <BusinessTopbar />
                     <Console />
                   </Route>
-                </Switch>
-              </>
+              </Switch>
+            </>
             ) : (
-              <>
-                <Switch>
-                  <Route path="/account">
-                    <Topbar />
-                    <Account />
-                  </Route>
-                  <Route path="/console">
-                    <Topbar />
-                    <Console />
-                  </Route>
-                </Switch>
-              </>
+            <>
+              <Switch>
+                <Route path="/sign-in">
+                  <LoggedInTopbar />
+                </Route>
+                <Route path="/account">
+                  <LoggedInTopbar />
+                  <Account />
+                </Route>
+                <Route path="/console">
+                  <LoggedInTopbar />
+                  <Console />
+                </Route>
+              </Switch>
+            </>
             )}
+            
               <Switch>
                 <Route path="/workspace/:workspaceId/room/:roomId/chat">
                   <Sidebar />
@@ -97,6 +107,10 @@ function App() {
                 <Route path="/workspace/:workspaceId/timeline">
                   <Sidebar />
                   <Timeline />
+                </Route>
+                <Route path="/workspace/:workspaceId/drive">
+                  <Sidebar />
+                  <WorkDrive />
                 </Route>
               </Switch>
           </>

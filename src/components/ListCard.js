@@ -1,5 +1,4 @@
-import { Button, Card, H5 } from '@blueprintjs/core';
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import db from '../firebase';
 import './ListCard.css';

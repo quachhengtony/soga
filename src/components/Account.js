@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 function Account() {
     
-    const [{user}] = useStateValue();
+    const [{ user }] = useStateValue();
     const history = useHistory();
 
     const setPaidUser = () => {
@@ -15,7 +15,7 @@ function Account() {
             email: user.email
         })
         // history.push('/console');
-        window.location.reload();
+        // window.location.reload();
     }
 
     return (

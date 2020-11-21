@@ -1,11 +1,22 @@
-.chatInput {
+.chatinput {
+    display: flex;
     position: absolute;
     bottom: 0;
-    margin: 0 50px 20px;
+    margin: 0 20px 20px;
     left: 0;
     right: 0;
 }
 
-.chatInput_input {
-    border-radius: 0 !important;
+.textfield_container {
+    flex: 0.9;
+    margin: 0 10px 0 0;
+}
+
+.buttons_container {
+    flex: 0.1;
+}
+
+.button {
+    margin: 0 5px 0 0;
+    width: 40px !important;
 }

@@ -15,28 +15,13 @@
     background-color: #fff;
 }
 
-.chat_header {
-    display: flex;
-}
-
-.chat_header_card {
-    flex: 1;
-    padding: 0px;
-    background-color: #fafafa;
-}
-
-.chat_header_card > div {
-    margin: 0 0 0 25%;
-    display: inline-block;
-}
-
 .chat_body {
     margin: 10px 0 0 10px;
 }
 
 .chat_message {
     height: 80vh;
-    overflow-y: scroll;
+    overflow-y: hidden;
     margin: 0;
 }
 /* ::-webkit-scrollbar {

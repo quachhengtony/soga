@@ -12,7 +12,6 @@ import CustomerIcon from '@atlaskit/icon/glyph/person';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import PeopleGroupIcon from '@atlaskit/icon/glyph/people-group';
 import RoadmapIcon from '@atlaskit/icon/glyph/roadmap';
-import RoomMenuIcon from '@atlaskit/icon/glyph/room-menu';
 import DocumentsIcon from '@atlaskit/icon/glyph/documents';
 import HomeIcon from '@atlaskit/icon/glyph/home';
 import BoardIcon from '@atlaskit/icon/glyph/board';
@@ -20,6 +19,8 @@ import CalendarIcon from '@atlaskit/icon/glyph/calendar';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import OfficeBuildingIcon from '@atlaskit/icon/glyph/office-building';
 import PersonCircleIcon from '@atlaskit/icon/glyph/person-circle';
+import UploadIcon from '@atlaskit/icon/glyph/upload';
+import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 
 import './Sidebar.css';
 import db from '../firebase';
@@ -61,9 +62,6 @@ function Sidebar() {
         <div className='wpBar_button' onClick={push.bind(this, '/console')}>
           <HomeIcon label='Home icon' size="medium" primaryColor='#ffffff' />
         </div>
-        <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/room/undefined/chat`)}>
-          <RoomMenuIcon label='Rooms icon' size="medium" primaryColor='#ffffff' />
-        </div>
         <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/timeline`)}>
           <RoadmapIcon label='Roadmap icon' size="medium" primaryColor='#ffffff' />
         </div>
@@ -72,6 +70,9 @@ function Sidebar() {
         </div>
         <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/search`)}>
           <SearchIcon label='Search icon' size="medium" primaryColor='#ffffff' />
+        </div>
+        <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/drive`)}>
+          <UploadIcon label='Work drive icon' size="medium" primaryColor='#ffffff' />
         </div>
         <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/settings`)}>
           <SettingsIcon label='Settings icon' size="medium" primaryColor='#ffffff' />
@@ -82,7 +83,7 @@ function Sidebar() {
       </div>
         <SideNavigation className='rBar'>
           <NavigationHeader>
-            <Header iconBefore={<OfficeBuildingIcon />} description="Organization">{workspaceName}</Header>
+            <Header iconBefore={<OfficeBuildingIcon />} description="Workspace">{workspaceName}</Header>
           </NavigationHeader>
               <NestableNavigationContent>
                   <Section title='Rooms'>
@@ -100,6 +101,9 @@ function Sidebar() {
                         <ButtonItem>Jack</ButtonItem>
                       </Section>
                     </NestingItem>
+                  </Section>
+                  <Section title="Other">
+                    <ButtonItem iconBefore={<AppSwitcherIcon />}>Explore</ButtonItem>
                   </Section>
               </NestableNavigationContent>
         </SideNavigation>
