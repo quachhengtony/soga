@@ -13,7 +13,7 @@ function PublicTopbar() {
     }
 
     const Home = () => (
-        <PrimaryButton style={{color: "#0747A6", width: "75px", fontStyle: "italic"}} onClick={push.bind(this, '/home')}>Soga.io</PrimaryButton>
+        <PrimaryButton style={{color: "#0747A6", width: "75px", fontStyle: "italic"}} onClick={push.bind(this, '/home')}>SOGA</PrimaryButton>
     );
 
     const SignIn = () => (
@@ -64,7 +64,7 @@ function LoggedInTopbar() {
                     <PrimaryButton>Support</PrimaryButton>,
                     <PrimaryButton>Company</PrimaryButton>,
                     <PrimaryButton>Find a Remote Job</PrimaryButton>,
-                    <PrimaryButton >Profile</PrimaryButton>,
+                    <PrimaryButton>Hiring</PrimaryButton>,
                     <PrimaryButton>Manage</PrimaryButton>
                 ]}
                 renderSignIn={Account}
@@ -97,8 +97,8 @@ function BusinessTopbar() {
                     <PrimaryButton>Solutions</PrimaryButton>,
                     <PrimaryButton>Support</PrimaryButton>,
                     <PrimaryButton>Company</PrimaryButton>,
-                    <PrimaryButton>Find a Remote Job</PrimaryButton>,
-                    <PrimaryButton>Hiring</PrimaryButton>,
+                    <PrimaryButton onClick={push.bind(this, '/post-a-remote-job')}>Post a Remote Job</PrimaryButton>,
+                    <PrimaryButton onClick={push.bind(this, '/hiring')}>Hiring</PrimaryButton>,
                     <PrimaryButton onClick={push.bind(this, '/console')}>Manage</PrimaryButton>
                 ]}
                 renderSignIn={Account}

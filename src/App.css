@@ -10,7 +10,8 @@
     --red-bg: #fef9f8;
     --atlassian-blue: #0747A6;
 }
-app {
-    display: flex;
+.app {
+    /* display: flex; */
+    /* overflow-y: scroll; */
 }
 

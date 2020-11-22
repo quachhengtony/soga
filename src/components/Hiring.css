@@ -1,0 +1,28 @@
+.hiring {
+    padding: 25px 100px 0;
+    overflow-y: scroll;
+    height: 88.5vh;
+}
+
+.hiring_header {
+    margin: 0 0 20px;
+}
+
+.hiring_body {
+    margin: 0 0 10px;
+}
+
+.input_container {
+    margin: 0 0 10px;
+}
+
+.editor_container {
+    overflow-y: scroll;
+    border: 1px solid #C4C4C4;
+    min-height: 200px;
+    resize: vertical;
+}
+
+.hiring_footer {
+    margin: 20px 0 25px;
+}

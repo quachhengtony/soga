@@ -5,9 +5,11 @@ import './Login.css';
 import { auth, provider } from '../firebase';
 import { useStateValue } from '../StateProvider';
 import { actionTypes } from '../reducer';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
 
+    const history = useHistory();
     const [state, dispatch] = useStateValue();
     
     const login = () => {
@@ -23,6 +25,7 @@ function Login() {
             .catch((error) => {
                 alert(error.message);
             });
+        history.push("/account");
     };
 
     return (

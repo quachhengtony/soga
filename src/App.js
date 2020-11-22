@@ -19,6 +19,8 @@ import Timeline from './components/Timeline';
 import Board from './components/Board';
 import Schedule from './components/Schedule';
 import WorkDrive from './components/WorkDrive';
+import Hiring from './components/Hiring';
+import Job from './components/Job'
 
 function App() {
 
@@ -53,16 +55,25 @@ function App() {
         {!user ? (
           <>
             <PublicTopbar />
-            <Login />
+            {/* <Login /> */}
+            <Switch>
+              <Route path="/sign-in">
+                <Login />
+              </Route>
+              <Route path="/find-a-remote-job">
+                <Job />
+              </Route>
+            </Switch>
           </>
         ) : (
           <>
             {isPaidUser ? (
               <>
                 <Switch>
-                  <Route path="/sign-in">
+                  {/* <Route path="/sign-in">
                     <BusinessTopbar />
-                  </Route>
+                    <Login />
+                  </Route> */}
                   <Route path="/account">
                     <BusinessTopbar />
                     <Account />
@@ -71,14 +82,22 @@ function App() {
                     <BusinessTopbar />
                     <Console />
                   </Route>
+                  <Route path="/post-a-remote-job">
+                    <BusinessTopbar />
+                    <Hiring />
+                  </Route>
+                  <Route path="/find-a-remote-job">
+                    <BusinessTopbar />
+                    <Job />
+                  </Route>
               </Switch>
             </>
             ) : (
             <>
               <Switch>
-                <Route path="/sign-in">
+                {/* <Route path="/sign-in">
                   <LoggedInTopbar />
-                </Route>
+                </Route> */}
                 <Route path="/account">
                   <LoggedInTopbar />
                   <Account />
@@ -87,10 +106,13 @@ function App() {
                   <LoggedInTopbar />
                   <Console />
                 </Route>
+                <Route path="/find-a-remote-job">
+                  <LoggedInTopbar />
+                  <Job />
+                </Route>
               </Switch>
             </>
             )}
-            
               <Switch>
                 <Route path="/workspace/:workspaceId/room/:roomId/chat">
                   <Sidebar />
