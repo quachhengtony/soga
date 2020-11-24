@@ -21,6 +21,7 @@ import Schedule from './components/Schedule';
 import WorkDrive from './components/WorkDrive';
 import JobPost from './components/JobPost';
 import JobList from './components/JobList'
+import Hiring from './components/Hiring';
 
 function App() {
 
@@ -88,6 +89,10 @@ function App() {
                   <Route path="/find-a-remote-job">
                     <BusinessTopbar />
                     <JobList />
+                  </Route>
+                  <Route path="/hiring">
+                    <BusinessTopbar />
+                    <Hiring />
                   </Route>
               </Switch>
             </>

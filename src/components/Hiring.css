@@ -1,0 +1,28 @@
+.hiring {
+    padding: 25px 50px 0;
+}
+
+.hiring_header {
+}
+
+.hiring_body {
+}
+
+.job_posts {
+    display: flex;
+    margin: 25px 0 0;
+    justify-content: center
+}
+
+.job_post {
+    height: 100px;
+    color: white;
+    flex: 1;
+    margin: 0 25px 0;
+    padding: 10px;
+    background: #FF416C;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FF4B2B, #FF416C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+

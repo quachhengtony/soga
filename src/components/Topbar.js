@@ -32,7 +32,7 @@ function PublicTopbar() {
                     <PrimaryButton>Solutions</PrimaryButton>,
                     <PrimaryButton>Support</PrimaryButton>,
                     <PrimaryButton>Company</PrimaryButton>,
-                    <PrimaryButton>Find a Remote Job</PrimaryButton>
+                    <PrimaryButton onClick={push.bind(this, "/find-a-remote-job")}>Find a Remote Job</PrimaryButton>
                 ]}
                 renderSignIn={SignIn}
                 />
@@ -53,6 +53,22 @@ function LoggedInTopbar() {
         <PrimaryButton style={{color: "#0747A6", width: "75px", fontStyle: "italic"}} onClick={push.bind(this, '/home')}>SOGA</PrimaryButton>
     );
 
+    const JobList = () => (
+        <PrimaryButton onClick={push.bind(this, '/find-a-remote-job')}>Find a Remote Job</PrimaryButton>
+    )
+
+    const Notification = () => (
+        <a className="roundedButton">
+            <NotificationIcon label="" />
+        </a>
+    )
+
+    const Help = () => (
+        <a className="roundedButton">
+            <QuestionCircleIcon label="" />
+        </a>
+    )
+
     const Account = () => (
         <PrimaryButton onClick={push.bind(this, '/account')}>Account</PrimaryButton>
     );
@@ -64,13 +80,14 @@ function LoggedInTopbar() {
                 primaryItems={[
                     <PrimaryButton>Why Soga?</PrimaryButton>,
                     <PrimaryButton>Solutions</PrimaryButton>,
-                    <PrimaryButton>Support</PrimaryButton>,
                     <PrimaryButton>Company</PrimaryButton>,
-                    <PrimaryButton>Find a Remote Job</PrimaryButton>,
-                    <PrimaryButton>Hiring</PrimaryButton>,
-                    <PrimaryButton>Manage</PrimaryButton>
+                    <PrimaryButton onClick={push.bind(this, "/hiring")}>Talents</PrimaryButton>,
+                    <PrimaryButton onClick={push.bind(this, "/manage")}>Manage</PrimaryButton>
                 ]}
-                renderSignIn={Account}
+                renderCreate={JobList}
+                renderNotifications={Notification}
+                renderHelp={Help}
+                renderProfile={Account}
                 />
         </div>
     );
@@ -116,7 +133,7 @@ function BusinessTopbar() {
                     <PrimaryButton>Why Soga?</PrimaryButton>,
                     <PrimaryButton>Solutions</PrimaryButton>,
                     <PrimaryButton>Company</PrimaryButton>,
-                    <PrimaryButton onClick={push.bind(this, '/hiring')}>Hiring</PrimaryButton>,
+                    <PrimaryButton onClick={push.bind(this, '/hiring')}>Talents</PrimaryButton>,
                     <PrimaryButton onClick={push.bind(this, '/console')}>Manage</PrimaryButton>
                 ]}
                 renderCreate={JobPost}
