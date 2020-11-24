@@ -5,13 +5,13 @@
 }
 
 .console_header {
-    display: block;
     height: 20vh;
     padding: 25px 25px 0;
 }
 
-.button {
+.createWorkspace_button {
     float: right;
+    width: 250px !important;
 }
 
 .console_body {

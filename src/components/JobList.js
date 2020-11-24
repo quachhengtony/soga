@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import './Job.css';
+import './JobList.css';
 import db from '../firebase';
 
-function Job() {
+function JobList() {
 
     const [jobs, setJobs] = useState([]);
 
@@ -16,7 +16,7 @@ function Job() {
     }
 
     return (
-        <div className='job'>
+        <div className='joblist'>
             {jobs.map(job => (
                 <div className="job_post">
                     <p>{job.title}</p>
@@ -28,4 +28,4 @@ function Job() {
         </div>
     );
 }
-export default Job;
+export default JobList;

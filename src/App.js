@@ -19,8 +19,8 @@ import Timeline from './components/Timeline';
 import Board from './components/Board';
 import Schedule from './components/Schedule';
 import WorkDrive from './components/WorkDrive';
-import Hiring from './components/Hiring';
-import Job from './components/Job'
+import JobPost from './components/JobPost';
+import JobList from './components/JobList'
 
 function App() {
 
@@ -55,13 +55,12 @@ function App() {
         {!user ? (
           <>
             <PublicTopbar />
-            {/* <Login /> */}
             <Switch>
               <Route path="/sign-in">
                 <Login />
               </Route>
               <Route path="/find-a-remote-job">
-                <Job />
+                <JobList />
               </Route>
             </Switch>
           </>
@@ -84,11 +83,11 @@ function App() {
                   </Route>
                   <Route path="/post-a-remote-job">
                     <BusinessTopbar />
-                    <Hiring />
+                    <JobPost />
                   </Route>
                   <Route path="/find-a-remote-job">
                     <BusinessTopbar />
-                    <Job />
+                    <JobList />
                   </Route>
               </Switch>
             </>
@@ -108,7 +107,7 @@ function App() {
                 </Route>
                 <Route path="/find-a-remote-job">
                   <LoggedInTopbar />
-                  <Job />
+                  <JobList />
                 </Route>
               </Switch>
             </>

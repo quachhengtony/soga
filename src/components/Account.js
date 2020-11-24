@@ -29,7 +29,7 @@ function Account() {
                     <p>Your ID: {user.uid}</p>
                     <p>Name: {user.displayName}</p>
                     <p>Email: {user.email}</p>
-                    <p>Plan: Free</p>
+                    <p>Plan: Business</p>
                     <Button appearance='danger'>Delete my account</Button>
                 </div>
             </div>

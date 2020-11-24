@@ -1,4 +1,7 @@
 import { AtlassianNavigation, PrimaryButton } from '@atlaskit/atlassian-navigation';
+import Button from '@atlaskit/button';
+import NotificationIcon from '@atlaskit/icon/glyph/notification';
+import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import { useHistory } from 'react-router-dom';
 
 import './Topbar.css';
@@ -75,6 +78,7 @@ function LoggedInTopbar() {
 
 function BusinessTopbar() {
     const history = useHistory();
+    const [{ user }] = useStateValue();
 
     const push = (page) => {
         history.push(page);
@@ -84,9 +88,25 @@ function BusinessTopbar() {
         <PrimaryButton style={{color: "#0747A6", width: "75px", fontStyle: "italic"}} onClick={push.bind(this, '/home')}>SOGA</PrimaryButton>
     );
 
+    const Notification = () => (
+        <a className="roundedButton">
+            <NotificationIcon label="" />
+        </a>
+    )
+
+    const Help = () => (
+        <a className="roundedButton">
+            <QuestionCircleIcon label="" />
+        </a>
+    )
+
     const Account = () => (
-        <PrimaryButton onClick={push.bind(this, '/account')}>Account</PrimaryButton>
+        <PrimaryButton onClick={push.bind(this, '/account')}>{user?.displayName}</PrimaryButton>
     );
+
+    const JobPost = () => (
+        <PrimaryButton onClick={push.bind(this, '/post-a-remote-job')}>Post a Remote Job</PrimaryButton>
+    )
 
     return (
         <div className="navbar">
@@ -95,13 +115,14 @@ function BusinessTopbar() {
                 primaryItems={[
                     <PrimaryButton>Why Soga?</PrimaryButton>,
                     <PrimaryButton>Solutions</PrimaryButton>,
-                    <PrimaryButton>Support</PrimaryButton>,
                     <PrimaryButton>Company</PrimaryButton>,
-                    <PrimaryButton onClick={push.bind(this, '/post-a-remote-job')}>Post a Remote Job</PrimaryButton>,
                     <PrimaryButton onClick={push.bind(this, '/hiring')}>Hiring</PrimaryButton>,
                     <PrimaryButton onClick={push.bind(this, '/console')}>Manage</PrimaryButton>
                 ]}
-                renderSignIn={Account}
+                renderCreate={JobPost}
+                renderNotifications={Notification}
+                renderHelp={Help}
+                renderProfile={Account}
                 />
         </div>
     );

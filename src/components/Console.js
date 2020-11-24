@@ -39,7 +39,7 @@ function Console() {
             <div className="console_header">
                 <h2>Workspace</h2>
                 <p>Managing your talented remote teams via dedicated workspaces</p>
-                <Button appearance='primary' className="button" onClick={createWorkspace}>Create a Workspace</Button>
+                <Button appearance='primary' className="createWorkspace_button" onClick={createWorkspace}>Create Workspace</Button>
             </div>
             <div className='console_body'>
                 {workspaces.map((workspace, index) => (

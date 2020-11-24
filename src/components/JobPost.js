@@ -5,11 +5,11 @@ import Button from '@atlaskit/button';
 import Textfield from '@atlaskit/textfield';
 import LikeIcon from '@atlaskit/icon/glyph/like';
 
-import './Hiring.css';
+import './JobPost.css';
 import db from '../firebase';
 import { useStateValue } from '../StateProvider';
 
-function Hiring() {
+function JobPost() {
 
     const [jobTitle, setJobTitle] = useState();
     const [jobField, setJobField] = useState();
@@ -29,11 +29,11 @@ function Hiring() {
     }
 
     return (
-        <div className="hiring">
-            <div className="hiring_header">
+        <div className="jobpost">
+            <div className="jobpost_header">
                 <h2>Hiring talents from all over the world</h2>
             </div>
-            <div className="hiring_body">
+            <div className="jobpost_body">
                 <div className="input_container">
                     <h4>Title:</h4>
                     <Textfield value={jobTitle} onChange={e => setJobTitle(e.target.value)} className="textfield" name="basic" />
@@ -65,11 +65,11 @@ function Hiring() {
                     />
                 </div>
             </div>
-            <div className="hiring_footer">
+            <div className="jobpost_footer">
                 <Button iconAfter={<LikeIcon />} onClick={postJob} appearance="primary">Looks good!</Button>
             </div>
         </div>
     )
 }
 
-export default Hiring;
+export default JobPost;

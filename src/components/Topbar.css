@@ -14,3 +14,17 @@
 .navbar_button {
     color: white !important;
 }
+
+
+.roundedButton {
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    cursor: pointer;
+    color: #344563;
+}
+.roundedButton:hover {
+    background-color: #E8F1FF;
+    color: var(--atlassian-blue);
+}
