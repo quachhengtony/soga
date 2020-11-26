@@ -12,16 +12,16 @@ import './App.css';
 import Sidebar from './components/Sidebar';
 import Chat from './components/Chat';
 import Login from './components/Login';
-import Console from './components/Console';
+import Manage from './components/Manage';
 import { PublicTopbar, LoggedInTopbar, BusinessTopbar } from './components/Topbar';
 import Account from './components/Account';
 import Timeline from './components/Timeline';
 import Board from './components/Board';
 import Schedule from './components/Schedule';
-import WorkDrive from './components/WorkDrive';
+import Storage from './components/Storage';
 import JobPost from './components/JobPost';
 import JobList from './components/JobList'
-import Hiring from './components/Hiring';
+import Talents from './components/Talents';
 
 function App() {
 
@@ -78,9 +78,9 @@ function App() {
                     <BusinessTopbar />
                     <Account />
                   </Route>
-                  <Route path="/console">
+                  <Route path="/manage">
                     <BusinessTopbar />
-                    <Console />
+                    <Manage />
                   </Route>
                   <Route path="/post-a-remote-job">
                     <BusinessTopbar />
@@ -90,9 +90,9 @@ function App() {
                     <BusinessTopbar />
                     <JobList />
                   </Route>
-                  <Route path="/hiring">
+                  <Route path="/talents">
                     <BusinessTopbar />
-                    <Hiring />
+                    <Talents />
                   </Route>
               </Switch>
             </>
@@ -106,9 +106,9 @@ function App() {
                   <LoggedInTopbar />
                   <Account />
                 </Route>
-                <Route path="/console">
+                <Route path="/manage">
                   <LoggedInTopbar />
-                  <Console />
+                  <Manage />
                 </Route>
                 <Route path="/find-a-remote-job">
                   <LoggedInTopbar />
@@ -134,9 +134,9 @@ function App() {
                   <Sidebar />
                   <Timeline />
                 </Route>
-                <Route path="/workspace/:workspaceId/drive">
+                <Route path="/workspace/:workspaceId/storage">
                   <Sidebar />
-                  <WorkDrive />
+                  <Storage />
                 </Route>
               </Switch>
           </>

@@ -59,7 +59,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className='wpBar'>
-        <div className='wpBar_button' onClick={push.bind(this, '/console')}>
+        <div className='wpBar_button' onClick={push.bind(this, '/manage')}>
           <HomeIcon label='Home icon' size="medium" primaryColor='#ffffff' />
         </div>
         <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/timeline`)}>
@@ -71,7 +71,7 @@ function Sidebar() {
         <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/search`)}>
           <SearchIcon label='Search icon' size="medium" primaryColor='#ffffff' />
         </div>
-        <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/drive`)}>
+        <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/storage`)}>
           <UploadIcon label='Work drive icon' size="medium" primaryColor='#ffffff' />
         </div>
         <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/settings`)}>

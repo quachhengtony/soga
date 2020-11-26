@@ -31,4 +31,5 @@
     display: grid;
     place-content: center;
     border-radius: 1%;
+    color: black;
 }

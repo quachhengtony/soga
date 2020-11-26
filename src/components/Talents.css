@@ -1,5 +1,6 @@
 .hiring {
     padding: 25px 50px 0;
+    background: #FAFBFC;
 }
 
 .hiring_header {
@@ -8,13 +9,13 @@
 .hiring_body {
 }
 
-.job_posts {
+.stats {
     display: flex;
     margin: 25px 0 0;
     justify-content: center
 }
 
-.job_post {
+.stats_card {
     height: 100px;
     color: white;
     flex: 1;
@@ -23,6 +24,19 @@
     background: #FF416C;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #FF4B2B, #FF416C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 
+.posts {
+    display: flex;
+    margin: 25px 0 0;
+    justify-content: center
+}
+
+.post_card {
+    height: 100px;
+    flex: 1;
+    padding: 10px;
+    background: #FFF;
+    border-left: 5px solid #333333;
 }
 

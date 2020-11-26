@@ -6,6 +6,7 @@ function Message({ message, user, timestamp, userImage }) {
     return (
         <div className="message">
             <AvatarItem
+                className="message_item"
                 avatar={<Avatar src={userImage} appearance='square' presence="online" />}
                 primaryText={user}
                 secondaryText={message} />

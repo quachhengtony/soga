@@ -15,7 +15,7 @@ function Account() {
             email: user.email
         })
         // history.push('/console');
-        // window.location.reload();
+        window.location.reload();
     }
 
     return (

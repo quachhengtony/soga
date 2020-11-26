@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import Button from '@atlaskit/button';
 
-import './Console.css';
+import './Manage.css';
 import db from '../firebase';
 import { useStateValue } from '../StateProvider';
 import ListWorkspace from './ListWorkspace';
 
-function Console() {
+function Manage() {
 
     const [workspaces, setWorkspaces] = useState([]);
     const [{ user }] = useStateValue();
@@ -50,4 +50,4 @@ function Console() {
     );
 }
 
-export default Console;
+export default Manage;

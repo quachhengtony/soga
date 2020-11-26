@@ -5,7 +5,7 @@
     background-color: var(--blue-hover);
     text-align: left;
     padding: 5px;
-    border-left: 5px solid var(--yellow);
+    /* border-left: 5px solid var(--yellow); */
 }
 
 .listCard_moreButton {

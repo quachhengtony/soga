@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Button from '@atlaskit/button';
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import firebase from 'firebase';
 
 import db from '../firebase';
 import './Board.css'
@@ -18,7 +19,7 @@ function Board() {
     })
 
     const renderColumns = () => {
-        db.collection('workspaces').doc(workspaceId).collection('rooms').doc(roomId).collection('columns').onSnapshot(snapshot => (
+        db.collection('workspaces').doc(workspaceId).collection('rooms').doc(roomId).collection('columns').orderBy("timestamp", "asc").onSnapshot(snapshot => (
                 setColumns(snapshot.docs.map(doc => ({
                     id: doc.id,
                     name: doc.data().name
@@ -29,7 +30,8 @@ function Board() {
     const addColumn = () => {
         const columnName = prompt('Enter column name:');
         db.collection('workspaces').doc(workspaceId).collection('rooms').doc(roomId).collection('columns').add({
-            name: columnName
+            name: columnName,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
     }
 
