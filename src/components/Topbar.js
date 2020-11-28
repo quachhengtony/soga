@@ -16,7 +16,7 @@ function PublicTopbar() {
     }
 
     const Home = () => (
-        <PrimaryButton style={{color: "#0747A6", width: "75px", fontStyle: "italic"}} onClick={push.bind(this, '/home')}>SOGA</PrimaryButton>
+        <PrimaryButton className="topbar__primaryButton" onClick={push.bind(this, '/home')}>SOGA</PrimaryButton>
     );
 
     const SignIn = () => (
@@ -24,7 +24,7 @@ function PublicTopbar() {
     );
 
     return (
-        <div className="navbar">
+        <div className="topbar">
             <AtlassianNavigation
                 renderProductHome={Home}
                 primaryItems={[
@@ -50,7 +50,7 @@ function LoggedInTopbar() {
     }
 
     const Home = () => (
-        <PrimaryButton style={{color: "#0747A6", width: "75px", fontStyle: "italic"}} onClick={push.bind(this, '/home')}>SOGA</PrimaryButton>
+        <PrimaryButton className="topbar__primaryButton" onClick={push.bind(this, '/home')}>SOGA</PrimaryButton>
     );
 
     const JobList = () => (
@@ -58,13 +58,13 @@ function LoggedInTopbar() {
     )
 
     const Notification = () => (
-        <a className="roundedButton">
+        <a className="topbar__roundedButton">
             <NotificationIcon label="" />
         </a>
     )
 
     const Help = () => (
-        <a className="roundedButton">
+        <a className="topbar__roundedButton">
             <QuestionCircleIcon label="" />
         </a>
     )
@@ -74,7 +74,7 @@ function LoggedInTopbar() {
     );
 
     return (
-        <div className="navbar">
+        <div className="topbar">
             <AtlassianNavigation
                 renderProductHome={Home}
                 primaryItems={[
@@ -102,17 +102,17 @@ function BusinessTopbar() {
     }
 
     const Home = () => (
-        <PrimaryButton style={{color: "#0747A6", width: "75px", fontStyle: "italic"}} onClick={push.bind(this, '/home')}>SOGA</PrimaryButton>
+        <PrimaryButton className="topbar__primaryButton" onClick={push.bind(this, '/home')}>SOGA</PrimaryButton>
     );
 
     const Notification = () => (
-        <a className="roundedButton">
+        <a className="topbar_roundedButton">
             <NotificationIcon label="" />
         </a>
     )
 
     const Help = () => (
-        <a className="roundedButton">
+        <a className="topbar_roundedButton">
             <QuestionCircleIcon label="" />
         </a>
     )
@@ -126,7 +126,7 @@ function BusinessTopbar() {
     )
 
     return (
-        <div className="navbar">
+        <div className="topbar">
              <AtlassianNavigation
                 renderProductHome={Home}
                 primaryItems={[

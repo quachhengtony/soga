@@ -1,35 +1,57 @@
-.workdrive {
-    justify-content: center;
-    place-items: center;
+.storage {
+    background-color: #FFF;
     position: absolute;
     right: 0;
     width: 77.5%;
-    height: 100%;
-    margin: 0;
-    padding: 25px;
-    background-color: #fafbfc;
+    height: 100vh;
 }
 
-.workdrive_header {
+.storage__header {
     margin: 0 0 10px;
     height: 10vh;
     display: flex;
+    padding: 25px;
 }
-.workdrive_header > div {
-    flex: 0.5;
+
+.storageHeader__container {
+    flex: 1;
 }
-.info {
-    text-align: center;
+
+.--info {
+    text-align: left;
 }
-.uploadButton {
+
+.--uploadButton {
     text-align: right;
 }
 
-.workdrive_body {
-    border: 4px dashed var(--atlassian-blue);
-    height: 80vh;
+.storage__body {
+    display: flex;
+    padding: 0 25px 25px;
+}
+
+.storageBody__filesContainer {
+    flex: 1;
+}
+
+.storageBody__fileItem {
+    border: 1px solid #E1E4E8;
+    border-radius: 6px;
+
+    display: flex;
+}
+
+
+.storageBody__fileItemLeft {
+    flex: 0.8;
+}
+
+.storageBody__fileItemRight {
+    flex: 0.2;
     display: grid;
     place-content: center;
-    border-radius: 1%;
-    color: black;
+}
+
+.authorButton {
+    font-size: 12.5px !important;
 }

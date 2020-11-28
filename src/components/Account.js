@@ -39,10 +39,10 @@ function Account() {
                 </div>
                 <div className="pricing_body">
                     <div>
-                        <Button shouldFitContainer isDisabled>Free (current)</Button>
+                        <Button shouldFitContainer isDisabled>Free (0$/Month)</Button>
                     </div>
                     <div>
-                        <Button shouldFitContainer onClick={setPaidUser} appearance='primary'>Bussiness (5$/Month)</Button>
+                        <Button shouldFitContainer onClick={setPaidUser} appearance='primary'>Bussiness (7$/Month) - Current</Button>
                     </div>
                 </div>
             </div>
