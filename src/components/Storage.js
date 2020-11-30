@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import firebase from 'firebase';
 import Textfield from '@atlaskit/textfield';
@@ -17,15 +17,27 @@ export default function Storage() {
     const { workspaceId } = useParams();
 
     const [workdriveFiles, setWorkdriveFiles] = useState([]);
-
-    const [groupToPushTo, setGroupToPushTo] = useState();
     const [groupToGetFiles, setGroupToGetFiles] = useState();
 
-    const createGroup = () => {
+    const [currentDate, setCurrentDate]= useState();
+
+    const getCurrentDate = () => {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = dd + "/" + mm + "/" + yyyy;
+        setCurrentDate(today);
+    }
+
+    const createGroup = async () => {
         const groupName = prompt("Enter group name:");
         if (groupName) {
-            db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupName).set({
-                name: groupName,
+            await db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupName).set({
+                groupName: groupName,
+                authorName: user?.displayName,
+                authorId: user?.uid,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
             })
         }
     }
@@ -36,7 +48,6 @@ export default function Storage() {
 
     const uploadFile = (e) => {
         var file = e.target.files[0];
-        // setFileName(file.name);
 
         var storageRef = storage.ref();
 
@@ -84,11 +95,12 @@ export default function Storage() {
             uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                 const groupName = prompt("Group to push to:");
                 if (groupName) {
-                    db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupName).collection("files").add({
-                        fileDownloadURL0: downloadURL,
-                        fileName0: e.target.files[0].name,
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                        user: user.displayName,
+                    db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupName).collection("dates").add({
+                        fileName: e.target.files[0].name,
+                        fileDownloadURL: downloadURL,
+                        authorName: user?.displayName,
+                        date: currentDate,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
                     })
                 }
             });
@@ -98,10 +110,15 @@ export default function Storage() {
     const getWorkdriveFiles = (e)=> {
         if (e.keyCode === 13) {
             if (groupToGetFiles) {
-                db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupToGetFiles).collection("files").orderBy("timestamp", "asc").onSnapshot((snapshot) => setWorkdriveFiles(snapshot.docs.map((doc) => doc.data())));
+                db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupToGetFiles).collection("dates").orderBy("timestamp", "desc").onSnapshot((snapshot) => setWorkdriveFiles(snapshot.docs.map((doc) => doc.data())));
             }
         }
     }
+
+    useEffect(() => {
+        getCurrentDate();
+        console.log("TODAY'S DATE >>>", new Date());
+    }, [])
 
     return (
         <div className="storage">
@@ -118,16 +135,16 @@ export default function Storage() {
                 </div>
             </div>
             <div className="storage__body">
-                    {workdriveFiles.map(({ fileDownloadURL0, fileName0, timestamp, user }) => (
+                    {workdriveFiles.map(({ fileDownloadURL, fileName, timestamp, date, authorName }) => (
                         <div className="storageBody__filesContainer">
-                            <p>Files on { new Date(timestamp?.toDate()).toLocaleDateString() }</p>
+                            <p>{ new Date(timestamp?.toDate()).toLocaleDateString() == new Date().toLocaleDateString() ? ("Today") : (`Files on ${date}`)}</p>
                             <div className="storageBody__fileItem">
                                 <div className="storageBody__fileItemLeft">
                                 <div className="storageBody__fileButton">
-                                    <Button className="fileButton" onClick={() => window.open(fileDownloadURL0)} spacing="compact" appearance="link">{fileName0}</Button>
+                                    <Button className="fileButton" onClick={() => window.open(fileDownloadURL? fileDownloadURL : "#")} spacing="compact" appearance="link">{fileName}</Button>
                                 </div>
                                 <div className="storageBody__fileAuthor">
-                                    <Button className="authorButton" spacing="compact" appearance="subtle-link">{user}</Button>
+                                    <Button className="authorButton" spacing="compact" appearance="subtle-link">{authorName? authorName : "No author name"}</Button>
                                 </div>
                                 </div>
                                 <div className="storageBody__fileItemRight">
