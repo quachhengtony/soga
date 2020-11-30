@@ -7,7 +7,6 @@
 }
 
 .storage__header {
-    margin: 0 0 10px;
     height: 10vh;
     display: flex;
     padding: 25px;
@@ -26,18 +25,12 @@
 }
 
 .storage__body {
-    display: flex;
     padding: 0 25px 25px;
-}
-
-.storageBody__filesContainer {
-    flex: 1;
 }
 
 .storageBody__fileItem {
     border: 1px solid #E1E4E8;
     border-radius: 6px;
-
     display: flex;
 }
 

@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import firebase from 'firebase';
-import Select from '@atlaskit/select';
+import Textfield from '@atlaskit/textfield';
 import Button, { ButtonGroup } from '@atlaskit/button';
 import FileIcon from '@atlaskit/icon/glyph/file';
 import LinkIcon from '@atlaskit/icon/glyph/link';
@@ -16,9 +16,10 @@ export default function Storage() {
     const [{ user }] = useStateValue();
     const { workspaceId } = useParams();
 
-    const [fileName, setFileName] = useState(null);
-    const [fileDownloadURL, setFileDownloadURL] = useState(null);
     const [workdriveFiles, setWorkdriveFiles] = useState([]);
+
+    const [groupToPushTo, setGroupToPushTo] = useState();
+    const [groupToGetFiles, setGroupToGetFiles] = useState();
 
     const createGroup = () => {
         const groupName = prompt("Enter group name:");
@@ -32,57 +33,88 @@ export default function Storage() {
     const triggerUploadFile = () => {
         document.getElementById("file_input").click();
     }
-    const uploadFile = async (e) => {
-        const file = e.target.files[0];
-        const storageRef = storage.ref();
-        setFileName(await file.name);
-        const fileRef = storageRef.child(`workspaces/oBNmn3i9Nym45Sjir5yR/${file.name}`);
-        await fileRef.put(file).then(() => {
-            console.log("File uploaded!")
-        })
-        setFileDownloadURL(await fileRef.getDownloadURL());
+
+    const uploadFile = (e) => {
+        var file = e.target.files[0];
+        // setFileName(file.name);
+
+        var storageRef = storage.ref();
+
+        // Create the file metadata
+        // var metadata = {
+        //     contentType: 'image/jpeg'
+        // };
+        
+        // Upload file and metadata to the object 'images/mountains.jpg'
+        var uploadTask = storageRef.child(`workspaces/${file.name}`).put(file);
+        
+        // Listen for state changes, errors, and completion of the upload.
+        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+            function(snapshot) {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED: // or 'paused'
+                    console.log('Upload is paused');
+                    break;
+                case firebase.storage.TaskState.RUNNING: // or 'running'
+                    console.log('Upload is running');
+                    break;
+            }
+            }, function(error) {
+        
+            // A full list of error codes is available at
+            // https://firebase.google.com/docs/storage/web/handle-errors
+            switch (error.code) {
+            case 'storage/unauthorized':
+                // User doesn't have permission to access the object
+                break;
+        
+            case 'storage/canceled':
+                // User canceled the upload
+                break;
+        
+            case 'storage/unknown':
+                // Unknown error occurred, inspect error.serverResponse
+                break;
+            }
+        }, function() {
+            // Upload completed successfully, now we can get the download URL
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                const groupName = prompt("Group to push to:");
+                if (groupName) {
+                    db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupName).collection("files").add({
+                        fileDownloadURL0: downloadURL,
+                        fileName0: e.target.files[0].name,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        user: user.displayName,
+                    })
+                }
+            });
+        });
     }
 
-    const pushFileToFirestore = () => {
-        const groupToPushTo = prompt("Group to push to:");
-        if (groupToPushTo) {
-            db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupToPushTo).collection("files").add({
-                fileDownloadURL0: fileDownloadURL,
-                fileName0: fileName,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                user: user.displayName,
-            })
+    const getWorkdriveFiles = (e)=> {
+        if (e.keyCode === 13) {
+            if (groupToGetFiles) {
+                db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupToGetFiles).collection("files").orderBy("timestamp", "asc").onSnapshot((snapshot) => setWorkdriveFiles(snapshot.docs.map((doc) => doc.data())));
+            }
         }
     }
-
-    const getWorkdriveFiles = () => {
-        db.collection("workspaces").doc(workspaceId).collection("storage").doc("Sales").collection("files").orderBy("timestamp", "asc").onSnapshot((snapshot) => setWorkdriveFiles(snapshot.docs.map((doc) => doc.data())));
-    }
-
-    useEffect(() => {
-        getWorkdriveFiles();
-    })
 
     return (
         <div className="storage">
             <div className="storage__header">
                 <div className="storageHeader__container --info">
-                    <Select
-                        className="single-select"
-                        classNamePrefix="react-select"
-                        options={[
-                        { label: 'Group A', value: 'group a' },
-                        { label: 'Group B', value: 'group b' },
-                        { label: 'Group C', value: 'group c' },
-                        ]}
-                        placeholder="Group"
-                    />
+                    <Textfield placeholder="Group name" value={groupToGetFiles} onChange={e => setGroupToGetFiles(e.target.value)} onKeyDown={getWorkdriveFiles} />
                 </div>
                 <div className="storageHeader__container --uploadButton">
-                    <Button onClick={createGroup}>Create group</Button>
                     <input id="file_input" type="file" onChange={uploadFile} hidden />
-                    <Button onClick={triggerUploadFile} iconBefore={<FileIcon />} appearance="primary">Add document</Button>
-                    <Button onClick={pushFileToFirestore}>Push</Button>
+                    <ButtonGroup>
+                        <Button onClick={createGroup}>Create group</Button>
+                        <Button onClick={triggerUploadFile} iconBefore={<FileIcon />} appearance="primary">Add document</Button>
+                    </ButtonGroup>
                 </div>
             </div>
             <div className="storage__body">
