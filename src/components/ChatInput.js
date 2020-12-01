@@ -27,28 +27,29 @@ function ChatInput({ roomName, roomId, workspaceId }) {
                 userImage: user?.photoURL,
             })
         }
+        setInput("");
     }
 
-    // const triggerUploadFile = () => {
-    //     document.getElementById("file_input").click();
-    // }
-
-    // const uploadFile = (e) => {
-    //     const file = e.target.files[0];
-    //     const storageRef = storage.ref();
-    //     const fileRef = storageRef.child("workspaces/oBNmn3i9Nym45Sjir5yR/rooms/pIkTQPEeBwpXwMcLzRvv/abc.jpg");
-    //     fileRef.put(file).then(() => {
-    //         console.log("File uploaded!")
-    //     })
-    // }
+    const sendMessageWithKey = e => {
+        if (e.keyCode === 13) {
+            if (roomId) {
+                db.collection('workspaces').doc(workspaceId).collection('rooms').doc(roomId).collection('messages').add({
+                    message: input,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    user: user.displayName,
+                    userImage: user?.photoURL,
+                })
+            }
+            setInput("");
+        }
+    }
 
     return (
         <div className="chatinput">
             <div className="textfield_container">
-                <Textfield value={input} onChange={e => setInput(e.target.value)} className="textfield" name="basic" />
+                <Textfield value={input} onChange={e => setInput(e.target.value)} onKeyDown={sendMessageWithKey} className="textfield" name="basic" />
             </div>
             <div classname="buttons_container">
-                {/* <input id="file_input" type="file" onChange={uploadFile} hidden /> */}
                 <Button className="button" appearance="primary" iconBefore={<AttachmentIcon label="" />}></Button>
                 <Button className="button" appearance="primary" iconBefore={<VidShareScreenIcon label="" />}></Button>
                 <Button className="button" appearance="primary" iconBefore={<HipchatSdVideoIcon label="" />}></Button>

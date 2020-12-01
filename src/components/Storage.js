@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import { useParams } from 'react-router-dom';
 import firebase from 'firebase';
 import Textfield from '@atlaskit/textfield';
 import Button, { ButtonGroup } from '@atlaskit/button';
+import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
 import FileIcon from '@atlaskit/icon/glyph/file';
 import LinkIcon from '@atlaskit/icon/glyph/link';
-import BitbucketCommitsIcon from '@atlaskit/icon/glyph/bitbucket/commits';
+import BitbucketCloneIcon from '@atlaskit/icon/glyph/bitbucket/clone';
+import WatchIcon from '@atlaskit/icon/glyph/watch';
 
 import './Storage.css';
 import db, { storage } from '../firebase';
@@ -18,8 +20,12 @@ export default function Storage() {
 
     const [workdriveFiles, setWorkdriveFiles] = useState([]);
     const [groupToGetFiles, setGroupToGetFiles] = useState();
-
     const [currentDate, setCurrentDate]= useState();
+
+    const [isCreateGroupModalOpen, setIsCreateGroupModalOpen] = useState(false);
+    // const [isAddDocumentModalOpen, setIsAddDocumentModalOpen] = useState(false);
+    const [groupToCreate, setGroupToCreate] = useState("");
+    const [groupToUpload, setGroupToUpload] = useState("");
 
     const getCurrentDate = () => {
         var today = new Date();
@@ -30,11 +36,24 @@ export default function Storage() {
         setCurrentDate(today);
     }
 
-    const createGroup = async () => {
-        const groupName = prompt("Enter group name:");
-        if (groupName) {
-            await db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupName).set({
-                groupName: groupName,
+    // const CreateGroupBody = (e) => (
+    //     <div style={{ margin: "0 25px 0" }}>
+    //         <label htmlFor="textfield">Enter a name</label>
+    //         <Textfield value={groupToCreate} onChange={e => {setGroupToCreate(e.target.value)}} name="textfield" />
+    //     </div>
+    // )
+
+    // const AddDocumentBody = () => (
+    //     <div style={{ margin: "0 25px 0" }}>
+    //         <label htmlFor="textfield">Enter a group name</label>
+    //         <Textfield name="textfield" onFocus />
+    //     </div>
+    // )
+
+    const createGroup = () => {
+        if (groupToCreate != "") {
+            db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupToCreate).set({
+                groupName: groupToCreate,
                 authorName: user?.displayName,
                 authorId: user?.uid,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -93,10 +112,10 @@ export default function Storage() {
         }, function() {
             // Upload completed successfully, now we can get the download URL
             uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                const groupName = prompt("Group to push to:");
-                if (groupName) {
-                    db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupName).collection("dates").add({
-                        fileName: e.target.files[0].name,
+                // const groupName = prompt("Group to push to:");
+                if (groupToUpload != "") {
+                    db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupToUpload).collection("dates").add({
+                        fileName: file.name,
                         fileDownloadURL: downloadURL,
                         authorName: user?.displayName,
                         date: currentDate,
@@ -110,14 +129,16 @@ export default function Storage() {
     const getWorkdriveFiles = (e)=> {
         if (e.keyCode === 13) {
             if (groupToGetFiles) {
-                db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupToGetFiles).collection("dates").orderBy("timestamp", "desc").onSnapshot((snapshot) => setWorkdriveFiles(snapshot.docs.map((doc) => doc.data())));
+                setGroupToUpload(groupToGetFiles);
+                db.collection("workspaces").doc(workspaceId).collection("storage").doc(groupToGetFiles).collection("dates")
+                    .orderBy("timestamp", "desc")
+                    .onSnapshot((snapshot) => setWorkdriveFiles(snapshot.docs.map((doc) => doc.data())));
             }
         }
     }
 
     useEffect(() => {
         getCurrentDate();
-        console.log("TODAY'S DATE >>>", new Date());
     }, [])
 
     return (
@@ -129,35 +150,99 @@ export default function Storage() {
                 <div className="storageHeader__container --uploadButton">
                     <input id="file_input" type="file" onChange={uploadFile} hidden />
                     <ButtonGroup>
-                        <Button onClick={createGroup}>Create group</Button>
+                        <Button onClick={() => {setIsCreateGroupModalOpen(true)}}>Create group</Button>
                         <Button onClick={triggerUploadFile} iconBefore={<FileIcon />} appearance="primary">Add document</Button>
                     </ButtonGroup>
                 </div>
             </div>
             <div className="storage__body">
+                <p>Today</p>
+                <div className="storageBody__filesContainer">
                     {workdriveFiles.map(({ fileDownloadURL, fileName, timestamp, date, authorName }) => (
-                        <div className="storageBody__filesContainer">
-                            <p>{ new Date(timestamp?.toDate()).toLocaleDateString() == new Date().toLocaleDateString() ? ("Today") : (`Files on ${date}`)}</p>
-                            <div className="storageBody__fileItem">
-                                <div className="storageBody__fileItemLeft">
-                                <div className="storageBody__fileButton">
-                                    <Button className="fileButton" onClick={() => window.open(fileDownloadURL? fileDownloadURL : "#")} spacing="compact" appearance="link">{fileName}</Button>
+                        <>
+                            { new Date(timestamp?.toDate()).toLocaleDateString() == new Date().toLocaleDateString() ? 
+                            (
+                                <div className="storageBody__todayFilesContainer">
+                                    <div className="storageBody__fileItem">
+                                        <div className="storageBody__fileItemLeft">
+                                        <div className="storageBody__fileButton">
+                                            <Button className="fileButton" onClick={() => window.open(fileDownloadURL? fileDownloadURL : "#")} spacing="compact" appearance="link">{fileName}</Button>
+                                        </div>
+                                        <div className="storageBody__fileAuthor">
+                                            <span>{authorName? authorName : "No author name"}<span style={{color: "#42526E"}}> uploaded on {date? date: "No date"} at {new Date(timestamp?.toDate()).getHours() + ":" + new Date(timestamp?.toDate()).getMinutes()}</span></span>
+                                        </div>
+                                        </div>
+                                        <div className="storageBody__fileItemRight">
+                                            <ButtonGroup>
+                                                <Button iconBefore={<WatchIcon />} spacing="compact"></Button>
+                                                <Button iconBefore={<LinkIcon />} spacing="compact"></Button>
+                                                <Button iconBefore={<BitbucketCloneIcon />} spacing="compact"></Button>
+                                            </ButtonGroup>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="storageBody__fileAuthor">
-                                    <Button className="authorButton" spacing="compact" appearance="subtle-link">{authorName? authorName : "No author name"}</Button>
-                                </div>
-                                </div>
-                                <div className="storageBody__fileItemRight">
-                                    <ButtonGroup>
-                                        <Button iconBefore={<LinkIcon />} spacing="compact"></Button>
-                                        <Button iconBefore={<BitbucketCommitsIcon />} spacing="compact"></Button>
-                                    </ButtonGroup>
-                                </div>
-                            </div>
-                        </div>
+                            ) : (null)}
+                        </>
                     ))}
+                </div>
+                <p>Past uploads</p>
+                <div className="storageBody__filesContainer">
+                    {workdriveFiles.map(({ fileDownloadURL, fileName, timestamp, date, authorName }) => (
+                        <>
+                            { new Date(timestamp?.toDate()).toLocaleDateString() != new Date().toLocaleDateString() ? 
+                            (
+                                <div className="storageBody__historyFilesContainer">
+                                    <div className="storageBody__fileItem">
+                                        <div className="storageBody__fileItemLeft">
+                                        <div className="storageBody__fileButton">
+                                            <Button className="fileButton" onClick={() => window.open(fileDownloadURL? fileDownloadURL : "#")} spacing="compact" appearance="link">{fileName}</Button>
+                                        </div>
+                                        <div className="storageBody__fileAuthor">
+                                        <span>{authorName? authorName : "No author name"}<span style={{color: "#42526E"}}> uploaded on {date? date : "No date"} at {new Date(timestamp?.toDate()).getHours() + ":" + new Date(timestamp?.toDate()).getMinutes()}</span></span>
+                                        </div>
+                                        </div>
+                                        <div className="storageBody__fileItemRight">
+                                            <ButtonGroup>
+                                                <Button iconBefore={<WatchIcon />} spacing="compact"></Button>
+                                                <Button iconBefore={<LinkIcon />} spacing="compact"></Button>
+                                                <Button iconBefore={<BitbucketCloneIcon />} spacing="compact"></Button>
+                                            </ButtonGroup>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (null)}
+                        </>
+                    ))}
+                </div>
             </div>
+            <ModalTransition>
+            {isCreateGroupModalOpen && (
+                <Modal
+                    actions={[
+                        { text: 'Create', onClick: () => {createGroup(); setIsCreateGroupModalOpen(false)}},
+                        { text: 'Cancel', onClick: () => {setIsCreateGroupModalOpen(false)} },
+                    ]}
+                    onClose={() => {setIsCreateGroupModalOpen(false)}}
+                    heading="File group">
+                        <div>
+                            <label htmlFor="textfield">Enter a group name</label>
+                            <Textfield value={groupToCreate} onChange={e => setGroupToCreate(e.target.value)} name="textfield" onFocus />
+                        </div>
+                    </Modal>
+                )}
+            </ModalTransition>
+            {/* <ModalTransition>
+            {isAddDocumentModalOpen && (
+                <Modal
+                    actions={[
+                    { text: 'Create', onClick: setIsAddDocumentModalOpen(false) },
+                    { text: 'Cancel', onClick: setIsAddDocumentModalOpen(false) },
+                    ]}
+                    components={{Body: AddDocumentBody}}
+                    onClose={null}
+                    heading="Add a document"></Modal>
+                )}
+        </ModalTransition> */}
         </div>
     )
 }
-
