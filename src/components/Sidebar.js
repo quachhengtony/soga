@@ -8,6 +8,7 @@ import {
     Section,
     SideNavigation,
 } from '@atlaskit/side-navigation';
+import Button from '@atlaskit/button';
 import CustomerIcon from '@atlaskit/icon/glyph/person';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import PeopleGroupIcon from '@atlaskit/icon/glyph/people-group';
@@ -33,7 +34,7 @@ function Sidebar() {
 
   const { workspaceId } = useParams();
 
-  const [workspaceName, setWorkspaceName] = useState("");
+  const [workspaceName, setWorkspaceName] = useState();
   const [rooms, setRooms] = useState([]);
 
   const [{ user }] = useStateValue();
@@ -46,21 +47,44 @@ function Sidebar() {
 
   useEffect(() => {
     db.collection('workspaces').doc(workspaceId).get().then(function(doc) {
-      setWorkspaceName(doc.data().name)
+      setWorkspaceName(doc.data().workspaceName)
     })
-    db.collection('workspaces').doc(workspaceId).collection('rooms').onSnapshot(snapshot => (
+    db.collection('workspaces').doc(workspaceId).collection('rooms').orderBy("timestamp", "asc").onSnapshot(snapshot => (
       setRooms(snapshot.docs.map(doc => ({
         id: doc.id,
-        name: doc.data().name
+        name: doc.data().roomName
       })))
     ))
   }, [])
+
+  const LanguageSettings = () => {
+    return (
+      <NestingItem
+        iconBefore={<PeopleGroupIcon label="" />}
+        title="Language settings"
+      >
+        <Section>
+          <ButtonItem>Customize</ButtonItem>
+          <NestingItem id="3-1-1" title="German Settings">
+            <Section>
+              <ButtonItem>Hallo Welt!</ButtonItem>
+            </Section>
+          </NestingItem>
+          <NestingItem id="3-1-2" title="English Settings">
+            <Section>
+              <ButtonItem>Hello World!</ButtonItem>
+            </Section>
+          </NestingItem>
+        </Section>
+      </NestingItem>
+    );
+  };
 
   return (
     <div className="sidebar">
       <div className='wpBar'>
         <div className='wpBar_button' onClick={push.bind(this, '/manage')}>
-          <HomeIcon label='Home icon' size="medium" primaryColor='#ffffff' />
+          <HomeIcon size="medium" primaryColor='#ffffff' />
         </div>
         <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/timeline`)}>
           <RoadmapIcon label='Roadmap icon' size="medium" primaryColor='#ffffff' />
@@ -83,9 +107,10 @@ function Sidebar() {
       </div>
         <SideNavigation className='rBar'>
           <NavigationHeader>
-            <Header iconBefore={<OfficeBuildingIcon />} description="Workspace">{workspaceName}</Header>
+            <Header iconBefore={<OfficeBuildingIcon />} description="Workspace">{workspaceName ? workspaceName : "..."}</Header>
           </NavigationHeader>
-              <NestableNavigationContent>
+          <NestableNavigationContent>
+                <Section>
                   <Section title='Rooms'>
                     {rooms.map((room, index) => (
                       <SelectRoom text={room.name} id={room.id} key={index} />
@@ -96,14 +121,17 @@ function Sidebar() {
                   </Section>
                   <Section title='People'>
                     <ButtonItem iconBefore={<CustomerIcon />}>{user?.displayName}</ButtonItem>
+                    <Section>
                     <NestingItem iconBefore={<PeopleGroupIcon />} title="Teams">
                       <Section>
                         <ButtonItem>Jack</ButtonItem>
                       </Section>
                     </NestingItem>
+                    </Section>
                   </Section>
                   <Section title="Other">
                     <ButtonItem iconBefore={<AppSwitcherIcon />}>Explore</ButtonItem>
+                  </Section>
                   </Section>
               </NestableNavigationContent>
         </SideNavigation>

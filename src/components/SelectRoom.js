@@ -56,7 +56,7 @@ function SelectRoom({ text, id }) {
 
     return (
         <div className="selectRoom">
-            <ButtonItem id={id} onClick={selectRoom} isSelected={checkRoom}>{text}</ButtonItem>
+            <ButtonItem id={id} onClick={selectRoom} isSelected={checkRoom}>{text ? text : "..."}</ButtonItem>
         </div>
     );
 }

@@ -1,0 +1,12 @@
+.settings {
+    background-color: #FFF;
+    position: absolute;
+    right: 0;
+    width: 77.5%;
+    height: 100vh;
+}
+
+.settingsContainer {
+    margin: 0;
+    padding: 25px;
+}

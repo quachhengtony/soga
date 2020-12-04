@@ -1,0 +1,21 @@
+.login {
+    display: grid;
+    place-content: center;
+    height: 90vh;
+    text-align: center;
+}
+
+.login_header {
+    width: 25vw;
+    padding: 10px 10px 0;
+    background-color: #fafbfc;
+}
+
+.login_body {
+    width: 25vw;
+    padding: 10px;
+    background-color: #fafbfc;
+}
+.login_body > div {
+    margin: 0 0 10px;
+}

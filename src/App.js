@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 import { useStateValue } from './StateProvider';
-import db from './firebase';
+import db, {auth} from './firebase';
 
 import './App.css';
 import Sidebar from './components/Sidebar';
@@ -22,6 +22,8 @@ import Storage from './components/Storage';
 import JobPost from './components/JobPost';
 import JobList from './components/JobList'
 import Talents from './components/Talents';
+import Settings from './components/Settings';
+import RoomVideoConference from './components/RoomVideoConference';
 
 function App() {
 
@@ -49,8 +51,98 @@ function App() {
           });
     }
   }
-  
+
   return (
+    // <Router>
+    //   <div className="app">
+    //     { !user ? (
+    //       <>
+    //         <PublicTopbar />
+    //         <Login />
+    //       </>
+    //     ) : (
+    //       { isPaidUser ? (
+    //         <>
+    //           <Switch>
+    //           <Route path="/sign-in">
+    //               <BusinessTopbar />
+    //               <Login />
+    //             </Route>
+    //             <Route path="/account">
+    //               <BusinessTopbar />
+    //               <Account />
+    //             </Route>
+    //             <Route path="/manage">
+    //               <BusinessTopbar />
+    //               <Manage />
+    //             </Route>
+    //             <Route path="/post-a-remote-job">
+    //               <BusinessTopbar />
+    //               <JobPost />
+    //             </Route>
+    //             <Route path="/find-a-remote-job">
+    //               <BusinessTopbar />
+    //               <JobList />
+    //             </Route>
+    //             <Route path="/talents">
+    //               <BusinessTopbar />
+    //               <Talents />
+    //             </Route>
+    //             </Switch>
+    //         </>
+    //       ) : (
+    //         <>
+    //         <Switch>
+    //           <Route path="/account">
+    //             <LoggedInTopbar />
+    //           <Account />
+    //           </Route>
+    //           <Route path="/manage">
+    //             <LoggedInTopbar />
+    //             <Manage />
+    //           </Route>
+    //           <Route path="/find-a-remote-job">
+    //             <LoggedInTopbar />
+    //             <JobList />
+    //           </Route>
+    //         </Switch>
+    //         </>
+    //       )}
+
+    //       <>
+    //         <Switch>
+    //           <Route path="/workspace/:workspaceId/room/:roomId/chat">
+    //             <Sidebar />
+    //             <Chat />
+    //           </Route>
+    //           <Route path="/workspace/:workspaceId/room/:roomId/board">
+    //             <Sidebar />
+    //             <Board />
+    //           </Route>
+    //           <Route path="/workspace/:workspaceId/room/:roomId/schedule">
+    //             <Sidebar />
+    //             <Schedule />
+    //           </Route>
+    //           <Route path="/workspace/:workspaceId/timeline">
+    //             <Sidebar />
+    //             <Timeline />
+    //           </Route>
+    //           <Route path="/workspace/:workspaceId/storage">
+    //             <Sidebar />
+    //             <Storage />
+    //           </Route>
+    //           <Route path="/workspace/:workspaceId/settings">
+    //             <Sidebar />
+    //             <Settings />
+    //           </Route>
+    //           <Route path="/workspace/:workspaceId/room/:roomId/video/:videoId">
+    //             <RoomVideoConference />
+    //           </Route>
+    //         </Switch>
+    //       </>
+    //     )}
+    //   </div>
+    // </Router>
     <Router>
       <div className="app">
         {!user ? (
@@ -70,10 +162,6 @@ function App() {
             {isPaidUser ? (
               <>
                 <Switch>
-                  {/* <Route path="/sign-in">
-                    <BusinessTopbar />
-                    <Login />
-                  </Route> */}
                   <Route path="/account">
                     <BusinessTopbar />
                     <Account />
@@ -99,9 +187,6 @@ function App() {
             ) : (
             <>
               <Switch>
-                {/* <Route path="/sign-in">
-                  <LoggedInTopbar />
-                </Route> */}
                 <Route path="/account">
                   <LoggedInTopbar />
                   <Account />
@@ -138,6 +223,13 @@ function App() {
                   <Sidebar />
                   <Storage />
                 </Route>
+                <Route path="/workspace/:workspaceId/settings">
+                 <Sidebar />
+                 <Settings />
+               </Route>
+               <Route path="/workspace/:workspaceId/room/:roomId/video/:videoId">
+                 <RoomVideoConference />
+               </Route>
               </Switch>
           </>
         )

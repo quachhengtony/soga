@@ -32,7 +32,7 @@ function PublicTopbar() {
                     <PrimaryButton>Solutions</PrimaryButton>,
                     <PrimaryButton>Support</PrimaryButton>,
                     <PrimaryButton>Company</PrimaryButton>,
-                    <PrimaryButton onClick={push.bind(this, "/find-a-remote-job")}>Find a Remote Job</PrimaryButton>
+                    // <PrimaryButton onClick={push.bind(this, "/find-a-remote-job")}>Find a Remote Job</PrimaryButton>
                 ]}
                 renderSignIn={SignIn}
                 />
@@ -53,9 +53,9 @@ function LoggedInTopbar() {
         <PrimaryButton className="topbar__primaryButton" onClick={push.bind(this, '/home')}>SOGA</PrimaryButton>
     );
 
-    const JobList = () => (
-        <PrimaryButton onClick={push.bind(this, '/find-a-remote-job')}>Find a Remote Job</PrimaryButton>
-    )
+    // const JobList = () => (
+    //     <PrimaryButton onClick={push.bind(this, '/find-a-remote-job')}>Find a Remote Job</PrimaryButton>
+    // )
 
     const Notification = () => (
         <a className="topbar__roundedButton">
@@ -84,7 +84,7 @@ function LoggedInTopbar() {
                     <PrimaryButton onClick={push.bind(this, "/talents")}>Talents</PrimaryButton>,
                     <PrimaryButton onClick={push.bind(this, "/manage")}>Manage</PrimaryButton>
                 ]}
-                renderCreate={JobList}
+                // renderCreate={JobList}
                 renderNotifications={Notification}
                 renderHelp={Help}
                 renderProfile={Account}
@@ -121,9 +121,9 @@ function BusinessTopbar() {
         <PrimaryButton onClick={push.bind(this, '/account')}>{user?.displayName}</PrimaryButton>
     );
 
-    const JobPost = () => (
-        <PrimaryButton onClick={push.bind(this, '/post-a-remote-job')}>Post a Remote Job</PrimaryButton>
-    )
+    // const JobPost = () => (
+    //     <PrimaryButton onClick={push.bind(this, '/post-a-remote-job')}>Post a Remote Job</PrimaryButton>
+    // )
 
     return (
         <div className="topbar">
@@ -133,10 +133,10 @@ function BusinessTopbar() {
                     <PrimaryButton>Why Soga?</PrimaryButton>,
                     <PrimaryButton>Solutions</PrimaryButton>,
                     <PrimaryButton>Company</PrimaryButton>,
-                    <PrimaryButton onClick={push.bind(this, '/talents')}>Talents</PrimaryButton>,
+                    // <PrimaryButton onClick={push.bind(this, '/talents')}>Talents</PrimaryButton>,
                     <PrimaryButton onClick={push.bind(this, '/manage')}>Manage</PrimaryButton>
                 ]}
-                renderCreate={JobPost}
+                // renderCreate={JobPost}
                 renderNotifications={Notification}
                 renderHelp={Help}
                 renderProfile={Account}

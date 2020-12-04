@@ -7,6 +7,8 @@ import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 import HipchatSdVideoIcon from '@atlaskit/icon/glyph/hipchat/sd-video';
 import VidShareScreenIcon from '@atlaskit/icon/glyph/vid-share-screen';
 import AttachmentIcon from '@atlaskit/icon/glyph/attachment';
+import { v1 as uuid } from 'uuid';
+import { useHistory } from 'react-router-dom';
 
 import './ChatInput.css';
 import db, { storage } from '../firebase';
@@ -16,6 +18,8 @@ function ChatInput({ roomName, roomId, workspaceId }) {
 
     const [input, setInput] = useState('');
     const [{ user }] = useStateValue();
+
+    const history = useHistory();
 
     const sendMessage = e  => {
         e.preventDefault();
@@ -44,6 +48,11 @@ function ChatInput({ roomName, roomId, workspaceId }) {
         }
     }
 
+    const createRoomVideoConference = () => {
+        const id = uuid();
+        history.push(`video/${id}`);
+    }
+
     return (
         <div className="chatinput">
             <div className="textfield_container">
@@ -52,7 +61,7 @@ function ChatInput({ roomName, roomId, workspaceId }) {
             <div classname="buttons_container">
                 <Button className="button" appearance="primary" iconBefore={<AttachmentIcon label="" />}></Button>
                 <Button className="button" appearance="primary" iconBefore={<VidShareScreenIcon label="" />}></Button>
-                <Button className="button" appearance="primary" iconBefore={<HipchatSdVideoIcon label="" />}></Button>
+                <Button className="button" onClick={createRoomVideoConference} appearance="primary" iconBefore={<HipchatSdVideoIcon label="" />}></Button>
                 <Button className="button" appearance="primary" iconBefore={<EmojiIcon label="" />}></Button>
                 <Button className="button" onClick={sendMessage} appearance="primary" iconBefore={<SendIcon label="" />}></Button>
             </div>
