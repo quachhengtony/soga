@@ -81,8 +81,8 @@ function LoggedInTopbar() {
                     <PrimaryButton>Why Soga?</PrimaryButton>,
                     <PrimaryButton>Solutions</PrimaryButton>,
                     <PrimaryButton>Company</PrimaryButton>,
-                    <PrimaryButton onClick={push.bind(this, "/talents")}>Talents</PrimaryButton>,
-                    <PrimaryButton onClick={push.bind(this, "/manage")}>Manage</PrimaryButton>
+                    // <PrimaryButton onClick={push.bind(this, "/talents")}>Talents</PrimaryButton>,
+                    <PrimaryButton onClick={push.bind(this, "/inbox")}>Inbox</PrimaryButton>
                 ]}
                 // renderCreate={JobList}
                 renderNotifications={Notification}

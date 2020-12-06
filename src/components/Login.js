@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import Button from '@atlaskit/button';
 import GsuiteIcon from '@atlaskit/icon/glyph/gsuite';
 import firebase from 'firebase'; 
@@ -65,6 +64,7 @@ function Login() {
                             type: actionTypes.SET_USER,
                             user: result.user,
                         });
+                        history.push('/account');
                     })
                     .catch((error) => {
                         alert(error.message);

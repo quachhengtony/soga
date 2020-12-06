@@ -7,7 +7,6 @@
 }
 
 .storage__header {
-    height: 10vh;
     display: flex;
     padding: 25px;
 }
@@ -17,7 +16,13 @@
 }
 
 .--info {
-    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.--info > div {
+    margin-right: 5px;
 }
 
 .--uploadButton {
@@ -65,4 +70,19 @@
 
 .authorButton {
     font-size: 12.5px !important;
+}
+
+.branchesButton {
+    border: 2px solid #DFE1E6 !important;
+    width: 40px !important;
+    background: #FAFBFC !important;
+    height: 40px !important;
+}
+
+.branchesButton:hover {
+    background: #EBECF0 !important;
+}
+
+.groupNameTextfield {
+
 }

@@ -6,7 +6,32 @@
     height: 100vh;
 }
 
-.settingsContainer {
-    margin: 0;
-    padding: 25px;
+.settings__header{
+    padding: 25px 25px 0;
+}
+
+.settings__body {
+    height: 80vh;
+    padding: 25px 25px 0;
+}
+
+.settings__container {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.textfield__container {
+    /* flex: 0.5; */
+    width: 600px;
+}
+
+.button__container {
+    /* flex: 0.2; */
+    margin: auto 25px 0 10px;
+}
+
+--danger {
+    border: 1px solid #D73A49;
+    height: 100px;
+    width: 100vw;
 }

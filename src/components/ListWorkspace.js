@@ -1,5 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import Button, { ButtonGroup } from '@atlaskit/button';
+import SettingsIcon from '@atlaskit/icon/glyph/settings';
+import MediaServicesOpenMediaviewerIcon from '@atlaskit/icon/glyph/media-services/open-mediaviewer';
 
 import './ListWorkspace.css';
 import db from '../firebase';
@@ -27,13 +29,22 @@ function ListWorkspace({ id, name, date }) {
     
     return (
         <div className="listWorkspace">
-            <p><a>{name? name : "No name"}</a></p>
-            <p>Created at: {date? date : "No date"}</p>
-            <ButtonGroup>
-                <Button id={id} onClick={goToWorkspace} spacing='compact'>Open workspace</Button>
-                <Button id={id} onClick={deleteWorkspace} spacing='compact'>Delete</Button>
-                <Button spacing='compact'>Settings</Button>
-            </ButtonGroup>
+            <div className="listWorkspace__left">
+                <div>
+                    <p className="listWorkspace__text">{name? name : "No name"}</p>
+                    <p className="listWorkspace__text">Created at: {date? date : "No date"}</p>
+                </div>
+            </div>
+            <div className="listWorkspace__right">
+                {/* <ButtonGroup> */}
+                <div>
+                    <Button className="listWorkspace__button" appearance="default" id={id} iconBefore={<MediaServicesOpenMediaviewerIcon />} onClick={goToWorkspace} shouldFitContainer={true}></Button>
+                </div>
+                <div>
+                    <Button className="listWorkspace__button" appearance="default" iconBefore={<SettingsIcon />} shouldFitContainer={true}></Button>
+                </div>
+                {/* </ButtonGroup> */}
+            </div>
         </div>
     );
 }

@@ -8,6 +8,7 @@ import FileIcon from '@atlaskit/icon/glyph/file';
 import LinkIcon from '@atlaskit/icon/glyph/link';
 import BitbucketCloneIcon from '@atlaskit/icon/glyph/bitbucket/clone';
 import WatchIcon from '@atlaskit/icon/glyph/watch';
+import BitbucketBranchesIcon from '@atlaskit/icon/glyph/bitbucket/branches';
 
 import './Storage.css';
 import db, { storage } from '../firebase';
@@ -145,7 +146,10 @@ export default function Storage() {
         <div className="storage">
             <div className="storage__header">
                 <div className="storageHeader__container --info">
-                    <Textfield placeholder="Group name" value={groupToGetFiles} onChange={e => setGroupToGetFiles(e.target.value)} onKeyDown={getWorkdriveFiles} />
+                    <div>
+                        <Button className="branchesButton" iconBefore={<BitbucketBranchesIcon label="" />}></Button>
+                    </div>
+                    <Textfield className="groupNameTextfield" placeholder="Group name" value={groupToGetFiles} onChange={e => setGroupToGetFiles(e.target.value)} onKeyDown={getWorkdriveFiles} />
                 </div>
                 <div className="storageHeader__container --uploadButton">
                     <input id="file_input" type="file" onChange={uploadFile} hidden />
