@@ -33,13 +33,12 @@ import { useStateValue } from '../StateProvider';
 function Sidebar() {
 
   const { workspaceId } = useParams();
-
-  const [workspaceName, setWorkspaceName] = useState();
-  const [rooms, setRooms] = useState([]);
-
   const [{ user }] = useStateValue();
-
   const history = useHistory();
+
+  const [workspaceName, setWorkspaceName] = useState("");
+  const [rooms, setRooms] = useState([]);
+  const [workspaceUsers, setWorkspaceUsers] = useState([]);
 
   const push = (destination) => {
     history.push(destination);
@@ -51,34 +50,14 @@ function Sidebar() {
     })
     db.collection('workspaces').doc(workspaceId).collection('rooms').orderBy("timestamp", "asc").onSnapshot(snapshot => (
       setRooms(snapshot.docs.map(doc => ({
-        id: doc.id,
-        name: doc.data().roomName
+        roomId: doc.id,
+        roomName: doc.data().roomName
       })))
     ))
+    db.collection("workspaces").doc(workspaceId).collection("settings").doc("user").collection("workspaceUsers").onSnapshot(snapshot => (
+      setWorkspaceUsers(snapshot.docs.map(doc => doc.data()))
+    ))
   }, [])
-
-  const LanguageSettings = () => {
-    return (
-      <NestingItem
-        iconBefore={<PeopleGroupIcon label="" />}
-        title="Language settings"
-      >
-        <Section>
-          <ButtonItem>Customize</ButtonItem>
-          <NestingItem id="3-1-1" title="German Settings">
-            <Section>
-              <ButtonItem>Hallo Welt!</ButtonItem>
-            </Section>
-          </NestingItem>
-          <NestingItem id="3-1-2" title="English Settings">
-            <Section>
-              <ButtonItem>Hello World!</ButtonItem>
-            </Section>
-          </NestingItem>
-        </Section>
-      </NestingItem>
-    );
-  };
 
   return (
     <div className="sidebar">
@@ -113,7 +92,7 @@ function Sidebar() {
                 <Section>
                   <Section title='Rooms'>
                     {rooms.map((room, index) => (
-                      <SelectRoom text={room.name} id={room.id} key={index} />
+                      <SelectRoom text={room.roomName} id={room.roomId} key={index} />
                     ))}
                     <CreateRoom />
                     <ButtonItem onClick={push.bind(this, `board`)} iconBefore={<BoardIcon/>}>Board</ButtonItem>
@@ -121,13 +100,11 @@ function Sidebar() {
                   </Section>
                   <Section title='People'>
                     <ButtonItem iconBefore={<CustomerIcon />}>{user?.displayName}</ButtonItem>
-                    <Section>
-                    <NestingItem iconBefore={<PeopleGroupIcon />} title="Teams">
-                      <Section>
-                        <ButtonItem>Jack</ButtonItem>
-                      </Section>
-                    </NestingItem>
-                    </Section>
+                    {workspaceUsers.map(({ userEmail }) => (
+                      <>
+                        {userEmail != user?.email && <ButtonItem iconBefore={<PeopleGroupIcon />}>{userEmail}</ButtonItem>}
+                      </>
+                    ))}
                   </Section>
                   <Section title="Other">
                     <ButtonItem iconBefore={<AppSwitcherIcon />}>Explore</ButtonItem>

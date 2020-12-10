@@ -15,23 +15,56 @@
     padding: 25px 25px 0;
 }
 
-.settings__container {
+.container {
+    margin: 5px 0 0 25px;
+    display: flex;
+    height: auto;
+    left: 0;
+    width: 850px;
+}
+
+.container > div {
+    margin: 5px;
+    flex: 0.5;
+}
+
+.flexContainer {
     display: flex;
     margin-bottom: 10px;
 }
 
+.--border-red {
+    border: 2px solid #D73A49;
+    border-radius: 3px;
+}
+
+.roomsList__container {
+    margin: 10px 0 10px 0;
+}
+
+.roomsList {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.roomsList td, .roomsList th {
+    border: 2px solid #DFE1E6;
+    padding: 8px;
+}
+
+.roomsList tr:hover {background-color: #FAFBFC;}
+
+.roomsList th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #FAFBFC;
+}
+
 .textfield__container {
-    /* flex: 0.5; */
     width: 600px;
 }
 
 .button__container {
-    /* flex: 0.2; */
     margin: auto 25px 0 10px;
-}
-
---danger {
-    border: 1px solid #D73A49;
-    height: 100px;
-    width: 100vw;
 }

@@ -35,36 +35,52 @@ function Board() {
         })
     }
 
+    const onDragEnd = (result, columns, setColumns) => {
+        if (!result.destination) return;
+        // const { source, destination } = result;
+        // const column = columns[source.droppableId];
+        // const copiedItems = [...column.items];
+        // console.log("copied Itesm", copiedItems);
+        // console.log("Droppable Id >>>", result.destination.droppableId);
+        // console.log("Draggable Id >>>", result.);
+    }
+
     return (
-        <div className='container'>
-        <div className='board_header'>
-            <Button spacing="compact" appearance="subtle-link">{roomId}'s Board</Button>
-        </div>
-        <DragDropContext onDragEnd={() => console.log("Drag end")}>
-            <div className='board'>
-                {columns.map(column => (
-                    <Droppable droppableId={column.id}>
-                        {(provided, snapshot) => (
-                            <div
-                            ref={provided.innerRef}
-                            style={{ backgroundColor: snapshot.isDraggingOver ? '#4285F4' : '#FFF' }}
-                            {...provided.droppableProps}
-                            >
-                                <div className="board_column">
-                                    <h5>{column.name}</h5>
-                                    <ListCard columnId={column.id} />
-                                    <CreateCard columnId={column.id} />
+        <div className='board'>
+            <div className='board__header'>
+                <Button spacing="compact" appearance="subtle-link">{roomId}'s board</Button>
+            </div>
+            <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
+                <div className='board__columnsContainer'>
+                    {columns.map(column => (
+                        <Droppable droppableId={column.id}>
+                            {(provided, snapshot) => (
+                                <div
+                                ref={provided.innerRef}
+                                style={{ backgroundColor: snapshot.isDraggingOver ? '#4285F4' : '#FFF' }}
+                                {...provided.droppableProps}
+                                >
+                                    <div className="column">
+                                        <div className="column__header">
+                                            <div className="columnHeader__name">
+                                                <Button spacing="compact" appearance="subtle-link">{column.name}</Button>
+                                            </div>
+                                            <div className="columnHeader__button">
+                                                <CreateCard columnId={column.id} />
+                                            </div>
+                                        </div>
+                                        <ListCard columnId={column.id} />
+                                    </div>
+                                    {provided.placeholder}
                                 </div>
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
-                ))}
-            <div>
-                <Button className="board_addButton" onClick={addColumn}>Create Board</Button>
-            </div>
-            </div>
-        </DragDropContext>
+                            )}
+                        </Droppable>
+                    ))}
+                <div>
+                    <Button className="board_addButton" appearance="primary" onClick={addColumn}>New column</Button>
+                </div>
+                </div>
+            </DragDropContext>
         </div>
     );
 }

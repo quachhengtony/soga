@@ -1,5 +1,4 @@
 .createCard {
-    position: absolute;
-    bottom: 0;
-    margin-bottom: 140px;
+    display: flex;
+    float: right;
 }

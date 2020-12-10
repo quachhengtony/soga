@@ -12,15 +12,11 @@ function Inbox() {
     const [{ user }] = useStateValue();
     const history = useHistory();
 
-    const getAddedWorkspaces = () => {
-        db.collection("freeUsers").doc(user.email).collection("workspaces").onSnapshot(snapshot => (
-                setAddedWorkspaces(snapshot.docs.map(doc => doc.data()))
-        ))
-    }
-
     useEffect(() => {
         if (user) {
-            getAddedWorkspaces();
+            db.collection("freeUsers").doc(user.email).collection("inbox").onSnapshot(snapshot => (
+                setAddedWorkspaces(snapshot.docs.map(doc => doc.data()))
+            ))
         }
     })
 

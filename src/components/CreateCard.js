@@ -22,7 +22,7 @@ function CreateCard({ columnId }) {
 
     return (
         <div className="createCard">
-            <Button className="createCard_button" onClick={addCard}>Add Card</Button>
+            <Button className="createCard_button" onClick={addCard} spacing="compact">New card</Button>
         </div>
     );
 }

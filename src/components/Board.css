@@ -1,27 +1,30 @@
-.container {
+.board {
     display: flex;
     position: absolute;
     right: 0;
     width: 77.5%;
     height: 600px;
     margin: 0;
+    /* border: 1px solid red; */
 }
 
-.board {
+.board__columnsContainer {
     display: flex;
     height: 600px;
     overflow-y: hidden;
     margin: 30px 0 0;
+    /* border: 1px solid blue; */
 }
 
-.board_header {
+.board__header {
     display: flex;
     position: absolute;
     top: 0;
     margin: 10px;
+    /* border: 1px solid green; */
 }
 
-.board_column {
+.column {
     margin: 10px;
     padding: 10px;
     width: 260px;
@@ -29,6 +32,19 @@
     border-radius: 0 !important;
     background-color: #fafbfc;
     text-align: center;
+}
+
+.column__header {
+    margin: 0 0 10px;
+    display: flex;
+}
+
+.columnHeader__name {
+    flex: 0.5;
+}
+
+.columnHeader__button {
+    flex: 0.5;
 }
 
 .board_addButton {
