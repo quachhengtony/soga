@@ -1,5 +1,4 @@
 import { AtlassianNavigation, PrimaryButton } from '@atlaskit/atlassian-navigation';
-import Button from '@atlaskit/button';
 import NotificationIcon from '@atlaskit/icon/glyph/notification';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import { useHistory } from 'react-router-dom';

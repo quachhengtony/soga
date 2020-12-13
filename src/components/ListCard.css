@@ -1,15 +1,10 @@
-.listCard_card {
+.listCard__card {
     margin-bottom: 10px;
-    width: 250px;
+    width: auto;
     height: 100px;
     background: #FFF;
+    border: 2px solid var(--atlassian-blue);
     text-align: left;
     padding: 5px;
     border-radius: 3px;
-}
-
-.listCard_moreButton {
-    top: 0;
-    right: 0;
-    margin-bottom: 0;
 }

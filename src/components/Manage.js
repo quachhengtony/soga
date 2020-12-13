@@ -14,7 +14,7 @@ function Manage() {
     const [workspaces, setWorkspaces] = useState([]);
     const [{ user }] = useStateValue();
     const [isCreateWorkspaceModalOpen, setIsCreateWorkspaceModalOpen] = useState(false);
-    const [workspaceName, setWorkspaceName] = useState();
+    const [workspaceName, setWorkspaceName] = useState("");
     const [currentDate, setCurrentDate] = useState();
 
     const getCurrentDate = () => {
@@ -52,14 +52,14 @@ function Manage() {
     useEffect(() => {
         getCurrentDate();
         getWorkspaces();
-    })
+    }, [workspaces])
 
     return (
         <div className="console">
             <div className="console_header">
                 <h2>Workspace</h2>
                 <p>Managing your talented remote teams via dedicated workspaces</p>
-                <Button appearance='primary' className="createWorkspace_button" onClick={() => setIsCreateWorkspaceModalOpen(true)}>Create Workspace</Button>
+                <Button appearance='primary' className="createWorkspace_button" onClick={() => setIsCreateWorkspaceModalOpen(true)}>Create workspace</Button>
             </div>
             <div className='console_body'>
                 {workspaces.map((workspace, index) => (

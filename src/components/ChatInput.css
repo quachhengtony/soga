@@ -7,16 +7,16 @@
     right: 0;
 }
 
-.textfield_container {
+.textfield__container {
     flex: 0.9;
     margin: 0 10px 0 0;
 }
 
-.buttons_container {
+.buttons__container {
     flex: 0.1;
 }
 
-.button {
+.chatInput__button {
     margin: 0 5px 0 0;
     width: 40px !important;
 }

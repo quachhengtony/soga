@@ -1,5 +1,5 @@
 import Avatar, { AvatarItem } from '@atlaskit/avatar';
-import React from 'react';
+import { memo } from 'react';
 import './Message.css';
 
 function Message({ message, user, timestamp, userImage }) {
@@ -15,4 +15,4 @@ function Message({ message, user, timestamp, userImage }) {
 }
 // <p>{user}, {new Date(timestamp?.toDate()).toUTCString()}</p>
 
-export default Message;
+export default memo(Message);

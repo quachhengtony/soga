@@ -8,10 +8,7 @@
     --blue-hover: #e9f1fe;
     --red: #ea4335;
     --red-bg: #fef9f8;
-    --atlassian-blue: #0747A6;
-}
-.app {
-    /* display: flex; */
-    /* overflow-y: scroll; */
+    /* --atlassian-blue: #0747A6; */
+    --atlassian-blue: #0052CC;
 }
 

@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import { ScheduleComponent, HeaderRowDirective, HeaderRowsDirective, TimelineMonth, Inject, ViewsDirective, ViewDirective, DragAndDrop, Resize } from '@syncfusion/ej2-react-schedule';
 import './Timeline.css';
 
-export default function Timeline() {
+function Timeline() {
     return (
         <div className='timeline'>
             <ScheduleComponent width='100%' height='100%' allowDragAndDrop={true}>
@@ -17,3 +18,5 @@ export default function Timeline() {
         </div>
     );
 }
+
+export default memo(Timeline);

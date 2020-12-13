@@ -1,34 +1,41 @@
 .listWorkspace {
     display: flex;
-    border-left: 5px solid #0052CC;
+    border-radius: 3px;
+    border: 2px solid #0052CC;
     margin: 0 0 25px;
+    cursor: pointer;
 }
 
 .listWorkspace__left {
-    flex: 0.7;
+    flex: 0.9;
     display: flex;
-    background-color: #F5F6F8;
+    background-color: #FFF;
     height: 50px;
     justify-content: left;
     align-items: center;
     padding-left: 10px;
 }
 
+.listWorkspace__left:hover {
+    color: var(--atlassian-blue);
+}
+
 .listWorkspace__right {
-    flex: 0.3;
+    flex: 0.1;
     display: flex;
     margin: auto;
 }
 
-.listWorkspace__right > div {
+/* .listWorkspace__right > div {
     flex: 1;
-}
+} */
 
 .listWorkspace__button {
     height: 50px !important;
     border-radius: 0 !important;
+    background-color: #FFF !important;
 }
 
-.listWorkspace__text {
-    
+.listWorkspace__button:hover {
+    color: var(--atlassian-blue) !important;
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
     ButtonItem,
     NavigationHeader,
@@ -8,7 +8,6 @@ import {
     Section,
     SideNavigation,
 } from '@atlaskit/side-navigation';
-import Button from '@atlaskit/button';
 import CustomerIcon from '@atlaskit/icon/glyph/person';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import PeopleGroupIcon from '@atlaskit/icon/glyph/people-group';
@@ -44,19 +43,36 @@ function Sidebar() {
     history.push(destination);
   }
 
-  useEffect(() => {
-    db.collection('workspaces').doc(workspaceId).get().then(function(doc) {
-      setWorkspaceName(doc.data().workspaceName)
-    })
+  const memoizedSetRooms = useCallback(() => {
     db.collection('workspaces').doc(workspaceId).collection('rooms').orderBy("timestamp", "asc").onSnapshot(snapshot => (
       setRooms(snapshot.docs.map(doc => ({
         roomId: doc.id,
         roomName: doc.data().roomName
       })))
     ))
+  }, [rooms])
+
+  const memoizedSetWorkspaceUsers = useCallback(() => {
     db.collection("workspaces").doc(workspaceId).collection("settings").doc("user").collection("workspaceUsers").onSnapshot(snapshot => (
       setWorkspaceUsers(snapshot.docs.map(doc => doc.data()))
     ))
+  }, [workspaceUsers])
+
+  useEffect(() => {
+    db.collection('workspaces').doc(workspaceId).get().then(function(doc) {
+      setWorkspaceName(doc.data().workspaceName)
+    })
+    memoizedSetRooms();
+    // db.collection('workspaces').doc(workspaceId).collection('rooms').orderBy("timestamp", "asc").onSnapshot(snapshot => (
+    //   setRooms(snapshot.docs.map(doc => ({
+    //     roomId: doc.id,
+    //     roomName: doc.data().roomName
+    //   })))
+    // ))
+    memoizedSetWorkspaceUsers();
+    // db.collection("workspaces").doc(workspaceId).collection("settings").doc("user").collection("workspaceUsers").onSnapshot(snapshot => (
+    //   setWorkspaceUsers(snapshot.docs.map(doc => doc.data()))
+    // ))
   }, [])
 
   return (

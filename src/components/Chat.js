@@ -9,7 +9,7 @@ import ChatInput from './ChatInput';
 function Chat() {
 
     const { roomId, workspaceId } = useParams();
-    const [roomDetails, setRoomDetails] = useState(null);
+    const [roomDetails, setRoomDetails] = useState([]);
     const [roomMessages, setRoomMessages] = useState([]);
 
     useEffect(() => {
@@ -28,9 +28,8 @@ function Chat() {
 
     return (
         <div className="chat">
-            <div className="chat_card">
-                <div className="chat_body">
-                    <div className="chat_message">
+                <div className="chat__body">
+                    <div className="messageContainer">
                         {roomMessages.map(({ message, timestamp, user, userImage }) => (
                             <Message
                                 message={message}
@@ -41,7 +40,6 @@ function Chat() {
                     </div>
                 </div>
                 <ChatInput className="chat_input" roomName={roomDetails?.name} roomId={roomId} workspaceId={workspaceId} />
-           </div>
         </div>
     );
 }

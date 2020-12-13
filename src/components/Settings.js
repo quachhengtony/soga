@@ -38,7 +38,8 @@ function Settings() {
             .delete()
             .then(function() {
                 console.log("Room successfully deleted!");
-            }).catch(function(error) {
+            })
+            .catch(function(error) {
                 console.error("Error removing room: ", error);
             });
     }

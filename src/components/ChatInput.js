@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import firebase from 'firebase';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import Button from '@atlaskit/button';
 import Textfield from "@atlaskit/textfield";
 import SendIcon from '@atlaskit/icon/glyph/send';
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
@@ -11,12 +11,12 @@ import { v1 as uuid } from 'uuid';
 import { useHistory } from 'react-router-dom';
 
 import './ChatInput.css';
-import db, { storage } from '../firebase';
+import db from '../firebase';
 import { useStateValue } from '../StateProvider';
 
 function ChatInput({ roomName, roomId, workspaceId }) {
 
-    const [input, setInput] = useState('');
+    const input = useRef("");
     const [{ user }] = useStateValue();
 
     const history = useHistory();
@@ -25,26 +25,26 @@ function ChatInput({ roomName, roomId, workspaceId }) {
         e.preventDefault();
         if (roomId) {
             db.collection('workspaces').doc(workspaceId).collection('rooms').doc(roomId).collection('messages').add({
-                message: input,
+                message: input.current.value,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                 user: user.displayName,
                 userImage: user?.photoURL,
             })
         }
-        setInput("");
+        input.current.value = "";
     }
 
     const sendMessageWithKey = e => {
         if (e.keyCode === 13) {
             if (roomId) {
                 db.collection('workspaces').doc(workspaceId).collection('rooms').doc(roomId).collection('messages').add({
-                    message: input,
+                    message: input.current.value,
                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                     user: user.displayName,
                     userImage: user?.photoURL,
                 })
             }
-            setInput("");
+            input.current.value = "";
         }
     }
 
@@ -55,15 +55,15 @@ function ChatInput({ roomName, roomId, workspaceId }) {
 
     return (
         <div className="chatinput">
-            <div className="textfield_container">
-                <Textfield value={input} onChange={e => setInput(e.target.value)} onKeyDown={sendMessageWithKey} className="textfield" name="basic" />
+            <div className="textfield__container">
+                <Textfield ref={input} onKeyDown={sendMessageWithKey} className="textfield" name="basic" />
             </div>
-            <div classname="buttons_container">
-                <Button className="button" appearance="primary" iconBefore={<AttachmentIcon label="" />}></Button>
-                <Button className="button" appearance="primary" iconBefore={<VidShareScreenIcon label="" />}></Button>
-                <Button className="button" onClick={createRoomVideoConference} appearance="primary" iconBefore={<HipchatSdVideoIcon label="" />}></Button>
-                <Button className="button" appearance="primary" iconBefore={<EmojiIcon label="" />}></Button>
-                <Button className="button" onClick={sendMessage} appearance="primary" iconBefore={<SendIcon label="" />}></Button>
+            <div classname="buttons__container">
+                <Button className="chatInput__button" appearance="primary" iconBefore={<AttachmentIcon label="" />}></Button>
+                <Button className="chatInput__button" appearance="primary" iconBefore={<VidShareScreenIcon label="" />}></Button>
+                <Button className="chatInput__button" onClick={createRoomVideoConference} appearance="primary" iconBefore={<HipchatSdVideoIcon label="" />}></Button>
+                <Button className="chatInput__button" appearance="primary" iconBefore={<EmojiIcon label="" />}></Button>
+                <Button className="chatInput__button" onClick={sendMessage} appearance="primary" iconBefore={<SendIcon label="" />}></Button>
             </div>
         </div>
     );

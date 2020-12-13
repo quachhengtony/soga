@@ -5,7 +5,6 @@
     width: 77.5%;
     height: 600px;
     margin: 0;
-    /* border: 1px solid red; */
 }
 
 .board__columnsContainer {
@@ -13,7 +12,6 @@
     height: 600px;
     overflow-y: hidden;
     margin: 30px 0 0;
-    /* border: 1px solid blue; */
 }
 
 .board__header {
@@ -21,7 +19,6 @@
     position: absolute;
     top: 0;
     margin: 10px;
-    /* border: 1px solid green; */
 }
 
 .column {
@@ -29,8 +26,9 @@
     padding: 10px;
     width: 260px;
     height: 500px;
-    border-radius: 0 !important;
-    background-color: #fafbfc;
+    border-radius: 3px;
+    background-color: #FAFBFC;
+    border-top: 4px solid var(--yellow);
     text-align: center;
 }
 

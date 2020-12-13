@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { memo, useState, useEffect, useCallback } from 'react';
 import Button from '@atlaskit/button';
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import firebase from 'firebase';
@@ -16,16 +16,16 @@ function Board() {
 
     useEffect(() => {
         renderColumns();
-    })
+    }, [])
 
-    const renderColumns = () => {
+    const renderColumns = useCallback(() => {
         db.collection('workspaces').doc(workspaceId).collection('rooms').doc(roomId).collection('columns').orderBy("timestamp", "asc").onSnapshot(snapshot => (
                 setColumns(snapshot.docs.map(doc => ({
                     id: doc.id,
                     name: doc.data().name
                 })))
         ))
-    }
+    }, [columns])
 
     const addColumn = () => {
         const columnName = prompt('Enter column name:');
@@ -35,14 +35,18 @@ function Board() {
         })
     }
 
-    const onDragEnd = (result, columns, setColumns) => {
+    const onDragEnd = async (result, columns, setColumns) => {
         if (!result.destination) return;
-        // const { source, destination } = result;
-        // const column = columns[source.droppableId];
-        // const copiedItems = [...column.items];
-        // console.log("copied Itesm", copiedItems);
-        // console.log("Droppable Id >>>", result.destination.droppableId);
-        // console.log("Draggable Id >>>", result.);
+        if (result.destination.droppableId != result.source.droppableId) {
+            await db.collection("workspaces").doc(workspaceId).collection("rooms").doc(roomId).collection("columns").doc(result.source.droppableId).collection("cards").doc(result.draggableId)
+                .delete()
+                .then(function() {
+                    console.log("Card successfully deleted")
+                })
+                .catch(function(error) {
+                    console.error("Error removing card: ", error)
+                })
+        }
     }
 
     return (
@@ -57,7 +61,6 @@ function Board() {
                             {(provided, snapshot) => (
                                 <div
                                 ref={provided.innerRef}
-                                style={{ backgroundColor: snapshot.isDraggingOver ? '#4285F4' : '#FFF' }}
                                 {...provided.droppableProps}
                                 >
                                     <div className="column">
@@ -85,4 +88,4 @@ function Board() {
     );
 }
 
-export default Board;
+export default memo(Board);

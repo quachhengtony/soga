@@ -6,3 +6,46 @@
     height: 100vh;
     margin: 0;
 }
+
+.e-control .e-schedule .e-lib e-keyboard {
+    border: 1px solid red !important;
+}
+.e-schedule .e-schedule-toolbar .e-toolbar-items.e-tbar-pos {
+    background-color: #FFF !important;
+    border: none !important;
+}
+
+.e-schedule .e-timeline-month-view .e-header-month-cell {
+    border: none !important;
+}
+
+.e-schedule .e-timeline-month-view .e-header-week-cell {
+    border: none !important;
+}
+
+.e-schedule .e-timeline-month-view .e-header-cells {
+    border: none !important;
+} 
+
+.e-schedule .e-timeline-month-view .e-work-cells  {
+    border: none !important;
+}
+
+/* .e-schedule .e-schedule-toolbar .e-toolbar-items.e-tbar-pos,
+.e-schedule .e-timeline-month-view .e-header-month-cell,
+.e-schedule .e-timeline-month-view .e-header-week-cell,
+.e-schedule .e-timeline-month-view .e-header-cells,
+.e-schedule .e-timeline-month-view .e-work-cells  {
+    border: 2px solid #DFE1E6;
+} */
+
+.e-schedule .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-btn,
+.e-schedule .e-timeline-month-view .e-work-cells.custom {
+    background-color: #FFF !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+.e-schedule .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-btn:hover {
+    background-color: #F5F6F8 !important;
+}

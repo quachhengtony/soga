@@ -1,3 +1,4 @@
+import { useCallback } from 'react'; 
 import Button from '@atlaskit/button';
 import GsuiteIcon from '@atlaskit/icon/glyph/gsuite';
 import firebase from 'firebase'; 
@@ -12,8 +13,8 @@ function Login() {
 
     const history = useHistory();
     const [state, dispatch] = useStateValue();
-    
-    // const login = () => {
+
+    // const login = useCallback(() => {
     //     auth
     //         .signInWithPopup(provider)
     //         .then((result) => {
@@ -27,7 +28,23 @@ function Login() {
     //             alert(error.message);
     //         });
     //     history.push("/account");
-    // };
+    // }, [])
+    
+    const login = () => {
+        auth
+            .signInWithPopup(provider)
+            .then((result) => {
+                console.log(result);
+                dispatch({
+                    type: actionTypes.SET_USER,
+                    user: result.user,
+                });
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+        history.push("/account");
+    };
 
         // const login = useCallback(
         //     async event => {
@@ -54,28 +71,28 @@ function Login() {
         //     [history]
         // );
 
-    const login = () => {
-        auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
-        .then(function() {
-            return auth.signInWithPopup(provider)
-                    .then((result) => {
-                        console.log(result);
-                        dispatch({
-                            type: actionTypes.SET_USER,
-                            user: result.user,
-                        });
-                        history.push('/account');
-                    })
-                    .catch((error) => {
-                        alert(error.message);
-                    });
-        })
-        .catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-        });
-    }
+    // const login = () => {
+    //     auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    //     .then(function() {
+    //         return auth.signInWithPopup(provider)
+    //                 .then((result) => {
+    //                     console.log(result);
+    //                     dispatch({
+    //                         type: actionTypes.SET_USER,
+    //                         user: result.user,
+    //                     });
+    //                     history.push('/account');
+    //                 })
+    //                 .catch((error) => {
+    //                     alert(error.message);
+    //                 });
+    //     })
+    //     .catch(function(error) {
+    //         // Handle Errors here.
+    //         var errorCode = error.code;
+    //         var errorMessage = error.message;
+    //     });
+    // }
 
     return (
         <div className="login">

@@ -35,7 +35,7 @@
 
 .--border-red {
     border: 2px solid #D73A49;
-    border-radius: 3px;
+    /* border-radius: 3px; */
 }
 
 .roomsList__container {
