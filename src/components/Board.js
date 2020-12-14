@@ -14,6 +14,8 @@ function Board() {
     const [columns, setColumns] = useState([]);
     const { workspaceId, roomId } = useParams();
 
+    const [cardData, setCardData] = useState([]);
+
     useEffect(() => {
         renderColumns();
     }, [])
@@ -35,18 +37,53 @@ function Board() {
         })
     }
 
-    const onDragEnd = async (result, columns, setColumns) => {
+    // const onDragStart = (result) => {
+        
+    // }
+
+    // db.collection("workspaces").doc(workspaceId).collection("rooms").doc(roomId).collection("columns").doc(result.source.droppableId).collection("cards").doc(result.draggableId)
+    //                     .get()
+    //                     .then(doc => {
+    //                         setCardData(doc.data().body)
+    //                         console.log("Card successfully copied")
+    //                     })
+
+    const onDragEnd = (result, columns, setColumns) => {
         if (!result.destination) return;
         if (result.destination.droppableId != result.source.droppableId) {
-            await db.collection("workspaces").doc(workspaceId).collection("rooms").doc(roomId).collection("columns").doc(result.source.droppableId).collection("cards").doc(result.draggableId)
-                .delete()
-                .then(function() {
-                    console.log("Card successfully deleted")
-                })
-                .catch(function(error) {
-                    console.error("Error removing card: ", error)
-                })
+            var cardPromise = new Promise((resolve, reject) => {
+                db.collection("workspaces").doc(workspaceId).collection("rooms").doc(roomId).collection("columns").doc(result.source.droppableId).collection("cards").doc(result.draggableId)
+                        .get()
+                        .then(doc => {
+                            setCardData(doc.data().body);
+                            resolve("Success");
+                            console.log("Card successfully copied");
+                        })
+                        .catch(err => {
+                            reject("Failure");
+                            console.log(err);
+                        })
+            })
         }
+
+        cardPromise
+            .then(() => {
+                db.collection("workspaces").doc(workspaceId).collection("rooms").doc(roomId).collection("columns").doc(result.source.droppableId).collection("cards").doc(result.draggableId)
+                    .delete()
+                    .then(() => {
+                        console.log("Successfully delete card")
+                    })
+                    .catch(err => console.log(err))
+            })
+            .then(() => {
+                db.collection("workspaces").doc(workspaceId).collection("rooms").doc(roomId).collection("columns").doc(result.destination.droppableId).collection("cards")
+                    .add({
+                        body: cardData
+                    })
+                    .then(() => console.log("Successfully add card"))
+                    .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
     }
 
     return (
