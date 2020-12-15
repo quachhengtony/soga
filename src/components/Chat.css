@@ -5,6 +5,7 @@
     width: 77.5%;
     height: 100vh;
     margin: 0;
+    border-left: 1px solid #E0E0E0;
 }
 
 .chat__body {

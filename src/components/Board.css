@@ -21,20 +21,28 @@
     margin: 10px;
 }
 
-.column {
+.column__container {
     margin: 10px;
+    border-radius: 3px;
+    background-color: #FAFBFC;
+    border-top: 4px solid var(--yellow);
+}
+
+.column {
     padding: 10px;
     width: 260px;
     height: 500px;
     border-radius: 3px;
     background-color: #FAFBFC;
-    border-top: 4px solid var(--yellow);
     text-align: center;
+
 }
 
 .column__header {
-    margin: 0 0 10px;
+    margin: 10px 10px 0px;
     display: flex;
+    height: auto;
+    /* border: 1px solid red; */
 }
 
 .columnHeader__name {

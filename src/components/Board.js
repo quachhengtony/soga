@@ -88,27 +88,39 @@ function Board() {
             <DragDropContext onDragStart={result => onDragStart(result)} onDragEnd={result => onDragEnd(result)}>
                 <div className='board__columnsContainer'>
                     {columns.map(column => (
-                        <Droppable droppableId={column.id}>
-                            {(provided, snapshot) => (
-                                <div
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}
-                                >
-                                    <div className="column">
-                                        <div className="column__header">
-                                            <div className="columnHeader__name">
-                                                <Button spacing="compact" appearance="subtle-link">{column.name}</Button>
-                                            </div>
-                                            <div className="columnHeader__button">
-                                                <CreateCard columnId={column.id} />
-                                            </div>
-                                        </div>
-                                        <ListCard columnId={column.id} />
-                                    </div>
-                                    {provided.placeholder}
+                        <div className="column__container">
+                            <div className="column__header">
+                                <div className="columnHeader__name">
+                                    <Button spacing="compact" appearance="subtle-link">{column.name}</Button>
                                 </div>
-                            )}
-                        </Droppable>
+                                <div className="columnHeader__button">
+                                    <CreateCard columnId={column.id} />
+                                </div>
+                            </div>
+                            {/* <Button spacing="compact" appearance="subtle-link">{column.name}</Button> */}
+                            <Droppable droppableId={column.id}>
+                                {(provided, snapshot) => (
+                                    <div
+                                    className="column"
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
+                                    >
+                                        {/* <div className="column"> */}
+                                            {/* <div className="column__header">
+                                                <div className="columnHeader__name">
+                                                    <Button spacing="compact" appearance="subtle-link">{column.name}</Button>
+                                                </div>
+                                                <div className="columnHeader__button">
+                                                    <CreateCard columnId={column.id} />
+                                                </div>
+                                            </div> */}
+                                            <ListCard columnId={column.id} />
+                                        {/* </div> */}
+                                            {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </div>
                     ))}
                 <div>
                     <Button className="board_addButton" appearance="primary" onClick={addColumn}>New column</Button>
