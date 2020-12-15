@@ -14,7 +14,7 @@ function ListCard({ columnId }) {
 
     useEffect(() => {
         renderCards();
-    }, [cards])
+    }, [])
 
     const renderCards = useCallback(() => {
         db.collection('workspaces').doc(workspaceId).collection('rooms').doc(roomId).collection('columns').doc(columnId).collection('cards').orderBy("timestamp", "asc").onSnapshot(snapshot => (

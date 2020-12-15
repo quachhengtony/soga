@@ -13,8 +13,7 @@ function Board() {
 
     const [columns, setColumns] = useState([]);
     const { workspaceId, roomId } = useParams();
-
-    const [cardData, setCardData] = useState([]);
+    const [cardBody, setCardBody] = useState("");
 
     useEffect(() => {
         renderColumns();
@@ -37,50 +36,45 @@ function Board() {
         })
     }
 
-    // const onDragStart = (result) => {
-        
-    // }
+    const onDragStart = (result) => {
+            db.collection("workspaces").doc(workspaceId).collection("rooms").doc(roomId).collection("columns").doc(result.source.droppableId).collection("cards").doc(result.draggableId)
+                        .get()
+                        .then(doc => {
+                            setCardBody(doc.data().body);
+                            console.log("Copy card: SUCCESS");
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+    }
 
-    // db.collection("workspaces").doc(workspaceId).collection("rooms").doc(roomId).collection("columns").doc(result.source.droppableId).collection("cards").doc(result.draggableId)
-    //                     .get()
-    //                     .then(doc => {
-    //                         setCardData(doc.data().body)
-    //                         console.log("Card successfully copied")
-    //                     })
-
-    const onDragEnd = (result, columns, setColumns) => {
+    const onDragEnd = (result) => {
         if (!result.destination) return;
         if (result.destination.droppableId != result.source.droppableId) {
             var cardPromise = new Promise((resolve, reject) => {
-                db.collection("workspaces").doc(workspaceId).collection("rooms").doc(roomId).collection("columns").doc(result.source.droppableId).collection("cards").doc(result.draggableId)
-                        .get()
-                        .then(doc => {
-                            setCardData(doc.data().body);
-                            resolve("Success");
-                            console.log("Card successfully copied");
-                        })
-                        .catch(err => {
-                            reject("Failure");
-                            console.log(err);
-                        })
+                if (cardBody != "") {
+                    resolve("Success");
+                } else {
+                    reject("Failure")
+                }
             })
-        }
+        } else return;
 
         cardPromise
             .then(() => {
                 db.collection("workspaces").doc(workspaceId).collection("rooms").doc(roomId).collection("columns").doc(result.source.droppableId).collection("cards").doc(result.draggableId)
                     .delete()
                     .then(() => {
-                        console.log("Successfully delete card")
+                        console.log("Delete card: SUCCESS");
                     })
                     .catch(err => console.log(err))
             })
             .then(() => {
-                db.collection("workspaces").doc(workspaceId).collection("rooms").doc(roomId).collection("columns").doc(result.destination.droppableId).collection("cards")
-                    .add({
-                        body: cardData
+                db.collection("workspaces").doc(workspaceId).collection("rooms").doc(roomId).collection("columns").doc(result.destination.droppableId).collection("cards").add({
+                        body: cardBody,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
                     })
-                    .then(() => console.log("Successfully add card"))
+                    .then(() => console.log("Add card: SUCCESS"))
                     .catch(err => console.log(err))
             })
             .catch(err => console.log(err))
@@ -91,7 +85,7 @@ function Board() {
             <div className='board__header'>
                 <Button spacing="compact" appearance="subtle-link">{roomId}'s board</Button>
             </div>
-            <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
+            <DragDropContext onDragStart={result => onDragStart(result)} onDragEnd={result => onDragEnd(result)}>
                 <div className='board__columnsContainer'>
                     {columns.map(column => (
                         <Droppable droppableId={column.id}>
