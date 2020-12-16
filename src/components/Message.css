@@ -1,8 +1,8 @@
 .message {
-    margin: 0 10px 0 0; 
-    display: flex;
-    flex-wrap: wrap;
+  margin-left: 10px;
+  margin-right: 10px;
 }
+
 .message:hover {
-    background-color: #fafbfc;
+  background-color: #fafbfc;
 }

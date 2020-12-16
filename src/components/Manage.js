@@ -26,17 +26,39 @@ function Manage() {
         setCurrentDate(today);
     }
 
+    // const createWorkspace = () => {
+    //     if (workspaceName != "") {
+    //         db.collection("workspaces").add({
+    //             workspaceName: workspaceName,
+    //             authorName: user?.displayName,
+    //             authorEmail: user?.email,
+    //             authorId: user?.uid,
+    //             date: currentDate,
+    //             timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    //         })
+    //     }
+    // }
+
     const createWorkspace = () => {
-        if (workspaceName != "") {
-            db.collection("workspaces").add({
-                workspaceName: workspaceName,
-                authorName: user?.displayName,
-                authorEmail: user?.email,
-                authorId: user?.uid,
-                date: currentDate,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        var createWorkspacePromise = new Promise((resolve, reject) => {
+            if (workspaceName != "") {
+                resolve()
+            } else {
+                reject()
+            }
+        })
+
+        createWorkspacePromise
+            .then(() => {
+                db.collection("workspaces").add({
+                    workspaceName: workspaceName,
+                    authorName: user?.displayName,
+                    authorEmail: user?.email,
+                    authorId: user?.uid,
+                    date: currentDate,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                })
             })
-        }
     }
 
     const getWorkspaces = () => {

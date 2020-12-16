@@ -5,8 +5,10 @@
   "dependencies": {
     "@atlaskit/atlassian-navigation": "^0.12.4",
     "@atlaskit/avatar": "^20.0.7",
+    "@atlaskit/breadcrumbs": "^10.0.11",
     "@atlaskit/button": "^15.1.4",
     "@atlaskit/color-picker": "^1.1.1",
+    "@atlaskit/comment": "^10.0.6",
     "@atlaskit/dropdown-menu": "^10.1.2",
     "@atlaskit/modal-dialog": "^11.2.4",
     "@atlaskit/select": "^13.1.1",
