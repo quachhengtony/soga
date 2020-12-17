@@ -18,7 +18,7 @@ function Message({ message, user, timestamp, userImage, date }) {
           />
         }
         author={<CommentAuthor>{user ? user : "..."}</CommentAuthor>}
-        content={<p>{message}</p>}
+        content={<p><div dangerouslySetInnerHTML={{__html: message}} /></p>}
         time={
           <CommentTime>
             {date} - {timestamp?.toDate().getHours()}:

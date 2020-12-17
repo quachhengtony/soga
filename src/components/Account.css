@@ -1,40 +1,51 @@
 .account {
-    justify-content: center;
-    display: grid;
-    padding: 25px;
-    width: 100%;
+  width: 100vw;
+  height: 100vh;
 }
 
-.account_info {
-    background-color: #fafbfc;
-    text-align: center;
-    width: 35vw;
-    padding: 10px;
-}
-.info_header {
-    margin: 0 0 10px;
+.account__div {
+  border: 1px solid #dfe1e6;
+  width: 40vw;
+  border-radius: 3px;
+  padding: 10px;
 }
 
-.account_pricing {
-    background-color: #fafbfc;
-    text-align: center;
-    width: 35vw;
-    padding: 10px;
-}
-.pricing_header {
-    margin: 25px 0 0;
-}
-.pricing_body {
-    display: flex;
-}
-.pricing_body > div {
-    flex: 0.5;
-    padding: 10px;
+.account__avatar {
+  border-radius: 50%;
 }
 
-.avatar {
-    vertical-align: middle;
-    flex: 1;
-    border-radius: 50%;
-    margin: 0 0 10px;
+.--userAccount {
+  display: flex;
+  justify-content: space-between;
+  margin: 25px 175px 0;
+}
+
+.flexify {
+  display: flex;
+}
+
+.--general {
+  margin: 25px 175px 0 25px;
+  flex: 0.8;
+  height: 40vh;
+}
+
+.--pricing {
+  margin: 25px 175px 0 25px;
+  flex: 0.8;
+  height: 40vh;
+}
+
+.--select {
+  margin: 25px 0 0 175px;
+  flex: 0.2;
+  height: 40vh;
+}
+
+.--clickable {
+  cursor: pointer;
+}
+
+.--clickable:hover {
+  color: #0052cc;
 }

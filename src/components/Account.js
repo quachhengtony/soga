@@ -1,52 +1,79 @@
-import Button from '@atlaskit/button';
-import { useStateValue } from '../StateProvider';
-import './Account.css';
-import db from '../firebase';
-import { useHistory } from 'react-router-dom';
+import Button from "@atlaskit/button";
+import { useState } from "react";
+import { useStateValue } from "../StateProvider";
+import "./Account.css";
+import db from "../firebase";
 
 function Account() {
-    
-    const [{ user }] = useStateValue();
-    const history = useHistory();
+  const [{ user }] = useStateValue();
+  const [togglePricing, setTogglePricing] = useState(false);
 
-    const setPaidUser = () => {
-        db.collection('paidUsers').doc(user.uid).set({
-            name: user.displayName,
-            email: user.email
+  const setPaidUser = () => {
+    if (user) {
+      db.collection("paidUsers")
+        .doc(user.uid)
+        .set({
+          userName: user.displayName,
+          userEmail: user.email,
+          userId: user.id,
         })
-        // history.push('/console');
-        window.location.reload();
-    }
+        .then(() => window.location.reload())
+        .catch((err) => console.log(err));
+    } else return;
+  };
 
-    return (
-        <div className="account">
-            <div className="account_info">
-                <div className="info_header">
-                    <h2>Account information:</h2>
-                </div>
-                <div className="info_body">
-                    <img src={user.photoURL} alt="Avatar" className="avatar"></img>
-                    <p>Your ID: {user.uid}</p>
-                    <p>Name: {user.displayName}</p>
-                    <p>Email: {user.email}</p>
-                    <p>Plan: Business</p>
-                    <Button appearance='danger'>Delete my account</Button>
-                </div>
-            </div>
-            <div className="account_pricing">
-                <div className="pricing_header">
-                    <h2>Pricing</h2>
-                </div>
-                <div className="pricing_body">
-                    <div>
-                        <Button shouldFitContainer isDisabled>Free (0$/Month)</Button>
-                    </div>
-                    <div>
-                        <Button shouldFitContainer onClick={setPaidUser} appearance='primary'>Bussiness (7$/Month) - Current</Button>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="account">
+      <div className="account__div --userAccount">
+        <div>
+          <p className="account__p --header">User account</p>
+          <p className="account__p">{user ? user.email : "..."}</p>
+          <p className="account__p">
+            Invited to 2 workspaces. Created 9 workspaces.
+          </p>
         </div>
-    );
+        <img src={user.photoURL} alt="Avatar" className="account__avatar" />
+      </div>
+      <div className="flexify">
+        <div className="account__div --select">
+          <p
+            className="account__p --clickable"
+            onClick={() => setTogglePricing(false)}
+          >
+            General
+          </p>
+          <p
+            className="account__p --clickable"
+            onClick={() => setTogglePricing(true)}
+          >
+            Pricing
+          </p>
+          <p
+            className="account__p --clickable"
+          >
+            Danger
+          </p>
+        </div>
+        <div
+          className="account__div --general"
+          style={{ display: togglePricing ? "none" : "" }}
+        >
+          <p className="account__p --header">Profile</p>
+          <p className="account__p">Id: {user ? user.uid : "..."}</p>
+          <p className="account__p">Name: {user ? user.displayName : "..."}</p>
+          <p className="account__p">Email: {user ? user.email : "..."}</p>
+          <p className="account__p">Joined: 08/02/2019</p>
+        </div>
+        <div
+          className="account__div --pricing"
+          style={{ display: togglePricing ? "" : "none" }}
+        >
+          <p className="account__p --header">Plans</p>
+          <p className="account__p">Current plan: Free</p>
+          <p className="account__p --clickable">Upgrade to Business</p>
+        </div>
+      </div>
+    </div>
+  );
 }
 export default Account;

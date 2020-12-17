@@ -1,4 +1,4 @@
-.topbar {
+/* .topbar {
 
 }
 
@@ -19,4 +19,44 @@
 .topbar__roundedButton:hover {
     background-color: #E8F1FF;
     color: var(--atlassian-blue);
+} */
+
+.topbar {
+    display: flex;
+    width: 100vw;
+    height: 50px;
+    border-bottom: 1px solid #EBEBEB;
+    justify-content: center;
+    align-items: center;
 }
+
+.topbar__left {
+    flex: 0.3;
+    text-align: center;
+}
+
+.topbar__right {
+    flex: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.text {
+    cursor: pointer;
+}
+
+.text:hover {
+    color: #0052cc;
+}
+
+.--nav {
+    margin: 0 10px 0;
+}
+
+.--companyName {
+    color: #0052cc;
+    font-weight: 500;
+}
+
+

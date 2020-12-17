@@ -1,6 +1,7 @@
 .message {
   margin-left: 10px;
   margin-right: 10px;
+  cursor: default;
 }
 
 .message:hover {

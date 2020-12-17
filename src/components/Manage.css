@@ -1,4 +1,4 @@
-.console {
+/* .console {
     justify-content: center;
     align-items: center;
     height: 100%;
@@ -17,4 +17,71 @@
 .console_body {
     height: 80vh;
     padding: 10px 350px 10px;
+} */
+
+.dashboard {
+    width: 100%;
+    height: 100%;
+}
+
+
+.overview {
+    margin: 25px 175px 0;
+    border-radius: 3px;
+    border: 1px solid #DFE1E6;
+    padding: 10px;
+}
+
+.p {
+}
+
+.--header {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.analytics {
+    display: flex;
+}
+
+.analytics__box {
+    width: 175px;
+    background: #FAFBFC;
+    border-radius: 3px;
+    border-top: 5px solid #0052cc;
+    margin-right: 25px;
+    padding: 10px;
+}
+
+.--analyticsNumber {
+    font-size: 20px
+}
+
+.control {
+    display: flex;
+}
+
+.workspaces {
+    flex: 0.7;
+    height: 50vh;
+    margin: 25px 25px 0 175px;
+    border-radius: 3px;
+    border: 1px solid #DFE1E6;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+.workspaces__header {
+    display: flex;
+    justify-content: space-between;
+    /* margin-bottom: 10px; */
+}
+
+.admins {
+    flex: 0.3;
+    margin: 25px 175px 0 0;
+    border-radius: 3px;
+    border: 1px solid #DFE1E6;
+    padding: 10px;
 }
