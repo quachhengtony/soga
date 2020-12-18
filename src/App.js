@@ -1,57 +1,44 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import { useStateValue } from "./StateProvider";
+import db from "./firebase";
+
+import "./App.css";
+import Sidebar from "./components/Sidebar";
+import Chat from "./components/Chat";
+import Login from "./components/Login";
+import Manage from "./components/Manage";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
-
-import { useStateValue } from './StateProvider';
-import db from './firebase';
-
-import './App.css';
-import Sidebar from './components/Sidebar';
-import Chat from './components/Chat';
-import Login from './components/Login';
-import Manage from './components/Manage';
-import { PublicTopbar, LoggedInTopbar, BusinessTopbar } from './components/Topbar';
-import Account from './components/Account';
-import Timeline from './components/Timeline';
-import Board from './components/Board';
-import Schedule from './components/Schedule';
-import Storage from './components/Storage';
-// import JobPost from './components/JobPost';
-// import JobList from './components/JobList'
-// import Talents from './components/Talents';
-import Settings from './components/Settings';
-import RoomVideoConference from './components/RoomVideoConference';
-import Inbox from './components/Inbox';
+  PublicTopbar,
+  LoggedInTopbar,
+  BusinessTopbar,
+} from "./components/Topbar";
+import Account from "./components/Account";
+import Timeline from "./components/Timeline";
+import Board from "./components/Board";
+import Schedule from "./components/Schedule";
+import Storage from "./components/Storage";
+import Settings from "./components/Settings";
+import RoomVideoConference from "./components/RoomVideoConference";
+import Inbox from "./components/Inbox";
 
 function App() {
-
   const [{ user }] = useStateValue();
-  const [isPaidUser, setIsPaidUser] = useState();
+  const [isPaidUser, setIsPaidUser] = useState(false);
+
+  const checkBusinessAccount = (uid) => {
+    db.collection("accounts").where("business.userId", "==", uid)
+      .get()
+      .then(() => setIsPaidUser(true))
+      .catch(err => console.log(err))
+  }
 
   useEffect(() => {
     if (user) {
-      checkPaidUser(user.uid)
+      checkBusinessAccount(user.uid)
     }
-  })
-
-  const checkPaidUser = (userUId) => {
-    if (user) {
-      db.collection('paidUsers').doc(userUId)
-        .get()
-        .then(function(doc) {
-          if (doc.exists) {
-              setIsPaidUser(true);
-          } else {
-            setIsPaidUser(false);
-          }})
-          .catch(function(error) {
-            console.log("Error getting document:", error);
-          });
-    }
-  }
+  });
 
   return (
     <Router>
@@ -78,57 +65,56 @@ function App() {
                     <BusinessTopbar />
                     <Manage />
                   </Route>
-              </Switch>
-            </>
+                </Switch>
+              </>
             ) : (
-            <>
-              <Switch>
-                <Route path="/account">
-                  <LoggedInTopbar />
-                  <Account />
-                </Route>
-                <Route path="/inbox">
-                  <LoggedInTopbar />
-                  <Inbox />
-                </Route>
-              </Switch>
-            </>
+              <>
+                <Switch>
+                  <Route path="/account">
+                    <LoggedInTopbar />
+                    <Account />
+                  </Route>
+                  <Route path="/inbox">
+                    <LoggedInTopbar />
+                    <Inbox />
+                  </Route>
+                </Switch>
+              </>
             )}
-              <Switch>
-                <Route path="/workspace/:workspaceId/room/undefined/chat">
-                  <Sidebar />
-                </Route>
-                <Route path="/workspace/:workspaceId/room/:roomId/chat">
-                  <Sidebar />
-                  <Chat />
-                </Route>
-                <Route path="/workspace/:workspaceId/room/:roomId/board">
-                  <Sidebar />
-                  <Board />
-                </Route>
-                <Route path="/workspace/:workspaceId/room/:roomId/schedule">
-                  <Sidebar />
-                  <Schedule />
-                </Route>
-                <Route path="/workspace/:workspaceId/timeline">
-                  <Sidebar />
-                  <Timeline />
-                </Route>
-                <Route path="/workspace/:workspaceId/storage">
-                  <Sidebar />
-                  <Storage />
-                </Route>
-                <Route path="/workspace/:workspaceId/settings">
-                 <Sidebar />
-                 <Settings />
-               </Route>
-               <Route path="/workspace/:workspaceId/room/:roomId/video/:videoId">
-                 <RoomVideoConference />
-               </Route>
-              </Switch>
+            <Switch>
+              <Route path="/workspace/:workspaceId/room/undefined/chat">
+                <Sidebar />
+              </Route>
+              <Route path="/workspace/:workspaceId/room/:roomId/chat">
+                <Sidebar />
+                <Chat />
+              </Route>
+              <Route path="/workspace/:workspaceId/room/:roomId/board">
+                <Sidebar />
+                <Board />
+              </Route>
+              <Route path="/workspace/:workspaceId/room/:roomId/schedule">
+                <Sidebar />
+                <Schedule />
+              </Route>
+              <Route path="/workspace/:workspaceId/timeline">
+                <Sidebar />
+                <Timeline />
+              </Route>
+              <Route path="/workspace/:workspaceId/storage">
+                <Sidebar />
+                <Storage />
+              </Route>
+              <Route path="/workspace/:workspaceId/settings">
+                <Sidebar />
+                <Settings />
+              </Route>
+              <Route path="/workspace/:workspaceId/room/:roomId/video/:videoId">
+                <RoomVideoConference />
+              </Route>
+            </Switch>
           </>
-        )
-        }
+        )}
       </div>
     </Router>
   );

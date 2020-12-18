@@ -2,25 +2,11 @@ import Button from "@atlaskit/button";
 import { useState } from "react";
 import { useStateValue } from "../StateProvider";
 import "./Account.css";
-import db from "../firebase";
+import db  from "../firebase";
 
 function Account() {
   const [{ user }] = useStateValue();
   const [togglePricing, setTogglePricing] = useState(false);
-
-  const setPaidUser = () => {
-    if (user) {
-      db.collection("paidUsers")
-        .doc(user.uid)
-        .set({
-          userName: user.displayName,
-          userEmail: user.email,
-          userId: user.id,
-        })
-        .then(() => window.location.reload())
-        .catch((err) => console.log(err));
-    } else return;
-  };
 
   return (
     <div className="account">
@@ -32,7 +18,7 @@ function Account() {
             Invited to 2 workspaces. Created 9 workspaces.
           </p>
         </div>
-        <img src={user.photoURL} alt="Avatar" className="account__avatar" />
+        <img src={user?.photoURL} alt="Avatar" className="account__avatar" />
       </div>
       <div className="flexify">
         <div className="account__div --select">

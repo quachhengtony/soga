@@ -137,14 +137,16 @@ function Manage() {
     }
 
     useEffect(() => {
-        db.collection("workspaces").where("authorId", "==", user.uid).onSnapshot(snapshot => (
-            setWorkspaces(snapshot.docs.map(doc => ({
-                id: doc.id,
-                name: doc.data().workspaceName,
-                date: doc.data().date
-            })))
-        ))
-        getCurrentDate();
+        if (user) {
+            db.collection("workspaces").where("authorId", "==", user.uid).onSnapshot(snapshot => (
+                setWorkspaces(snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    name: doc.data().workspaceName,
+                    date: doc.data().date
+                })))
+            ));
+        }
+            getCurrentDate();
     }, [workspaces])
 
     return (
