@@ -32,7 +32,7 @@ import { useStateValue } from '../StateProvider';
 function Sidebar() {
 
   const { workspaceId } = useParams();
-  const [{ user }] = useStateValue();
+  const { user } = useStateValue();
   const history = useHistory();
 
   const [workspaceName, setWorkspaceName] = useState("");
@@ -78,7 +78,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className='wpBar'>
-        <div className='wpBar_button' onClick={push.bind(this, '/manage')}>
+        <div className='wpBar_button' onClick={push.bind(this, '/b/dashboard')}>
           <HomeIcon size="medium" primaryColor='#ffffff' />
         </div>
         <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/timeline`)}>
@@ -96,7 +96,7 @@ function Sidebar() {
         <div className='wpBar_button' onClick={push.bind(this, `/workspace/${workspaceId}/settings`)}>
           <SettingsIcon label='Settings icon' size="medium" primaryColor='#ffffff' />
         </div>
-        <div className='wpBar_button bottom' onClick={push.bind(this, `/account`)}>
+        <div className='wpBar_button bottom' onClick={push.bind(this, `/b/account`)}>
           <PersonCircleIcon label='Account icon' size="medium" primaryColor='#ffffff' />
         </div>
       </div>

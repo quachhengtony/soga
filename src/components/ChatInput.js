@@ -16,7 +16,7 @@ import { useStateValue } from "../StateProvider";
 
 function ChatInput({ roomName, roomId, workspaceId }) {
   const input = useRef("");
-  const [{ user }] = useStateValue();
+  const { user } = useStateValue();
 
   const history = useHistory();
   const [currentDate, setCurrentDate] = useState("");

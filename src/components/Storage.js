@@ -16,7 +16,7 @@ import { useStateValue } from '../StateProvider';
 
 export default function Storage() {
 
-    const [{ user }] = useStateValue();
+    const { user } = useStateValue();
     const { workspaceId } = useParams();
 
     const [workdriveFiles, setWorkdriveFiles] = useState([]);

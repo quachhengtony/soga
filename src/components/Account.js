@@ -1,11 +1,9 @@
-import Button from "@atlaskit/button";
 import { useState } from "react";
 import { useStateValue } from "../StateProvider";
 import "./Account.css";
-import db  from "../firebase";
 
 function Account() {
-  const [{ user }] = useStateValue();
+  const { user } = useStateValue();
   const [togglePricing, setTogglePricing] = useState(false);
 
   return (

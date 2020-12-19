@@ -9,7 +9,7 @@ import { useStateValue } from '../StateProvider';
 function Inbox() {
 
     const [addedWorkspaces, setAddedWorkspaces] = useState([]);
-    const [{ user }] = useStateValue();
+    const { user } = useStateValue();
     const history = useHistory();
 
     useEffect(() => {

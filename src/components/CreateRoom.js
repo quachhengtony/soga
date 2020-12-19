@@ -11,7 +11,7 @@ import './CreateRoom.css';
 function CreateRoom() {
 
     const { workspaceId } = useParams();
-    const [{ user }] = useStateValue();
+    const { user } = useStateValue();
     const [currentDate, setCurrentDate] = useState();
 
     const getCurrentDate = () => {

@@ -1,44 +1,21 @@
 import Button from "@atlaskit/button";
 import GsuiteIcon from "@atlaskit/icon/glyph/gsuite";
-import firebase from "firebase";
-
 import "./Login.css";
 import { auth, provider } from "../firebase";
-import { useStateValue } from "../StateProvider";
-import { actionTypes } from "../reducer";
 import { useHistory } from "react-router-dom";
 
 function Login() {
   const history = useHistory();
-  const [state, dispatch] = useStateValue();
-
-  // const login = useCallback(() => {
-  //     auth
-  //         .signInWithPopup(provider)
-  //         .then((result) => {
-  //             console.log(result);
-  //             dispatch({
-  //                 type: actionTypes.SET_USER,
-  //                 user: result.user,
-  //             });
-  //         })
-  //         .catch((error) => {
-  //             alert(error.message);
-  //         });
-  //     history.push("/account");
-  // }, [])
 
   const login = () => {
     auth
       .signInWithPopup(provider)
-      .then(result => {
-        dispatch({
-          type: actionTypes.SET_USER,
-          user: result.user,
-        });
+      .then(function (result) {
         history.push("/account");
       })
-      .catch(err => console.log(err));
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   // const login = useCallback(

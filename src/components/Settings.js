@@ -11,7 +11,7 @@ import { useStateValue } from '../StateProvider';
 function Settings() {
 
     const { workspaceId } = useParams();
-    const [{ user }] = useStateValue();
+    const { user } = useStateValue();
 
     const [userEmail, setUserEmail] = useState("");
     const [rooms, setRooms] = useState([]);
