@@ -1,4 +1,4 @@
-.sidebar {
+/* .sidebar {
     display: flex;
     position: absolute;
     left: 0;
@@ -11,13 +11,11 @@
     height: 100%;
     flex: 0.3;
     background-color: var(--atlassian-blue);
-    /* padding: 2.5px; */
 }
 .wpBar_button {
     border-radius: 50%;
     width: 35px;
     height: 35px;
-    /* padding: 0 5px 0; */
     margin: 10px 5px 0;
     display: grid;
     place-content: center;
@@ -32,4 +30,64 @@
 
 .rBar {
     flex: 0.7;
+} */
+
+
+
+/* .sidebar {
+    width: 800px;
+    margin: 0 auto;
+    border: 1px solid red;
+}
+
+.left {
+    width: 200px;
+    height: 100vh;
+    float: left;
+    display: block !important;
+    position: unset;
+}
+
+.right {
+    width: 600px;
+    height: 100vh;
+    margin-left: 200px;
+    box-shadow: none !important;
+    display: block !important;
+    position: unset !important;
+} */
+
+
+.sidebar {
+    width: 25vw !important;
+    float: left;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.left {
+    width: 18%;
+    height: 100vh;
+    float: left;
+    background: var(--atlassian-blue);
+    padding: 0 6px 0 5px;
+}
+
+.wpbtn {
+    width: 100%;
+    border: none !important;
+    margin-top: 5px;
+}
+
+.right {
+    width: 82%;
+    height: 100vh;
+    margin-left: 200px;
+    box-shadow: none !important;
+    position: unset !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border-left: 0 !important;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
 }

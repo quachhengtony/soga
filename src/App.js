@@ -4,7 +4,7 @@ import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import Login from "./components/Login";
 import Manage from "./components/Manage";
-import { LoggedInTopbar } from "./components/Topbar";
+import { Topbar, PrivateTopbar } from "./components/Topbar";
 import Account from "./components/Account";
 import Timeline from "./components/Timeline";
 import Board from "./components/Board";
@@ -21,34 +21,54 @@ function App() {
       <div className="app">
         <Switch>
           <Route exact path="/">
-            <LoggedInTopbar />
+            <Topbar />
           </Route>
-          <Route path="/sign-in">
-            <LoggedInTopbar />
+          <Route path="/login">
+            <Topbar />
             <Login />
           </Route>
-          <PrivateRoute path="/u/inbox">
-            <LoggedInTopbar />
-            <Inbox />
-          </PrivateRoute>
-          <PrivateRoute path="/u/account">
-            <LoggedInTopbar />
+
+          {/* <PrivateRoute path="/sidebar">
+            <Sidebar />
+            <Chat />
+          </PrivateRoute> */}
+
+          <PrivateRoute path="/f/account">
+            <PrivateTopbar />
             <Account />
+          </PrivateRoute>
+          <PrivateRoute path="/f/notification">
+            <PrivateTopbar />
+          </PrivateRoute>
+          <PrivateRoute path="/f/inbox">
+            <PrivateTopbar />
+          </PrivateRoute>
+          <PrivateRoute path="/f/activity">
+            <PrivateTopbar />
+          </PrivateRoute>
+          <PrivateRoute path="/f/dashboard">
+            <PrivateTopbar />
+          </PrivateRoute>
+
+          <PrivateRoute path="/b/account">
+            <PrivateTopbar />
+            <Account />
+          </PrivateRoute>
+          <PrivateRoute path="/b/notification">
+            <PrivateTopbar />
           </PrivateRoute>
           <PrivateRoute path="/b/inbox">
-            <LoggedInTopbar />
+            <PrivateTopbar />
             <Inbox />
           </PrivateRoute>
+          <PrivateRoute path="/f/activity">
+            <PrivateTopbar />
+          </PrivateRoute>
           <PrivateRoute path="/b/dashboard">
-            <LoggedInTopbar />
+            <PrivateTopbar />
             <Manage />
           </PrivateRoute>
-          <PrivateRoute path="/b/account">
-            <LoggedInTopbar />
-            <Account />
-          </PrivateRoute>
-          {/* </Switch>
-          <Switch> */}
+          
           <PrivateRoute path="/workspace/:workspaceId/room/undefined/chat">
             <Sidebar />
           </PrivateRoute>

@@ -1,4 +1,6 @@
-* {
+/* @import "bootstrap/dist/css/bootstrap.min.css";
+@import "@tabler/core/dist/css/tabler.min.css"; */
+/* * {
   margin: 0;
 }
 
@@ -10,10 +12,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
-  /* background-color: white; */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+
+body {
+  overflow-y: hidden !important;
 }

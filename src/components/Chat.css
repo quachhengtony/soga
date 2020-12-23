@@ -1,19 +1,22 @@
 .chat {
-  display: flex;
-  position: absolute;
-  right: 0;
-  width: 77.5%;
-  height: 100vh;
-  margin: 0;
-  border-left: 1px solid #E0E0E0;
+  width: 75vw;
+  float: right;
 }
 
-.chat__body {
-  width: 100vw;
+.card-chat {
+  border-radius: 0 !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
+}
+
+.message__container {
   padding-top: 10px;
+  height: 85vh;
 }
 
-.messageContainer {
-  height: 90vh;
-  overflow-y: scroll;
+.chatinput__container {
+  margin-top: 10px;
+  padding: 0 10px 0;
 }
