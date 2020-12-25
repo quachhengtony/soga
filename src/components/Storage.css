@@ -1,88 +1,28 @@
 .storage {
-    background-color: #FFF;
-    position: absolute;
-    right: 0;
-    width: 77.5%;
-    height: 100vh;
-}
-
-.storage__header {
-    display: flex;
+    width: 75vw;
+    float: right;
     padding: 25px;
 }
 
-.storageHeader__container {
-    flex: 1;
+.--storage-header-card {
+    margin-top: 10px;
 }
 
-.--info {
+.--storage-header-card > div {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.--info > div {
-    margin-right: 5px;
+.--storage-header-card > div > div {
+    flex: 1;
+    margin: auto;
 }
 
-.--uploadButton {
-    text-align: right;
+.--storage-btn {
+    margin: 0 0 0 10px;
 }
 
-.storage__body {
-    padding: 0 25px 25px;
-}
-
-.storageBody__filesContainer {
-    border-top: 1px solid #E1E4E8;
-    border-left: 1px solid #E1E4E8;
-    border-right: 1px solid #E1E4E8;
-    border-bottom: 1px solid #E1E4E8;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-    padding: 0 2px 0;
-    margin: 0 0 10px;
-}
-
-.storageBody__fileItem {
-    border-bottom: 1px solid #E1E4E8;
-    display: flex;
-    margin: 0;
-}
-
-
-.storageBody__fileItemLeft {
-    flex: 0.8;
-}
-
-.storageBody__fileItemRight {
-    flex: 0.2;
-    display: grid;
-    place-content: center;
-}
-
-.storageBody__fileAuthor {
-    font-size: 12.5px;
-    padding: 0 12px 5px;
-}
-
-.authorButton {
-    font-size: 12.5px !important;
-}
-
-.branchesButton {
-    border: 2px solid #DFE1E6 !important;
-    width: 40px !important;
-    background: #FAFBFC !important;
-    height: 40px !important;
-}
-
-.branchesButton:hover {
-    background: #EBECF0 !important;
-}
-
-.groupNameTextfield {
-
+.--storage-body-card {
+    margin-top: 10px;
 }

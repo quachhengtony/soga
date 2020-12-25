@@ -12,6 +12,9 @@ function ListWorkspace({ id, name, date, author }) {
       </td>
       <td className="text-muted">{date ? date : "..."}</td>
       <td className="text-muted">{author ? author : "..."}</td>
+      <td onClick={() => history.push(`/workspace/${id}/room/undefined/chat`)}>
+        <a href="javascript:void(0)">Open</a>
+      </td>
       <td>
         <a href="javascript:void(0)">Settings</a>
       </td>

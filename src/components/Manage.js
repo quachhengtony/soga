@@ -317,6 +317,7 @@ function Manage() {
                             <th>Date</th>
                             <th>Author</th>
                             <th className="w-1" />
+                            <th className="w-1" />
                           </tr>
                         </thead>
                         <tbody>

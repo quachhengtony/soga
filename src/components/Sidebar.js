@@ -199,20 +199,14 @@ function Sidebar() {
     // db.collection("workspaces").doc(workspaceId).collection("settings").doc("user").collection("workspaceUsers").onSnapshot(snapshot => (
     //   setWorkspaceUsers(snapshot.docs.map(doc => doc.data()))
     // ))
-    let myBtns = document.querySelectorAll(".dropdown-item");
-    myBtns.forEach(function (btn) {
-      btn.addEventListener("click", () => {
-        myBtns.forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-      });
-    });
   }, []);
 
   return (
     <aside className="navbar navbar-vertical navbar-expand-lg sidebar">
       <div className="left">
         <a
-          href="#"
+          href="javascript:void(0)"
+          onClick={() => history.push("/b/dashboard")}
           class="btn btn-bitbucket btn-icon wpbtn"
           aria-label="Button"
         >
@@ -234,7 +228,8 @@ function Sidebar() {
           </svg>
         </a>
         <a
-          href="#"
+          href="javascript:void(0)"
+          onClick={() => history.push( `/workspace/${workspaceId}/report`)}
           class="btn btn-bitbucket btn-icon wpbtn"
           aria-label="Button"
         >
@@ -258,7 +253,8 @@ function Sidebar() {
           </svg>
         </a>
         <a
-          href="#"
+          href="javascript:void(0)"
+          onClick={() => history.push( `/workspace/${workspaceId}/search`)}
           class="btn btn-bitbucket btn-icon wpbtn"
           aria-label="Button"
         >
@@ -279,9 +275,9 @@ function Sidebar() {
             <line x1="21" y1="21" x2="15" y2="15" />
           </svg>
         </a>
-
         <a
-          href="#"
+          href="javascript:void(0)"
+          onClick={() => history.push( `/workspace/${workspaceId}/storage`)}
           class="btn btn-bitbucket btn-icon wpbtn"
           aria-label="Button"
         >
@@ -304,7 +300,8 @@ function Sidebar() {
           </svg>
         </a>
         <a
-          href="#"
+          href="javascript:void(0)"
+          onClick={() => history.push( `/workspace/${workspaceId}/settings`)}
           class="btn btn-bitbucket btn-icon wpbtn"
           aria-label="Button"
         >
@@ -325,15 +322,15 @@ function Sidebar() {
             <circle cx="12" cy="12" r="3" />
           </svg>
         </a>
-
         <a
-          href="#"
+          href="javascript:void(0)"
+          onClick={() => history.push( "/b/account")}
           class="btn btn-bitbucket btn-icon wpbtn"
           aria-label="Button"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-settings"
+            class="icon icon-tabler icon-tabler-user"
             width="64"
             height="64"
             viewBox="0 0 24 24"
@@ -349,9 +346,10 @@ function Sidebar() {
           </svg>
         </a>
       </div>
+
       <div className="dropdown-menu dropdown-menu-demo right">
         <h6 className="dropdown-header">Overview</h6>
-        <a href="#" className="dropdown-item">
+        <a href="javascript:void(0)" className="dropdown-item">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon dropdown-item-icon"
@@ -376,7 +374,7 @@ function Sidebar() {
           </svg>
           {workspaceName ? workspaceName : "..."}
         </a>
-        <a href="#" className="dropdown-item">
+        <a href="javascript:void(0)" className="dropdown-item">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon dropdown-item-icon"
@@ -399,7 +397,7 @@ function Sidebar() {
           </svg>
           Tasks
         </a>
-        <a href="#" className="dropdown-item">
+        <a href="javascript:void(0)" className="dropdown-item">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon dropdown-item-icon"
@@ -432,20 +430,24 @@ function Sidebar() {
           Paweł Kuna 
           <span class="badge bg-red-lt ms-auto">red</span>
         </a> */}
-        <a href="#" className="dropdown-item">
-          <span className="avatar avatar-xs rounded me-2">TN</span>
-          Quach Heng Tony
+        <a href="javascript:void(0)" className="dropdown-item">
+          <span className="avatar avatar-xs rounded me-2">QH</span>
+          Quách Hêng Tôny
           <span class="badge bg-red-lt ms-auto">admin</span>
         </a>
-        <a href="#" className="dropdown-item">
-          <span className="avatar avatar-xs rounded me-2">RD</span>
-          Ryan Dahl
-          <span class="badge bg-red-lt ms-auto">admin</span>
+        <a href="javascript:void(0)" className="dropdown-item">
+          <span className="avatar avatar-xs rounded me-2">QH</span>
+          Quách Hêng Tôny
+          <span class="badge bg-green ms-auto"></span>
+        </a>
+        <a href="javascript:void(0)" className="dropdown-item">
+          <span className="avatar avatar-xs rounded me-2">TQ</span>
+          Tôny Quách
         </a>
         <div className="dropdown-divider" />
         <h6 className="dropdown-header">Actions</h6>
         <CreateRoom />
-        <a href="#" className="dropdown-item">
+        <a href="javascript:void(0)" className="dropdown-item">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon dropdown-item-icon"

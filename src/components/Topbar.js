@@ -56,7 +56,11 @@ function Topbar() {
             <div class="navbar-nav flex-row order-md-last">
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <a className="nav-link" href="javascript:void(0)" onClick={() => history.push("/login")}>
+                  <a
+                    className="nav-link"
+                    href="javascript:void(0)"
+                    onClick={() => history.push("/login")}
+                  >
                     <span className="nav-link-title">Login</span>
                   </a>
                 </li>
@@ -187,7 +191,10 @@ function PrivateTopbar() {
           <div className="navbar navbar-light">
             <div className="container-xl">
               <ul className="navbar-nav">
-                <li className="nav-item" onClick={() => history.push("/b/dashboard")}>
+                <li
+                  className="nav-item"
+                  onClick={() => history.push("/b/dashboard")}
+                >
                   <a className="nav-link" href="javascript:void(0)">
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <svg
@@ -212,7 +219,11 @@ function PrivateTopbar() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="javascript:void(0)" onClick={() => history.push("/b/activity")}>
+                  <a
+                    className="nav-link"
+                    href="javascript:void(0)"
+                    onClick={() => history.push("/b/activity")}
+                  >
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -234,11 +245,15 @@ function PrivateTopbar() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="javascript:void(0)" onClick={() => history.push("/b/inbox")}>
+                  <a
+                    className="nav-link"
+                    href="javascript:void(0)"
+                    onClick={() => history.push("/b/inbox")}
+                  >
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="icon icon-tabler icon-tabler-inbox"
+                        class="icon icon-tabler icon-tabler-link"
                         width="44"
                         height="44"
                         viewBox="0 0 24 24"
@@ -249,11 +264,11 @@ function PrivateTopbar() {
                         stroke-linejoin="round"
                       >
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <rect x="4" y="4" width="16" height="16" rx="2" />
-                        <path d="M4 13h3l3 3h4l3 -3h3" />
+                        <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+                        <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
                       </svg>
                     </span>
-                    <span className="nav-link-title">Inbox</span>
+                    <span className="nav-link-title">Link</span>
                   </a>
                 </li>
               </ul>

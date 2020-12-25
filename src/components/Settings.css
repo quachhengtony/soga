@@ -1,4 +1,4 @@
-.settings {
+/* .settings {
     background-color: #FFF;
     position: absolute;
     right: 0;
@@ -35,7 +35,6 @@
 
 .--border-red {
     border: 2px solid #D73A49;
-    /* border-radius: 3px; */
 }
 
 .roomsList__container {
@@ -67,4 +66,44 @@
 
 .button__container {
     margin: auto 25px 0 10px;
+} */
+
+.settings {
+    width: 75vw;
+    float: right;
+    padding: 25px;
+}
+
+.--settings-workspace-rename-card {
+    margin-top: 10px;
+    display: flex;
+}
+
+.--settings-workspace-rename-card > div {
+    display: flex;
+}
+
+.--settings-workspace-rename-card > div > a {
+    margin-left: 10px;
+}
+
+.--settings-room-list-card {
+    margin-top: 10px;
+}
+
+.--settings-link-people-card {
+    margin-top: 10px;
+    display: flex;
+}
+
+.--settings-link-people-card > div {
+    display: flex;
+}
+
+.--settings-link-people-card > div > a {
+    margin-left: 10px;
+}
+
+.--settings-people-list-card {
+    margin-top: 10px;
 }
