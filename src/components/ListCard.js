@@ -28,7 +28,7 @@ function ListCard({ columnId }) {
   }, [cards]);
 
   return (
-    <div className="listCard">
+    <>
       {cards.map((card, index) => (
         <Draggable draggableId={card.id} index={index}>
           {(provided, snapshot) => (
@@ -37,14 +37,16 @@ function ListCard({ columnId }) {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
             >
-              <div className="listCard__card">
+              <div className="card --list-card-card">
+                <div className="card-body">
                 <p>{card.body}</p>
+                </div>
               </div>
             </div>
           )}
         </Draggable>
       ))}
-    </div>
+      </>
   );
 }
 

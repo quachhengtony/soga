@@ -69,6 +69,7 @@ function Chat() {
   const { roomId, workspaceId } = useParams();
   const [roomDetails, setRoomDetails] = useState([]);
   const [roomMessages, setRoomMessages] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     if (workspaceId && roomId) {
@@ -95,7 +96,7 @@ function Chat() {
         <ul class="nav nav-tabs nav-tabs-alt" data-bs-toggle="tabs">
           <li class="nav-item">
             <a
-              href="#tabs-home-ex6"
+              onClick={() => history.push(`/workspace/${workspaceId}/room/${roomId}/chat`)}
               class="nav-link active"
               data-bs-toggle="tab"
             >
@@ -119,7 +120,7 @@ function Chat() {
             </a>
           </li>
           <li class="nav-item">
-            <a href="#tabs-profile-ex6" class="nav-link" data-bs-toggle="tab">
+            <a onClick={() => history.push(`/workspace/${workspaceId}/room/${roomId}/board`)} class="nav-link" data-bs-toggle="tab">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="icon me-2"

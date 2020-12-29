@@ -1,4 +1,3 @@
-import Button from "@atlaskit/button";
 import { useParams } from "react-router-dom";
 import firebase from "firebase";
 import db from "../firebase";
@@ -27,11 +26,9 @@ function CreateCard({ columnId }) {
   };
 
   return (
-    <div className="createCard">
-      <Button className="createCard_button" onClick={addCard} spacing="compact">
+      <button onClick={addCard} className="btn btn-sm --create-card-btn">
         New card
-      </Button>
-    </div>
+      </button>
   );
 }
 

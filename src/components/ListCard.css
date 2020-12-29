@@ -1,10 +1,10 @@
-.listCard__card {
-    margin-bottom: 10px;
+.--list-card-card {
+    margin: 0 0 10px;
+    /* margin-bottom: 10px; */
     width: auto;
     height: 100px;
-    background: #FFF;
-    border: 2px solid var(--atlassian-blue);
+    /* background: #FFF; */
     text-align: left;
-    padding: 5px;
-    border-radius: 3px;
+    /* padding: 5px; */
+    /* border-radius: 3px; */
 }

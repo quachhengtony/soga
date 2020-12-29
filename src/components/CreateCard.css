@@ -1,4 +1,3 @@
-.createCard {
-    display: flex;
+.--create-card-btn {
     float: right;
 }

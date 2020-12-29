@@ -1,47 +1,50 @@
 .board {
-  display: flex;
-  position: absolute;
-  right: 0;
-  width: 77.5%;
-  height: 100vh;
-  margin: 0;
-  border-left: 1px solid #e0e0e0;
+  width: 75vw;
+  float: right;
 }
+
+.--board-chat {
+  border-radius: 0 !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
+}
+
 
 .board__columnsContainer {
   display: flex;
-  height: auto;
+  min-height: 90vh;
+  max-height: auto;
   overflow-y: hidden;
-  margin: 30px 0 0;
-}
-
-.board__header {
-  display: flex;
-  position: absolute;
-  top: 0;
-  margin: 10px;
+  margin: 10px 25px 0;
+  /* border: 1px solid blue; */
 }
 
 .column__container {
   margin: 10px;
   border-radius: 3px;
-  background-color: #fafbfc;
-  border-top: 4px solid var(--yellow);
+  background-color: transparent;
+  /* border: 1px solid blue; */
+  /* border-top: 4px solid var(--yellow); */
 }
 
 .column {
-  padding: 10px;
+  /* padding: 10px; */
   width: 260px;
-  height: 500px;
+  /* min-height: 85vh; */
+  max-height: auto;
   border-radius: 3px;
-  background-color: #fafbfc;
+  background-color: transparent;
+  /* background-color: #fafbfc; */
   text-align: center;
 }
 
 .column__header {
-  margin: 10px 10px 0px;
+  /* margin: 10px 0 0; */
   display: flex;
-  height: auto;
+  /* height: auto; */
+  /* border: 1px solid red; */
 }
 
 .columnHeader__name {
@@ -52,6 +55,8 @@
   flex: 0.5;
 }
 
-.board_addButton {
-  margin: 10px;
+.--new-column-btn {
+  margin-top: 10px;
+  margin-left: 5px;
+  /* margin: 10px; */
 }
