@@ -1,4 +1,6 @@
 import { useHistory } from "react-router-dom";
+import { useStateValue } from "../StateProvider";
+import { auth } from "../firebase";
 
 function Topbar() {
   const history = useHistory();
@@ -80,6 +82,7 @@ function Topbar() {
 
 function PrivateTopbar() {
   const history = useHistory();
+  const { user } = useStateValue();
 
   return (
     <div className="topbar">
@@ -97,7 +100,7 @@ function PrivateTopbar() {
           <div className="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
             <a href=".">
               <img
-                src="https://preview.tabler.io/static/logo.svg"
+                src="https://cdn.worldvectorlogo.com/logos/dropbox-3.svg"
                 width={110}
                 height={32}
                 alt="Tabler"
@@ -159,25 +162,25 @@ function PrivateTopbar() {
                   }}
                 />
                 <div className="d-none d-xl-block ps-2">
-                  <div>Paweł Kuna</div>
-                  <div className="mt-1 small text-muted">UI Designer</div>
+                  <div>{user ? user.displayName : "..."}</div>
+                  <div className="mt-1 small text-muted">Marketing</div>
                 </div>
               </a>
               <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <a href="javascript:void(0)" className="dropdown-item">
+                <a className="dropdown-item">
                   Set status
                 </a>
-                <a href="javascript:void(0)" className="dropdown-item">
-                  Profile &amp; account
+                <a className="dropdown-item">
+                  Profile & account
                 </a>
-                <a href="javascript:void(0)" className="dropdown-item">
-                  Feedback
+                <a className="dropdown-item">
+                  Billing
                 </a>
                 <div className="dropdown-divider" />
-                <a href="javascript:void(0)" className="dropdown-item">
+                <a className="dropdown-item">
                   Settings
                 </a>
-                <a href="javascript:void(0)" className="dropdown-item">
+                <a onClick={() => auth.signOut()} className="dropdown-item">
                   Logout
                 </a>
               </div>
@@ -222,32 +225,6 @@ function PrivateTopbar() {
                   <a
                     className="nav-link"
                     href="javascript:void(0)"
-                    onClick={() => history.push("/b/activity")}
-                  >
-                    <span className="nav-link-icon d-md-none d-lg-inline-block">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="icon icon-tabler icon-tabler-activity"
-                        width="44"
-                        height="44"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="#2c3e50"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M3 12h4l3 8l4 -16l3 8h4" />
-                      </svg>
-                    </span>
-                    <span className="nav-link-title">Activity</span>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="javascript:void(0)"
                     onClick={() => history.push("/b/inbox")}
                   >
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
@@ -269,6 +246,32 @@ function PrivateTopbar() {
                       </svg>
                     </span>
                     <span className="nav-link-title">Link</span>
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    href="javascript:void(0)"
+                    onClick={() => history.push("/b/activity")}
+                  >
+                    <span className="nav-link-icon d-md-none d-lg-inline-block">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="icon icon-tabler icon-tabler-activity"
+                        width="44"
+                        height="44"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="#2c3e50"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M3 12h4l3 8l4 -16l3 8h4" />
+                      </svg>
+                    </span>
+                    <span className="nav-link-title">Activity</span>
                   </a>
                 </li>
               </ul>

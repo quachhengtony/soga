@@ -6,17 +6,17 @@ function ListWorkspace({ id, name, date, author }) {
   return (
     <tr>
       <td onClick={() => history.push(`/workspace/${id}/room/undefined/chat`)}>
-        <a href="javascript:void(0)" class="text-reset">
+        <a className="text-reset">
           {name ? name : "..."}
         </a>
       </td>
       <td className="text-muted">{date ? date : "..."}</td>
       <td className="text-muted">{author ? author : "..."}</td>
-      <td onClick={() => history.push(`/workspace/${id}/room/undefined/chat`)}>
-        <a href="javascript:void(0)">Open</a>
+      <td>
+        <a>Insights</a>
       </td>
       <td>
-        <a href="javascript:void(0)">Settings</a>
+        <a>Settings</a>
       </td>
     </tr>
   );

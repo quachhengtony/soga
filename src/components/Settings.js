@@ -195,10 +195,10 @@ function Settings() {
     <div className="settings">
       <ol class="breadcrumb" aria-label="breadcrumbs">
         <li class="breadcrumb-item">
-          <a href="javascript:void(0)">Workspace</a>
+          <a>Workspace</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-          <a href="javascript:void(0)">Settings</a>
+          <a>Settings</a>
         </li>
       </ol>
       <div className="card --settings-workspace-rename-card">
@@ -208,7 +208,7 @@ function Settings() {
             className="form-control"
             placeholder="New workspace name..."
           />
-          <a href="javascript:void(0)" class="btn btn-primary">
+          <a className="btn btn-primary">
             Rename
           </a>
         </div>

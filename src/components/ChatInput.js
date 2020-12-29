@@ -138,10 +138,8 @@ import { useStateValue } from "../StateProvider";
 
 function ChatInput({ roomName, roomId, workspaceId }) {
   const input = useRef("");
-  const { user } = useStateValue();
-
+  const { user, currentDate } = useStateValue();
   const history = useHistory();
-  const [currentDate, setCurrentDate] = useState("");
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -190,19 +188,6 @@ function ChatInput({ roomName, roomId, workspaceId }) {
   //   const id = uuid();
   //   history.push(`video/${id}`);
   // };
-
-  const getCurrentDate = () => {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, "0");
-    var mm = String(today.getMonth() + 1).padStart(2, "0");
-    var yyyy = today.getFullYear();
-    today = dd + "/" + mm + "/" + yyyy;
-    setCurrentDate(today);
-  };
-
-  useEffect(() => {
-    getCurrentDate();
-  }, []);
 
   return (
     <div className="chatinput">

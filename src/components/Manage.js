@@ -8,18 +8,8 @@ import ListWorkspace from "./ListWorkspace";
 
 function Manage() {
   const [workspaces, setWorkspaces] = useState([]);
-  const { user } = useStateValue();
-  const [currentDate, setCurrentDate] = useState();
+  const { user, currentDate } = useStateValue();
   const [isBusinessUser, setIsBusinessUser] = useState(false);
-
-  const getCurrentDate = () => {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, "0");
-    var mm = String(today.getMonth() + 1).padStart(2, "0");
-    var yyyy = today.getFullYear();
-    today = dd + "/" + mm + "/" + yyyy;
-    setCurrentDate(today);
-  };
 
   const createWorkspaceHandler = async () => {
     const workspaceName = prompt("Choose a workspace name");
@@ -62,7 +52,6 @@ function Manage() {
             }))
           )
         );
-    getCurrentDate();
   }, []);
 
   return (

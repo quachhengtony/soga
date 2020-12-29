@@ -56,7 +56,7 @@ function Board() {
       if (result.destination.droppableId != result.source.droppableId) {
         resolve();
       } else if (result.destination.droppableId == result.source.droppableId) {
-        return;
+        return
       } else {
         return;
       }
@@ -199,13 +199,11 @@ function Board() {
           </li>
         </ul>
       </div>
-
       <DragDropContext
         onDragStart={(result) => onDragStart(result)}
         onDragEnd={(result) => onDragEnd(result)}
       >
         <div className="board__columnsContainer">
-
           {columns.map((column) => (
             <div className="column__container">
               <div className="column__header">
@@ -241,10 +239,9 @@ function Board() {
             </button>
           </div>
         </div>
-
       </DragDropContext>
     </div>
   );
 }
 
-export default memo(Board);
+export default Board;

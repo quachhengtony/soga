@@ -1,4 +1,4 @@
-import { useState, useEffect }from 'react';
+import { useState }from 'react';
 import { useParams } from 'react-router-dom';
 import firebase from 'firebase';
 
@@ -8,21 +8,7 @@ import { useStateValue } from '../StateProvider';
 function CreateRoom() {
 
     const { workspaceId } = useParams();
-    const { user } = useStateValue();
-    const [currentDate, setCurrentDate] = useState();
-
-    const getCurrentDate = () => {
-        var today = new Date();
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0');
-        var yyyy = today.getFullYear();
-        today = dd + "/" + mm + "/" + yyyy;
-        setCurrentDate(today);
-    }
-
-    useEffect(() => {
-        getCurrentDate();
-    }, [])
+    const { user, currentDate } = useStateValue();
 
     const createRoom = () => {
         const roomName = prompt('Enter room name:');

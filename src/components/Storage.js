@@ -7,24 +7,14 @@ import db, { storage } from "../firebase";
 import { useStateValue } from "../StateProvider";
 
 export default function Storage() {
-  const { user } = useStateValue();
+  const { user, currentDate } = useStateValue();
   const { workspaceId } = useParams();
 
   const [files, setFiles] = useState([]);
   const [groupToGetFiles, setGroupToGetFiles] = useState();
-  const [currentDate, setCurrentDate] = useState();
 
   const [storageGroups, setStorageGroups] = useState([]);
   const [groupToUpload, setGroupToUpload] = useState("");
-
-  const getCurrentDate = () => {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, "0");
-    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    var yyyy = today.getFullYear();
-    today = dd + "/" + mm + "/" + yyyy;
-    setCurrentDate(today);
-  };
 
   const createGroup = () => {
     const groupToCreate = prompt("Choose a group name:");
@@ -143,7 +133,6 @@ export default function Storage() {
   };
 
   useEffect(() => {
-    getCurrentDate();
     getStorageGroups();
   }, []);
 
