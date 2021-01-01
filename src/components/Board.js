@@ -17,7 +17,7 @@ function Board() {
 
   const addColumn = () => {
     const columnName = prompt("Enter column name:");
-    if (workspaceId && roomId && columnName) {
+    if (workspaceId && roomId && columnName !== "") {
       db.collection("workspaces")
         .doc(workspaceId)
         .collection("rooms")
@@ -28,7 +28,7 @@ function Board() {
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })
         .then(() => console.log("column added"))
-        .catch((err) => console.log(err));
+        .catch((error) => console.error(error));
     }
   };
 
@@ -56,7 +56,7 @@ function Board() {
       if (result.destination.droppableId != result.source.droppableId) {
         resolve();
       } else if (result.destination.droppableId == result.source.droppableId) {
-        return
+        return;
       } else {
         return;
       }
@@ -208,9 +208,7 @@ function Board() {
             <div className="column__container">
               <div className="column__header">
                 <div className="columnHeader__name">
-                  <p>
-                    {column.name ? column.name : "..."}
-                  </p>
+                  <p>{column.name ? column.name : "..."}</p>
                 </div>
                 <div className="columnHeader__button">
                   <CreateCard columnId={column.id} />

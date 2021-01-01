@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import firebase from "firebase";
+import { v4 as uuidv4 } from "uuid";
 
 import "./Manage.css";
 import db from "../firebase";
@@ -11,19 +12,63 @@ function Manage() {
   const { user, currentDate } = useStateValue();
   const [isBusinessUser, setIsBusinessUser] = useState(false);
 
+  // const createWorkspaceHandler = async () => {
+  //   const workspaceName = prompt("Choose a workspace name");
+  //   if (workspaceName) {
+  //     await db.collection("workspaces").add({
+  //       workspaceName: workspaceName,
+  //       authorName: user.displayName,
+  //       authorEmail: user.email,
+  //       authorId: user.uid,
+  //       date: currentDate,
+  //       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  //     })
+  //     .then(() => console.log("Workspace created successfully"))
+  //     .catch(error => console.log(error))
+  //   } else return;
+  // };
+
   const createWorkspaceHandler = async () => {
     const workspaceName = prompt("Choose a workspace name");
     if (workspaceName) {
-      await db.collection("workspaces").add({
-        workspaceName: workspaceName,
-        authorName: user.displayName,
-        authorEmail: user.email,
-        authorId: user.uid,
-        date: currentDate,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      })
-      .then(() => console.log("Workspace created successfully"))
-      .catch(error => console.log(error))
+      var workspaceUUID = uuidv4();
+      await db
+        .collection("workspaces")
+        .doc(workspaceUUID)
+        .set({
+          workspaceName: workspaceName,
+          authorName: user.displayName,
+          authorEmail: user.email,
+          authorId: user.uid,
+          date: currentDate,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+        .then(() => {
+          db.collection("workspaces")
+            .doc(workspaceUUID)
+            .collection("rooms")
+            .add({
+              roomName: "General",
+              authorName: user.displayName,
+              authorEmail: user.email,
+              authorId: user.uid,
+              date: currentDate,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+        })
+        .then(() => {
+          db.collection("workspaces")
+            .doc(workspaceUUID)
+            .collection("storage")
+            .doc("Main")
+            .set({
+              groupName: "Main",
+              authorName: user.displayName,
+              authorId: user.uid,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+        })
+        .catch((error) => console.error(error));
     } else return;
   };
 
@@ -41,17 +86,17 @@ function Manage() {
         });
     }
     db.collection("workspaces")
-        .where("authorId", "==", user.uid)
-        .onSnapshot((snapshot) =>
-          setWorkspaces(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              name: doc.data().workspaceName,
-              date: doc.data().date,
-              author: doc.data().authorName
-            }))
-          )
-        );
+      .where("authorId", "==", user.uid)
+      .onSnapshot((snapshot) =>
+        setWorkspaces(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            name: doc.data().workspaceName,
+            date: doc.data().date,
+            author: doc.data().authorName,
+          }))
+        )
+      );
   }, []);
 
   return (
@@ -292,8 +337,7 @@ function Manage() {
                 </div>
               </div>
             </div>
-            <br>
-            </br>
+            <br></br>
             <div className="container-xl">
               <div className="row row-cards">
                 <div className="col-12">
@@ -342,7 +386,7 @@ function Manage() {
         </>
       )}
     </div>
-  )
+  );
 }
 
 export default Manage;

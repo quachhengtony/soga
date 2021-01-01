@@ -14,8 +14,10 @@ import Settings from "./components/Settings";
 import RoomVideoConference from "./components/RoomVideoConference";
 import Inbox from "./components/Inbox";
 import PrivateRoute from "./components/PrivateRoute";
+// import Loading from "./shared/Loading";
 
 function App() {
+
   return (
     <Router>
       <div className="app">
@@ -27,11 +29,6 @@ function App() {
             <Topbar />
             <Login />
           </Route>
-
-          {/* <PrivateRoute path="/sidebar">
-            <Sidebar />
-            <Chat />
-          </PrivateRoute> */}
 
           <PrivateRoute path="/f/account">
             <PrivateTopbar />
@@ -68,7 +65,7 @@ function App() {
             <PrivateTopbar />
             <Manage />
           </PrivateRoute>
-          
+
           <PrivateRoute path="/workspace/:workspaceId/room/undefined/chat">
             <Sidebar />
           </PrivateRoute>
@@ -99,6 +96,7 @@ function App() {
           <PrivateRoute path="/workspace/:workspaceId/room/:roomId/video/:videoId">
             <RoomVideoConference />
           </PrivateRoute>
+
         </Switch>
       </div>
     </Router>

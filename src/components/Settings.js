@@ -227,12 +227,12 @@ function Settings() {
             <tbody>
               {rooms.map((room) => (
                 <tr>
-                  <td>{room.roomName ? room.roomName : "..."}</td>
+                  <td>{room.roomName || <div class="skeleton-line skeleton-line-full">djbdskjavb</div>}</td>
                   <td className="text-muted">
-                    {room.authorName ? room.authorName : "..."}
+                    {room.authorName || <div class="skeleton-line skeleton-line-full"></div>}
                   </td>
                   <td className="text-muted">
-                    {room.date ? room.date : "..."}
+                    {room.date || <>...</>}
                   </td>
                   <td>
                     <a

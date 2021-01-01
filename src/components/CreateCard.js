@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useParams } from "react-router-dom";
 import firebase from "firebase";
 import db from "../firebase";
@@ -5,10 +6,15 @@ import "./CreateCard.css";
 
 function CreateCard({ columnId }) {
   const { workspaceId, roomId } = useParams();
+  const cardTitle = useRef("");
+  const cardBody = useRef("");
+  // const cardPriority = useRef("");
+  // const cardAssignee = useRef("");
+  const cardDeadline = useRef("");
+  // const cardColor = useRef("");
 
   const handleAddCard = () => {
-    const cardContent = prompt("Enter card content:");
-    if (workspaceId && roomId && cardContent != "") {
+    if (workspaceId && roomId && columnId) {
       db.collection("workspaces")
         .doc(workspaceId)
         .collection("rooms")
@@ -17,11 +23,16 @@ function CreateCard({ columnId }) {
         .doc(columnId)
         .collection("cards")
         .add({
-          body: cardContent,
+          cardTitle: cardTitle.current.value,
+          cardBody: cardBody.current.value,
+          cardPriority: "Normal",
+          cardAssignee: "Ryan Dahl",
+          cardDeadline: cardDeadline.current.value,
+          cardColor: "white",
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })
         .then(() => console.log("Card added"))
-        .catch((err) => console.log(err));
+        .catch((error) => console.error(error));
     }
   };
 
@@ -61,6 +72,7 @@ function CreateCard({ columnId }) {
                 <label className="form-label">What needs to be done?</label>
                 <input
                   type="text"
+                  ref={cardTitle}
                   className="form-control"
                   name="example-text-input"
                 />
@@ -247,7 +259,11 @@ function CreateCard({ columnId }) {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">Deadline</label>
-                    <input type="date" className="form-control" />
+                    <input
+                      type="date"
+                      ref={cardDeadline}
+                      className="form-control"
+                    />
                   </div>
                 </div>
                 <div className="col-lg-12">
@@ -255,6 +271,7 @@ function CreateCard({ columnId }) {
                     <label className="form-label">Description</label>
                     <textarea
                       className="form-control"
+                      ref={cardBody}
                       rows={3}
                       defaultValue={""}
                     />
@@ -272,6 +289,7 @@ function CreateCard({ columnId }) {
               </a>
               <a
                 href="#"
+                onClick={handleAddCard}
                 className="btn btn-primary ms-auto"
                 data-bs-dismiss="modal"
               >
