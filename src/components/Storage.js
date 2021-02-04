@@ -153,6 +153,7 @@ export default function Storage() {
             <select
               class="form-select"
               value={groupToGetFiles}
+              defaultValue={groupToGetFiles}
               onChange={e => {
                 getFiles(e.target.value);
                 setGroupToUpload(e.target.value);

@@ -68,6 +68,28 @@ function Manage() {
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             });
         })
+        .then(() => {
+          db.collection("workspaces")
+            .doc(workspaceUUID)
+            .collection("settings")
+            .doc("link")
+            .set({
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+        })
+        .then(() => {
+          db.collection("workspaces")
+            .doc(workspaceUUID)
+            .collection("settings")
+            .doc("link")
+            .collection("users")
+            .add({
+              userEmail: user.email,
+              isAdmin: true,
+              date: currentDate,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        })
         .catch((error) => console.error(error));
     } else return;
   };

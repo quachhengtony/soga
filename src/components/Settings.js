@@ -127,24 +127,36 @@ function Settings() {
   const [workspaceAuthor, setWorkspaceAuthor] = useState([]);
   const [workspaceUsers, setWorkspaceUsers] = useState([]);
 
-  const addToWorkspaceUsers = () => {
-    if (userEmail !== "") {
-      db.collection("freeAccounts").doc(userEmail.current.value).collection("links").add({
-          userEmail: userEmail.current.value
-      });
+  const handleAddUsers = () => {
+    if (userEmail.current.value !== "") {
       db.collection("workspaces")
         .doc(workspaceId)
         .collection("settings")
-        .doc("user")
-        .collection("workspaceUsers")
+        .doc("link")
+        .collection("users")
         .add({
           userEmail: userEmail.current.value,
-          userStatus: "user"
-        });
-        userEmail.current.value = "";
-    } else {
-        alert("User email cannot be empty!")
+          isAdmin: false,
+        })
+        .catch(error => console.error(error))
     }
+    // if (userEmail !== "") {
+    //   db.collection("freeAccounts").doc(userEmail.current.value).collection("links").add({
+    //       userEmail: userEmail.current.value
+    //   });
+    //   db.collection("workspaces")
+    //     .doc(workspaceId)
+    //     .collection("settings")
+    //     .doc("link")
+    //     .collection("users")
+    //     .add({
+    //       userEmail: userEmail.current.value,
+    //       isAdmin: false
+    //     });
+    //     userEmail.current.value = "";
+    // } else {
+    //     alert("User email cannot be empty!")
+    // }
   };
 
   const deleteRoom = (roomId) => {
@@ -175,17 +187,20 @@ function Settings() {
           }))
         )
       );
-      db.collection("workspaces").doc(workspaceId).get().then(doc => setWorkspaceAuthor(doc.data()));
-      db.collection("workspaces")
+    db.collection("workspaces")
+      .doc(workspaceId)
+      .get()
+      .then((doc) => setWorkspaceAuthor(doc.data()));
+    db.collection("workspaces")
       .doc(workspaceId)
       .collection("settings")
-      .doc("user")
-      .collection("workspaceUsers")
+      .doc("link")
+      .collection("users")
       .onSnapshot((snapshot) =>
         setWorkspaceUsers(
           snapshot.docs.map((doc) => ({
             userEmail: doc.data().userEmail,
-            userStatus: doc.data().userStatus
+            userStatus: doc.data().userStatus,
           }))
         )
       );
@@ -208,9 +223,7 @@ function Settings() {
             className="form-control"
             placeholder="New workspace name..."
           />
-          <a className="btn btn-primary">
-            Rename
-          </a>
+          <a className="btn btn-primary">Rename</a>
         </div>
       </div>
       <div className="card --settings-room-list-card">
@@ -227,13 +240,19 @@ function Settings() {
             <tbody>
               {rooms.map((room) => (
                 <tr>
-                  <td>{room.roomName || <div class="skeleton-line skeleton-line-full">djbdskjavb</div>}</td>
-                  <td className="text-muted">
-                    {room.authorName || <div class="skeleton-line skeleton-line-full"></div>}
+                  <td>
+                    {room.roomName || (
+                      <div class="skeleton-line skeleton-line-full">
+                        djbdskjavb
+                      </div>
+                    )}
                   </td>
                   <td className="text-muted">
-                    {room.date || <>...</>}
+                    {room.authorName || (
+                      <div class="skeleton-line skeleton-line-full"></div>
+                    )}
                   </td>
+                  <td className="text-muted">{room.date || <>...</>}</td>
                   <td>
                     <a
                       href="javascript:void(0)"
@@ -256,7 +275,11 @@ function Settings() {
             className="form-control"
             placeholder="johndoe@gmail.com"
           />
-          <a href="javascript:void(0)" class="btn btn-primary" onClick={addToWorkspaceUsers}>
+          <a
+            href="javascript:void(0)"
+            class="btn btn-primary"
+            onClick={handleAddUsers}
+          >
             Link
           </a>
         </div>
@@ -273,33 +296,15 @@ function Settings() {
               </tr>
             </thead>
             <tbody>
+              {workspaceUsers.map((workspaceUser) => (
                 <tr>
-                  <td>{workspaceAuthor ? workspaceAuthor.authorEmail : "..."}</td>
+                  <td>{workspaceUser.userEmail || "..."}</td>
                   <td className="text-muted">
-                    admin
+                    {workspaceUser.isAdmin ? "User" : "Admin"}
                   </td>
-                  <td className="text-muted">
-                    {workspaceAuthor ? workspaceAuthor.date : "..."}
-                  </td>
+                  <td className="text-muted">##/##/####</td>
                   <td>
-                      Admin
-                  </td>
-                </tr>
-              {workspaceUsers.map(workspaceUser => (
-                <tr>
-                  <td>{workspaceUser.userEmail ? workspaceUser.userEmail : "..."}</td>
-                  <td className="text-muted">
-                    {workspaceUser.userStatus ? workspaceUser.userStatus : "..."}
-                  </td>
-                  <td className="text-muted">
-                    ##/##/####
-                  </td>
-                  <td>
-                    <a
-                      href="javascript:void(0)"
-                    >
-                      Admin
-                    </a>
+                    <a href="javascript:void(0)">Admin</a>
                   </td>
                 </tr>
               ))}

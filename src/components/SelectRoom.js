@@ -19,7 +19,7 @@ function SelectRoom({ text, id }) {
   };
 
   useEffect(() => {
-    let myBtns = document.querySelectorAll(".dropdown-item");
+    let myBtns = document.querySelectorAll(".room-dropdwon-item");
     myBtns.forEach(function (btn) {
       btn.addEventListener("click", () => {
         myBtns.forEach((b) => b.classList.remove("active"));
@@ -31,7 +31,7 @@ function SelectRoom({ text, id }) {
   return (
     <a
       href="javascript:void(0)"
-      className="dropdown-item"
+      className="dropdown-item room-dropdwon-item"
       id={id}
       onClick={selectRoom}
       isSelected={checkRoom}
@@ -54,7 +54,7 @@ function SelectRoom({ text, id }) {
         <line x1="11" y1="4" x2="7" y2="20" />
         <line x1="17" y1="4" x2="13" y2="20" />
       </svg>
-      {text ? text : "..."}
+      {text || "..."}
       <span class="badge bg-primary ms-auto">4</span>
     </a>
   );
