@@ -11,7 +11,7 @@
 // import { useHistory } from "react-router-dom";
 
 // import "./ChatInput.css";
-// import db from "../firebase";
+// import db from "../adapters/firebase";
 // import { useStateValue } from "../StateProvider";
 
 // function ChatInput({ roomName, roomId, workspaceId }) {
@@ -132,9 +132,9 @@ import firebase from "firebase";
 import { v1 as uuid } from "uuid";
 import { useHistory } from "react-router-dom";
 
-import "./ChatInput.css";
-import db from "../firebase";
-import { useStateValue } from "../StateProvider";
+import "../styles/ChatInput.css";
+import db from "../adapters/firebase";
+import { useStateValue } from "../contexts/StateProvider";
 
 function ChatInput({ roomName, roomId, workspaceId }) {
   const input = useRef("");

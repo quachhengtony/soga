@@ -1,7 +1,7 @@
 import Avatar from "@atlaskit/avatar";
 import Comment, { CommentAuthor, CommentTime } from "@atlaskit/comment";
 import { memo } from "react";
-import "./Message.css";
+import "../styles/Message.css";
 
 function Message({ message, user, timestamp, userImage, date }) {
   const placeholderAvatarSrc =

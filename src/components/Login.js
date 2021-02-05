@@ -1,4 +1,4 @@
-import { auth, provider } from "../firebase";
+import { auth, provider } from "../adapters/firebase";
 import { useHistory } from "react-router-dom";
 
 function Login() {

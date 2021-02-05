@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
-import { useStateValue } from "../StateProvider";
-import { auth } from "../firebase";
+import { useStateValue } from "../contexts/StateProvider";
+import { auth } from "../adapters/firebase";
 
 function Topbar() {
   const history = useHistory();

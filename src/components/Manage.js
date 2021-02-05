@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import firebase from "firebase";
 import { v4 as uuidv4 } from "uuid";
 
-import "./Manage.css";
-import db from "../firebase";
-import { useStateValue } from "../StateProvider";
+import "../styles/Manage.css";
+import db from "../adapters/firebase";
+import { useStateValue } from "../contexts/StateProvider";
 import ListWorkspace from "./ListWorkspace";
 
 function Manage() {

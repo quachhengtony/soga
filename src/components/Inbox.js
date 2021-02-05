@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import Button from '@atlaskit/button';
 import { useHistory } from 'react-router-dom';
 
-import './Inbox.css';
-import db from '../firebase';
-import { useStateValue } from '../StateProvider';
+import '../styles/Inbox.css';
+import db from '../adapters/firebase';
+import { useStateValue } from '../contexts/StateProvider';
 
 function Inbox() {
 

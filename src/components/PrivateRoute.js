@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useStateValue } from "../StateProvider";
+import { useStateValue } from "../contexts/StateProvider";
 
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
   const { user } = useStateValue();

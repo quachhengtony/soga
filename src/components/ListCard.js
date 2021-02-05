@@ -1,25 +1,23 @@
 import { memo, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import db from "../firebase";
-import "./ListCard.css";
+import db from "../adapters/firebase";
 import { Draggable } from "react-beautiful-dnd";
-import { useStateValue } from "../StateProvider";
-import ViewCardModal from "./ViewCardModal";
+import { useStateValue } from "../contexts/StateProvider";
+import "../styles/ListCard.css";
 
 function ListCard(props) {
   const [cards, setCards] = useState([]);
   const { workspaceId, roomId } = useParams();
-  // const [cardTitle, setCardTitle] = useState("");
-  // const [cardBody, setCardBody] = useState("");
-  // const [cardPriority, setCardPriority] = useState("");
-  // const [cardColor, setCardColor] = useState("");
-  // const [cardDeadline, setCardDeadline] = useState("");
-  // const [cardAssignee, setCardAssignee] = useState("");
 
-const handleChangeCardData = (cardTitle) => {
+const handleChangeCardData = (cardTitle, cardBody, cardPriority, cardColor, cardDeadline, cardAssignee, cardReporter) => {
   props.setCardTitle(cardTitle);
+  props.setCardBody(cardBody);
+  props.setCardPriority(cardPriority);
+  props.setCardColor(cardColor);
+  props.setCardDeadline(cardDeadline);
+  props.setCardAssignee(cardAssignee);
+  props.setCardReporter(cardReporter);
 }
-
 
   useEffect(() => {
     db.collection("workspaces")
@@ -40,6 +38,7 @@ const handleChangeCardData = (cardTitle) => {
             color: doc.data().cardColor,
             deadline: doc.data().cardDeadline,
             assignee: doc.data().cardAssignee,
+            reporter: doc.data().cardReporter
           }))
         )
       );
@@ -59,7 +58,7 @@ const handleChangeCardData = (cardTitle) => {
               >
                 <div
                   className="card --listcard-card"
-                  onClick={() => handleChangeCardData(card.title)}
+                  onClick={() => handleChangeCardData(card.title, card.body, card.priority, card.color, card.deadline, card.assignee, card.reporter)}
                   data-bs-toggle="modal"
                   data-bs-target="#modal-card-details"
                   style={{ border: `2px solid ${card.color}` }}
@@ -74,7 +73,6 @@ const handleChangeCardData = (cardTitle) => {
         </div>
         </>
       ))}
-      {/* <ViewCardModal cardTitle={cardTitle} /> */}
     </>
   );
 } 

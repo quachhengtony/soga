@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import firebase from "firebase";
 
-import "./Storage.css";
-import db, { storage } from "../firebase";
-import { useStateValue } from "../StateProvider";
+import "../styles/Storage.css";
+import db, { storage } from "../adapters/firebase";
+import { useStateValue } from "../contexts/StateProvider";
 
 export default function Storage() {
   const { user, currentDate } = useStateValue();

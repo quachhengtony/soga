@@ -4,7 +4,7 @@
 // import Button, { ButtonGroup } from '@atlaskit/button';
 
 // import './Settings.css';
-// import db from '../firebase';
+// import db from '../adapters/firebase';
 // import { useParams } from "react-router-dom";
 // import { useStateValue } from '../StateProvider';
 
@@ -114,10 +114,10 @@
 // export default Settings;
 
 import { useState, useEffect, useRef } from "react";
-import "./Settings.css";
-import db from "../firebase";
+import "../styles/Settings.css";
+import db from "../adapters/firebase";
 import { useParams } from "react-router-dom";
-import { useStateValue } from "../StateProvider";
+import { useStateValue } from "../contexts/StateProvider";
 
 function Settings() {
   const { workspaceId } = useParams();

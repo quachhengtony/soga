@@ -1,14 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { StateProvider } from './StateProvider';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./styles/index.css";
+import App from "./App";
+import { StateProvider } from "./contexts/StateProvider";
 // import reducer, { initialState } from './reducer';
 import "@tabler/core/dist/css/tabler.min.css";
 import "@tabler/core/dist/js/tabler.min.js";
-// import "bootstrap/dist/js/bootstrap.bundle.min.js";
-// import "bootstrap/dist/css/bootstrap.min.css";
-
 import "@tabler/core/dist/css/demo.css";
 
 ReactDOM.render(
@@ -18,5 +15,5 @@ ReactDOM.render(
       <App />
     </StateProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

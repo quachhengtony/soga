@@ -2,7 +2,7 @@
 // import GsuiteIcon from '@atlaskit/icon/glyph/gsuite';
 
 // import './Login.css';
-// import { auth, provider } from '../firebase';
+// import { auth, provider } from '../adapters/firebase';
 // import { useStateValue } from '../StateProvider';
 // import { actionTypes } from '../reducer';
 // import { useHistory } from 'react-router-dom';

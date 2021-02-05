@@ -2,7 +2,7 @@
 // import { useParams } from "react-router-dom";
 
 // import "./Chat.css";
-// import db from "../firebase";
+// import db from "../adapters/firebase";
 // import Message from "./Message";
 // import ChatInput from "./ChatInput";
 
@@ -60,8 +60,8 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
-import "./Chat.css";
-import db from "../firebase";
+import "../styles/Chat.css";
+import db from "../adapters/firebase";
 import Message from "./Message";
 import ChatInput from "./ChatInput";
 

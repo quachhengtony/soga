@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { ScheduleComponent, HeaderRowDirective, HeaderRowsDirective, TimelineMonth, Inject, ViewsDirective, ViewDirective, DragAndDrop, Resize } from '@syncfusion/ej2-react-schedule';
-import './Timeline.css';
+import '../styles/Timeline.css';
 
 function Timeline() {
     return (

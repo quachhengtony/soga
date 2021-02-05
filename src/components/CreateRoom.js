@@ -2,8 +2,8 @@ import { useState }from 'react';
 import { useParams } from 'react-router-dom';
 import firebase from 'firebase';
 
-import db from '../firebase';
-import { useStateValue } from '../StateProvider';
+import db from '../adapters/firebase';
+import { useStateValue } from '../contexts/StateProvider';
 
 function CreateRoom() {
 

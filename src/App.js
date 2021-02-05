@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./App.css";
+import "./styles/App.css";
 import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import Login from "./components/Login";
@@ -14,10 +14,8 @@ import Settings from "./components/Settings";
 import RoomVideoConference from "./components/RoomVideoConference";
 import Inbox from "./components/Inbox";
 import PrivateRoute from "./components/PrivateRoute";
-// import Loading from "./shared/Loading";
 
 function App() {
-
   return (
     <Router>
       <div className="app">
@@ -96,7 +94,6 @@ function App() {
           <PrivateRoute path="/workspace/:workspaceId/room/:roomId/video/:videoId">
             <RoomVideoConference />
           </PrivateRoute>
-
         </Switch>
       </div>
     </Router>
@@ -104,76 +101,3 @@ function App() {
 }
 
 export default App;
-
-// {!!user ? (
-//   <>
-//     <PublicTopbar />
-//     <Switch>
-//       <Route path="/sign-in">
-//         <Login />
-//       </Route>
-//     </Switch>
-//   </>
-// ) : (
-//   <>
-//     {isPaidUser ? (
-//       <>
-//         <Switch>
-//           <Route path="/account">
-//             <BusinessTopbar />
-//             <Account />
-//           </Route>
-//           <Route path="/manage">
-//             <BusinessTopbar />
-//             <Manage />
-//           </Route>
-//         </Switch>
-//       </>
-//     ) : (
-//       <>
-//         <Switch>
-//           <Route path="/account">
-//             <LoggedInTopbar />
-//             <Account />
-//           </Route>
-//           <Route path="/inbox">
-//             <LoggedInTopbar />
-//             <Inbox />
-//           </Route>
-//         </Switch>
-//       </>
-//     )}
-//     <Switch>
-//       <Route path="/workspace/:workspaceId/room/undefined/chat">
-//         <Sidebar />
-//       </Route>
-//       <Route path="/workspace/:workspaceId/room/:roomId/chat">
-//         <Sidebar />
-//         <Chat />
-//       </Route>
-//       <Route path="/workspace/:workspaceId/room/:roomId/board">
-//         <Sidebar />
-//         <Board />
-//       </Route>
-//       <Route path="/workspace/:workspaceId/room/:roomId/schedule">
-//         <Sidebar />
-//         <Schedule />
-//       </Route>
-//       <Route path="/workspace/:workspaceId/timeline">
-//         <Sidebar />
-//         <Timeline />
-//       </Route>
-//       <Route path="/workspace/:workspaceId/storage">
-//         <Sidebar />
-//         <Storage />
-//       </Route>
-//       <Route path="/workspace/:workspaceId/settings">
-//         <Sidebar />
-//         <Settings />
-//       </Route>
-//       <Route path="/workspace/:workspaceId/room/:roomId/video/:videoId">
-//         <RoomVideoConference />
-//       </Route>
-//     </Switch>
-//   </>
-// )}

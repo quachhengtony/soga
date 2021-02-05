@@ -2,7 +2,7 @@
 // import { DragDropContext, Droppable } from "react-beautiful-dnd";
 // import firebase from "firebase";
 
-// import db from "../firebase";
+// import db from "../adapters/firebase";
 // import "./Board.css";
 // import CreateCard from "./CreateCard";
 // import ListCard from "./ListCard";
@@ -249,8 +249,8 @@ import { memo, useState, useEffect, useRef } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import firebase from "firebase";
 
-import db from "../firebase";
-import "./Board.css";
+import db from "../adapters/firebase";
+import "../styles/Board.css";
 import ListCard from "./ListCard";
 import { useHistory, useParams } from "react-router-dom";
 import CreateCardModal from "./CreateCardModal";
@@ -259,13 +259,17 @@ import ViewCardModal from "./ViewCardModal";
 function Board() {
   const [columns, setColumns] = useState([]);
   const { workspaceId, roomId } = useParams();
-  const [cardBody, setCardBody] = useState("");
+  // const [cardBody, setCardBody] = useState("");
   const history = useHistory();
-
   const [columnId, setColumnId] = useState("");
 
-
   const [cardTitle, setCardTitle] = useState("");
+  const [cardBody, setCardBody] = useState("");
+  const [cardPriority, setCardPriority] = useState("");
+  const [cardColor, setCardColor] = useState("");
+  const [cardDeadline, setCardDeadline] = useState("");
+  const [cardAssignee, setCardAssignee] = useState("");
+  const [cardReporter, setCardReporter] = useState("");
 
   const addColumn = () => {
     const columnName = prompt("Enter column name:");
@@ -284,69 +288,69 @@ function Board() {
     }
   };
 
-  const onDragStart = (result) => {
-    db.collection("workspaces")
-      .doc(workspaceId)
-      .collection("rooms")
-      .doc(roomId)
-      .collection("columns")
-      .doc(result.source.droppableId)
-      .collection("cards")
-      .doc(result.draggableId)
-      .get()
-      .then((doc) => {
-        setCardBody(doc.data().body);
-        console.log("Card copied");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const onDragStart = (result) => {
+  //   db.collection("workspaces")
+  //     .doc(workspaceId)
+  //     .collection("rooms")
+  //     .doc(roomId)
+  //     .collection("columns")
+  //     .doc(result.source.droppableId)
+  //     .collection("cards")
+  //     .doc(result.draggableId)
+  //     .get()
+  //     .then((doc) => {
+  //       setCardBody(doc.data().body);
+  //       console.log("Card copied");
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
-  const onDragEnd = (result) => {
-    var cardPromise = new Promise((resolve, reject) => {
-      if (result.destination.droppableId != result.source.droppableId) {
-        resolve();
-      } else if (result.destination.droppableId == result.source.droppableId) {
-        return;
-      } else {
-        return;
-      }
-    });
+  // const onDragEnd = (result) => {
+  //   var cardPromise = new Promise((resolve, reject) => {
+  //     if (result.destination.droppableId != result.source.droppableId) {
+  //       resolve();
+  //     } else if (result.destination.droppableId == result.source.droppableId) {
+  //       return;
+  //     } else {
+  //       return;
+  //     }
+  //   });
 
-    cardPromise
-      .then(() => {
-        db.collection("workspaces")
-          .doc(workspaceId)
-          .collection("rooms")
-          .doc(roomId)
-          .collection("columns")
-          .doc(result.source.droppableId)
-          .collection("cards")
-          .doc(result.draggableId)
-          .delete()
-          .then(() => {
-            console.log("Card deleted");
-          })
-          .catch((err) => console.log(err));
-      })
-      .then(() => {
-        db.collection("workspaces")
-          .doc(workspaceId)
-          .collection("rooms")
-          .doc(roomId)
-          .collection("columns")
-          .doc(result.destination.droppableId)
-          .collection("cards")
-          .add({
-            body: cardBody.current.value,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          })
-          .then(() => console.log("Card added"))
-          .catch((err) => console.log(err));
-      })
-      .catch((err) => console.log(err));
-  };
+  //   cardPromise
+  //     .then(() => {
+  //       db.collection("workspaces")
+  //         .doc(workspaceId)
+  //         .collection("rooms")
+  //         .doc(roomId)
+  //         .collection("columns")
+  //         .doc(result.source.droppableId)
+  //         .collection("cards")
+  //         .doc(result.draggableId)
+  //         .delete()
+  //         .then(() => {
+  //           console.log("Card deleted");
+  //         })
+  //         .catch((err) => console.log(err));
+  //     })
+  //     .then(() => {
+  //       db.collection("workspaces")
+  //         .doc(workspaceId)
+  //         .collection("rooms")
+  //         .doc(roomId)
+  //         .collection("columns")
+  //         .doc(result.destination.droppableId)
+  //         .collection("cards")
+  //         .add({
+  //           body: cardBody,
+  //           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  //         })
+  //         .then(() => console.log("Card added"))
+  //         .catch((err) => console.log(err));
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   useEffect(() => {
     db.collection("workspaces")
@@ -453,8 +457,8 @@ function Board() {
         </ul>
       </div>
       <DragDropContext
-        onDragStart={(result) => onDragStart(result)}
-        onDragEnd={(result) => onDragEnd(result)}
+        // onDragStart={(result) => onDragStart(result)}
+        // onDragEnd={(result) => onDragEnd(result)}
       >
         <div className="board__columnsContainer">
           {columns.map((column, index) => (
@@ -481,7 +485,7 @@ function Board() {
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                   >
-                    <ListCard columnId={column.id} setCardTitle={setCardTitle} />
+                    <ListCard columnId={column.id} setCardTitle={setCardTitle} setCardBody={setCardBody} setCardPriority={setCardPriority} setCardColor={setCardColor} setCardDeadline={setCardDeadline} setCardAssignee={setCardAssignee} setCardReporter={setCardReporter} />
                     {provided.placeholder}
                   </div>
                 )}
@@ -499,7 +503,7 @@ function Board() {
         </div>
       </DragDropContext>
 
-      <ViewCardModal cardTitle={cardTitle} />
+      <ViewCardModal cardTitle={cardTitle} cardBody={cardBody} cardPriority={cardPriority} cardColor={cardColor} cardDeadline={cardDeadline} cardAssignee={cardAssignee} cardReporter={cardReporter} />
       <CreateCardModal columnId={columnId} />
     </div>
   );

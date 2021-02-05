@@ -23,7 +23,7 @@
 // import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 
 // import './Sidebar.css';
-// import db from '../firebase';
+// import db from '../adapters/firebase';
 // import { useHistory, useParams } from 'react-router-dom';
 // import SelectRoom from './SelectRoom';
 // import CreateRoom from './CreateRoom';
@@ -135,12 +135,12 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-import "./Sidebar.css";
-import db from "../firebase";
+import "../styles/Sidebar.css";
+import db from "../adapters/firebase";
 import { useHistory, useParams } from "react-router-dom";
 import SelectRoom from "./SelectRoom";
 import CreateRoom from "./CreateRoom";
-import { useStateValue } from "../StateProvider";
+import { useStateValue } from "../contexts/StateProvider";
 
 function Sidebar() {
   const { workspaceId } = useParams();

@@ -1,20 +1,21 @@
 import { useRef, useState, useEffect } from "react";
-import db from "../firebase";
+import db from "../adapters/firebase";
 import { useParams } from "react-router-dom";
-import { useStateValue } from "../StateProvider";
+import { useStateValue } from "../contexts/StateProvider";
 import firebase from "firebase";
 
 function CreateCardModal({ columnId }) {
+  const { user } = useStateValue();
   const cardTitle = useRef("");
   const cardBody = useRef("");
   const cardPriority = useRef("");
   const cardAssignee = useRef("");
   const cardDeadline = useRef("");
   const [cardColor, setCardColor] = useState("");
-  const cardReporter = "";
+  const cardReporter = user.email;
   const [assignees, setAssignees] = useState([]);
   const { workspaceId, roomId } = useParams();
-  const { user } = useStateValue();
+  
 
   const handleAddCard = () => {
     if (workspaceId && roomId && columnId) {
@@ -32,7 +33,7 @@ function CreateCardModal({ columnId }) {
           cardAssignee: cardAssignee.current.value,
           cardDeadline: cardDeadline.current.value,
           cardColor: cardColor,
-          cardReporter: user.email,
+          cardReporter: cardReporter,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })
         .then(() => console.log("Card added"))

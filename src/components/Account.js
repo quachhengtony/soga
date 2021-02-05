@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useStateValue } from "../StateProvider";
-import "./Account.css";
+import { useStateValue } from "../contexts/StateProvider";
+import "../styles/Account.css";
 
 function Account() {
   const { user } = useStateValue();

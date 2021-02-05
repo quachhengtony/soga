@@ -56,7 +56,7 @@
 // }
 
 import { useState, useEffect } from 'react';
-import './Schedule.css';
+import '../styles/Schedule.css';
 
 export default function Schedule() {
 

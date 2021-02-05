@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import firebase from "firebase";
-import db from "../firebase";
-import "./CreateCard.css";
-import { useStateValue } from "../StateProvider";
+import db from "../adapters/firebase";
+import "../styles/CreateCard.css";
+import { useStateValue } from "../contexts/StateProvider";
 
 function CreateCard() {
   
