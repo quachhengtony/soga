@@ -1,22 +1,22 @@
 import { useHistory } from "react-router-dom";
 
-function ListWorkspace({ id, name, date, author }) {
+function ListWorkspace({ id, name, date, author, number }) {
   const history = useHistory();
 
   return (
     <tr>
+      <td>{number+1}</td>
       <td onClick={() => history.push(`/workspace/${id}/room/undefined/chat`)}>
-        <a className="text-reset">
+        <a href="javascript:void(0)" className="text-reset">
           {name ? name : "..."}
         </a>
       </td>
       <td className="text-muted">{date ? date : "..."}</td>
       <td className="text-muted">{author ? author : "..."}</td>
       <td>
-        <a>Insights</a>
-      </td>
-      <td>
-        <a>Settings</a>
+        <a className="text-reset" href="javascript:void(0)">
+          Settings
+        </a>
       </td>
     </tr>
   );

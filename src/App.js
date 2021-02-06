@@ -14,6 +14,7 @@ import Settings from "./components/Settings";
 import RoomVideoConference from "./components/RoomVideoConference";
 import Inbox from "./components/Inbox";
 import PrivateRoute from "./components/PrivateRoute";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Topbar />
+            <HomePage />
           </Route>
           <Route path="/login">
             <Topbar />

@@ -1,13 +1,14 @@
 import { useHistory } from "react-router-dom";
 import { useStateValue } from "../contexts/StateProvider";
 import { auth } from "../adapters/firebase";
+import "../styles/Topbar.css";
 
 function Topbar() {
   const history = useHistory();
 
   return (
     <div className="topbar">
-      <header className="navbar navbar-expand-md navbar-light d-print-none">
+      <header className="navbar navbar-expand-md navbar-light d-print-none --topbar-navbar">
         <div className="container-xl">
           <button
             className="navbar-toggler"

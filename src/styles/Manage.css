@@ -85,3 +85,8 @@
     border: 1px solid #DFE1E6;
     padding: 10px;
 }
+
+
+.--container-xl {
+    min-height: 70vh;
+}

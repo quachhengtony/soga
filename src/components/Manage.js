@@ -6,11 +6,17 @@ import "../styles/Manage.css";
 import db from "../adapters/firebase";
 import { useStateValue } from "../contexts/StateProvider";
 import ListWorkspace from "./ListWorkspace";
+import CreateWorkpsaceModal from "./CreateWorkpsaceModal";
 
 function Manage() {
   const [workspaces, setWorkspaces] = useState([]);
   const { user, currentDate } = useStateValue();
   const [isBusinessUser, setIsBusinessUser] = useState(false);
+  const [workspaceUUID, setWorkspaceUUID] = useState("");
+
+  const handleCreateNewUUID = () => {
+    setWorkspaceUUID(uuidv4());
+  }
 
   // const createWorkspaceHandler = async () => {
   //   const workspaceName = prompt("Choose a workspace name");
@@ -28,71 +34,71 @@ function Manage() {
   //   } else return;
   // };
 
-  const createWorkspaceHandler = async () => {
-    const workspaceName = prompt("Choose a workspace name");
-    if (workspaceName) {
-      var workspaceUUID = uuidv4();
-      await db
-        .collection("workspaces")
-        .doc(workspaceUUID)
-        .set({
-          workspaceName: workspaceName,
-          authorName: user.displayName,
-          authorEmail: user.email,
-          authorId: user.uid,
-          date: currentDate,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        })
-        .then(() => {
-          db.collection("workspaces")
-            .doc(workspaceUUID)
-            .collection("rooms")
-            .add({
-              roomName: "General",
-              authorName: user.displayName,
-              authorEmail: user.email,
-              authorId: user.uid,
-              date: currentDate,
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            });
-        })
-        .then(() => {
-          db.collection("workspaces")
-            .doc(workspaceUUID)
-            .collection("storage")
-            .doc("Main")
-            .set({
-              groupName: "Main",
-              authorName: user.displayName,
-              authorId: user.uid,
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            });
-        })
-        .then(() => {
-          db.collection("workspaces")
-            .doc(workspaceUUID)
-            .collection("settings")
-            .doc("link")
-            .set({
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            });
-        })
-        .then(() => {
-          db.collection("workspaces")
-            .doc(workspaceUUID)
-            .collection("settings")
-            .doc("link")
-            .collection("users")
-            .add({
-              userEmail: user.email,
-              isAdmin: true,
-              date: currentDate,
-              timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            });
-        })
-        .catch((error) => console.error(error));
-    } else return;
-  };
+  // const createWorkspaceHandler = async () => {
+  //   const workspaceName = prompt("Choose a workspace name");
+  //   if (workspaceName) {
+  //     var workspaceUUID = uuidv4();
+  //     await db
+  //       .collection("workspaces")
+  //       .doc(workspaceUUID)
+  //       .set({
+  //         workspaceName: workspaceName,
+  //         authorName: user.displayName,
+  //         authorEmail: user.email,
+  //         authorId: user.uid,
+  //         date: currentDate,
+  //         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  //       })
+  //       .then(() => {
+  //         db.collection("workspaces")
+  //           .doc(workspaceUUID)
+  //           .collection("rooms")
+  //           .add({
+  //             roomName: "General",
+  //             authorName: user.displayName,
+  //             authorEmail: user.email,
+  //             authorId: user.uid,
+  //             date: currentDate,
+  //             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  //           });
+  //       })
+  //       .then(() => {
+  //         db.collection("workspaces")
+  //           .doc(workspaceUUID)
+  //           .collection("storage")
+  //           .doc("Main")
+  //           .set({
+  //             groupName: "Main",
+  //             authorName: user.displayName,
+  //             authorId: user.uid,
+  //             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  //           });
+  //       })
+  //       .then(() => {
+  //         db.collection("workspaces")
+  //           .doc(workspaceUUID)
+  //           .collection("settings")
+  //           .doc("link")
+  //           .set({
+  //             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  //           });
+  //       })
+  //       .then(() => {
+  //         db.collection("workspaces")
+  //           .doc(workspaceUUID)
+  //           .collection("settings")
+  //           .doc("link")
+  //           .collection("users")
+  //           .add({
+  //             userEmail: user.email,
+  //             isAdmin: true,
+  //             date: currentDate,
+  //             timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  //           });
+  //       })
+  //       .catch((error) => console.error(error));
+  //   } else return;
+  // };
 
   useEffect(() => {
     if (!!user) {
@@ -140,15 +146,15 @@ function Manage() {
                     <div className="btn-list">
                       <span className="d-none d-sm-inline">
                         <a href="javascipt:void(0)" className="btn btn-white">
-                          Lorem ipsum
+                          New blank workspace
                         </a>
                       </span>
                       <a
                         href="javascipt:void(0)"
                         className="btn btn-primary d-none d-sm-inline-block"
                         data-bs-toggle="modal"
-                        data-bs-target="#modal-report"
-                        onClick={createWorkspaceHandler}
+                        data-bs-target="#modal-new-workspace"
+                        onClick={handleCreateNewUUID}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -166,7 +172,7 @@ function Manage() {
                           <line x1={12} y1={5} x2={12} y2={19} />
                           <line x1={5} y1={12} x2={19} y2={12} />
                         </svg>
-                        Create new workspace
+                        New template workspace
                       </a>
                       <a
                         href="#"
@@ -201,7 +207,7 @@ function Manage() {
                   <div className="card">
                     <div className="card-body">
                       <div className="d-flex align-items-center">
-                        <div className="subheader">Workspaces created</div>
+                        <div className="subheader">Active</div>
                         {/* <div className="ms-auto lh-1">
                 <div className="dropdown">
                   <a className="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
@@ -241,7 +247,7 @@ function Manage() {
                   <div className="card">
                     <div className="card-body">
                       <div className="d-flex align-items-center">
-                        <div className="subheader">Storage used</div>
+                        <div className="subheader">Used</div>
                         {/* <div className="ms-auto lh-1">
                 <div className="dropdown">
                   <a className="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
@@ -281,7 +287,7 @@ function Manage() {
                   <div className="card">
                     <div className="card-body">
                       <div className="d-flex align-items-center">
-                        <div className="subheader">Sales</div>
+                        <div className="subheader">Reports</div>
                         {/* <div className="ms-auto lh-1">
                 <div className="dropdown">
                   <a className="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
@@ -293,7 +299,7 @@ function Manage() {
                 </div>
               </div> */}
                       </div>
-                      <div className="h1 mb-3">75%</div>
+                      <div className="h1 mb-3">12</div>
                       <div className="d-flex mb-2">
                         <div>Conversion rate</div>
                         {/* <div className="ms-auto">
@@ -321,7 +327,7 @@ function Manage() {
                   <div className="card">
                     <div className="card-body">
                       <div className="d-flex align-items-center">
-                        <div className="subheader">Sales</div>
+                        <div className="subheader">Created</div>
                         {/* <div className="ms-auto lh-1">
                 <div className="dropdown">
                   <a className="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
@@ -333,7 +339,7 @@ function Manage() {
                 </div>
               </div> */}
                       </div>
-                      <div className="h1 mb-3">75%</div>
+                      <div className="h1 mb-3">7</div>
                       <div className="d-flex mb-2">
                         <div>Conversion rate</div>
                         {/* <div className="ms-auto">
@@ -360,7 +366,7 @@ function Manage() {
               </div>
             </div>
             <br></br>
-            <div className="container-xl">
+            <div className="container-xl --container-xl">
               <div className="row row-cards">
                 <div className="col-12">
                   <div className="card">
@@ -368,10 +374,10 @@ function Manage() {
                       <table className="table table-vcenter card-table">
                         <thead>
                           <tr>
+                            <th>No.</th>
                             <th>Name</th>
-                            <th>Date</th>
+                            <th>Created</th>
                             <th>Author</th>
-                            <th className="w-1" />
                             <th className="w-1" />
                           </tr>
                         </thead>
@@ -383,6 +389,7 @@ function Manage() {
                               date={workspace.date}
                               author={workspace.author}
                               key={index}
+                              number={index}
                             />
                           ))}
                           {/* <tr>
@@ -407,6 +414,7 @@ function Manage() {
           </div>
         </>
       )}
+      <CreateWorkpsaceModal workspaceUUID={workspaceUUID} />
     </div>
   );
 }
