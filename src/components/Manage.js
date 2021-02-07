@@ -366,7 +366,7 @@ function Manage() {
               </div>
             </div>
             <br></br>
-            <div className="container-xl --container-xl">
+            <div className="container-xl --manage-container-xl">
               <div className="row row-cards">
                 <div className="col-12">
                   <div className="card">

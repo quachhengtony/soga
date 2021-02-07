@@ -1,23 +1,17 @@
 .--viewcardmodal-modal {
-    height: 100%;
-    width: 100%;
-    padding: 20vh 250px 20vh;
+    padding: 0 250px 0;
 }
 
-.--listcard-modal-dialog {
-}
-
-.--flex-modal-body {
-    min-height: 50vh;
+.--viewcardmodal-modal-body {
     display: flex;
-    background: #FBFBFB;
+    min-height: 50vh;
+    max-height: 70vh;
 }
 
 .modal-body-left {
-    flex: 0.6;
+    flex: 0.7;
 }
 
 .modal-body-right {
-    flex: 0.4;
-    padding: 0 0 0 10px;
+    flex: 0.3;
 }

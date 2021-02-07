@@ -1,15 +1,8 @@
 .inbox {
-    justify-content: center;
-    align-items: center;
+    width: 100%;
     height: 100%;
 }
 
-.inbox__header {
-    height: 20vh;
-    padding: 25px 25px 0;
-}
-
-.inbox__body {
-    height: 80vh;
-    padding: 10px 25px 10px;
+.--inbox-container-xl {
+    min-height: 70vh;
 }
