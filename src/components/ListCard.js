@@ -9,15 +9,25 @@ function ListCard(props) {
   const [cards, setCards] = useState([]);
   const { workspaceId, roomId } = useParams();
 
-const handleChangeCardData = (cardTitle, cardBody, cardPriority, cardColor, cardDeadline, cardAssignee, cardReporter) => {
-  props.setCardTitle(cardTitle);
-  props.setCardBody(cardBody);
-  props.setCardPriority(cardPriority);
-  props.setCardColor(cardColor);
-  props.setCardDeadline(cardDeadline);
-  props.setCardAssignee(cardAssignee);
-  props.setCardReporter(cardReporter);
-}
+  const handleChangeCardData = (
+    cardTitle,
+    cardBody,
+    cardPriority,
+    cardColor,
+    cardDeadline,
+    cardAssignee,
+    cardReporter,
+    cardDocumentGroup
+  ) => {
+    props.setCardTitle(cardTitle);
+    props.setCardBody(cardBody);
+    props.setCardPriority(cardPriority);
+    props.setCardColor(cardColor);
+    props.setCardDeadline(cardDeadline);
+    props.setCardAssignee(cardAssignee);
+    props.setCardReporter(cardReporter);
+    props.setCardDocumentGroup(cardDocumentGroup);
+  };
 
   useEffect(() => {
     db.collection("workspaces")
@@ -38,7 +48,8 @@ const handleChangeCardData = (cardTitle, cardBody, cardPriority, cardColor, card
             color: doc.data().cardColor,
             deadline: doc.data().cardDeadline,
             assignee: doc.data().cardAssignee,
-            reporter: doc.data().cardReporter
+            reporter: doc.data().cardReporter,
+            documentGroup: doc.data().cardDocumentGroup,
           }))
         )
       );
@@ -48,33 +59,44 @@ const handleChangeCardData = (cardTitle, cardBody, cardPriority, cardColor, card
     <>
       {cards.map((card, index) => (
         <>
-        <div key={index}>
-          <Draggable draggableId={card.id} index={index}>
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-              >
+          <div key={index}>
+            <Draggable draggableId={card.id} index={index}>
+              {(provided, snapshot) => (
                 <div
-                  className="card --listcard-card"
-                  onClick={() => handleChangeCardData(card.title, card.body, card.priority, card.color, card.deadline, card.assignee, card.reporter)}
-                  data-bs-toggle="modal"
-                  data-bs-target="#modal-card-details"
-                  style={{ border: `2px solid ${card.color}` }}
+                  ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
                 >
-                  <div className="card-body">
-                    <p>{card.title}</p>
+                  <div
+                    className="card --listcard-card"
+                    onClick={() =>
+                      handleChangeCardData(
+                        card.title,
+                        card.body,
+                        card.priority,
+                        card.color,
+                        card.deadline,
+                        card.assignee,
+                        card.reporter,
+                        card.documentGroup
+                      )
+                    }
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal-card-details"
+                    style={{ border: `2px solid ${card.color}` }}
+                  >
+                    <div className="card-body">
+                      <p>{card.title}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-          </Draggable>
-        </div>
+              )}
+            </Draggable>
+          </div>
         </>
       ))}
     </>
   );
-} 
+}
 
 export default ListCard;

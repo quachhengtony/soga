@@ -14,8 +14,10 @@ function CreateCardModal({ columnId }) {
   const [cardColor, setCardColor] = useState("");
   const cardReporter = user.email;
   const [assignees, setAssignees] = useState([]);
+  const cardDocumentGroup = useRef("");
+  const [storageGroups, setStorageGroups] = useState([]);
+
   const { workspaceId, roomId } = useParams();
-  
 
   const handleAddCard = () => {
     if (workspaceId && roomId && columnId) {
@@ -34,6 +36,7 @@ function CreateCardModal({ columnId }) {
           cardDeadline: cardDeadline.current.value,
           cardColor: cardColor,
           cardReporter: cardReporter,
+          cardDocumentGroup: cardDocumentGroup.current.value,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })
         .then(() => console.log("Card added"))
@@ -54,6 +57,20 @@ function CreateCardModal({ columnId }) {
           }))
         )
       );
+  }, []);
+
+  const getStorageGroups = () => {
+    db.collection("workspaces")
+      .doc(workspaceId)
+      .collection("storage")
+      .orderBy("timestamp", "asc")
+      .onSnapshot((snapshot) =>
+        setStorageGroups(snapshot.docs.map((doc) => doc.data()))
+      );
+  };
+
+  useState(() => {
+    getStorageGroups();
   }, []);
 
   return (
@@ -88,7 +105,7 @@ function CreateCardModal({ columnId }) {
               />
             </div>
             <div className="row">
-              <div className="col-lg-8">
+              <div className="col-lg-6">
                 <div className="mb-3">
                   <label className="form-label">Assignee</label>
                   <select className="form-select" ref={cardAssignee} required>
@@ -100,7 +117,8 @@ function CreateCardModal({ columnId }) {
                   </select>
                 </div>
               </div>
-              <div className="col-lg-4">
+
+              {/* <div className="col-lg-4">
                 <div className="mb-3">
                   <label className="form-label">Priority</label>
                   <select className="form-select" ref={cardPriority}>
@@ -111,11 +129,55 @@ function CreateCardModal({ columnId }) {
                     <option value="Low">Low</option>
                   </select>
                 </div>
+              </div> */}
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label className="form-label">Deadline</label>
+                  <input
+                    type="date"
+                    ref={cardDeadline}
+                    className="form-control"
+                  />
+                </div>
               </div>
             </div>
           </div>
           <div className="modal-body">
             <div className="row">
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label className="form-label">Document group</label>
+                  <select
+                    className="form-select"
+                    ref={cardDocumentGroup}
+                    // value={groupToGetFiles}
+                    // defaultValue={groupToGetFiles}
+                    // onChange={e => {
+                    //   getFiles(e.target.value);
+                    //   setGroupToUpload(e.target.value);
+                    // }}
+                  >
+                    {storageGroups.map((storageGroup, index) => (
+                      <option value={storageGroup.groupName}>
+                        {storageGroup.groupName}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label className="form-label">Reporter</label>
+                  <input
+                    type="text"
+                    // ref={cardDocumentGroup}
+                    className="form-control"
+                    placeholder={user.displayName}
+                    disabled
+                  />
+                </div>
+              </div>
+
               <div className="col-lg-6">
                 <div className="mb-3">
                   <div>
@@ -210,7 +272,7 @@ function CreateCardModal({ columnId }) {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-6">
+              {/* <div className="col-lg-6">
                 <div className="mb-3">
                   <label className="form-label">Deadline</label>
                   <input
@@ -219,7 +281,21 @@ function CreateCardModal({ columnId }) {
                     className="form-control"
                   />
                 </div>
+              </div> */}
+
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label className="form-label">Priority</label>
+                  <select className="form-select" ref={cardPriority}>
+                    <option value="Normal" selected>
+                      Normal
+                    </option>
+                    <option value="High">High</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </div>
               </div>
+
               <div className="col-lg-12">
                 <div>
                   <label className="form-label">Description</label>

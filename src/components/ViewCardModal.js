@@ -1,7 +1,23 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import "../styles/ViewCardModal.css";
+import db from "../adapters/firebase";
+import { useParams } from "react-router-dom";
 
 function ViewCardModal(props) {
+  const { workspaceId, roomId } = useParams();
+
+  // useEffect(() => {
+  //   db.collection("workspaces")
+  //     .doc(workspaceId)
+  //     .collection("rooms")
+  //     .doc(roomId)
+  //     .collection("columns")
+  //     .orderBy("timestamp", "asc")
+  //     .onSnapshot((snapshot) =>
+  //       setColumns(snapshot.docs.map((doc) => doc.data()))
+  //     );
+  // }, []);
+
   return (
     <div
       className="modal modal-blur fade --viewcardmodal-modal"
@@ -15,15 +31,6 @@ function ViewCardModal(props) {
         role="document"
       >
         <div className="modal-content">
-          {/* <div className="modal-header"> */}
-          {/* <h5 className="modal-title">Full width modal</h5> */}
-          {/* <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close" 
-            /> */}
-          {/* </div> */}
           <div className="modal-body --viewcardmodal-modal-body">
             <div className="modal-body-left">
               <h3>{props.cardTitle}</h3>
@@ -41,7 +48,12 @@ function ViewCardModal(props) {
               </div>
               <div>
                 <h4>
-                  Status: <span className="text-muted"></span>
+                  Status:{" "}
+                  <span className="text-muted">
+                    {props.columns.map((column) => (
+                      <a href="javascript:void(0)">| {column.name} </a>
+                    ))}
+                  </span>
                 </h4>
               </div>
               <div>
@@ -60,6 +72,12 @@ function ViewCardModal(props) {
                 <h4>
                   Reporter:{" "}
                   <span className="text-muted">{props.cardReporter}</span>
+                </h4>
+              </div>
+              <div>
+                <h4>
+                  Document group:{" "}
+                  <span className="text-muted">{props.cardDocumentGroup}</span>
                 </h4>
               </div>
             </div>

@@ -15,10 +15,11 @@
 
 .board__columnsContainer {
   display: flex;
-  min-height: 90vh;
-  max-height: auto;
+  height: 94vh;
+  /* min-width: 76vw; */
   overflow-y: hidden;
-  margin: 10px 25px 0;
+  margin: 10px;
+  /* margin: 10px 25px 0; */
   /* border: 1px solid blue; */
 }
 

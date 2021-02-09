@@ -154,7 +154,7 @@ export default function Storage() {
               class="form-select"
               value={groupToGetFiles}
               defaultValue={groupToGetFiles}
-              onChange={e => {
+              onChange={(e) => {
                 getFiles(e.target.value);
                 setGroupToUpload(e.target.value);
               }}
@@ -171,8 +171,6 @@ export default function Storage() {
             <button
               type="button"
               className="btn btn-light d-none d-sm-inline-block --storage-btn"
-              data-bs-toggle="modal"
-              data-bs-target="#modal-report"
               onClick={createGroup}
             >
               <svg
@@ -193,6 +191,30 @@ export default function Storage() {
               </svg>
               New group
             </button>
+
+            <button
+              type="button"
+              className="btn btn-light d-none d-sm-inline-block --storage-btn"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon"
+                width={24}
+                height={24}
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <circle cx="12" cy="12" r="2" />
+                <path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" />
+              </svg>
+              Watch
+            </button>
+
             <button
               type="button"
               className="btn btn-primary d-none d-sm-inline-block --storage-btn"
