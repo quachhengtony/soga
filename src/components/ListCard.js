@@ -29,6 +29,11 @@ function ListCard(props) {
     props.setCardDocumentGroup(cardDocumentGroup);
   };
 
+  const handleSetSelectedCard = (card, columnId) => {
+    props.setSelectedCard(card);
+    props.setSelectedCardsColumnId(columnId);
+  }
+
   useEffect(() => {
     db.collection("workspaces")
       .doc(workspaceId)
@@ -69,7 +74,7 @@ function ListCard(props) {
                 >
                   <div
                     className="card --listcard-card"
-                    onClick={() =>
+                    onClick={() => {
                       handleChangeCardData(
                         card.title,
                         card.body,
@@ -79,8 +84,9 @@ function ListCard(props) {
                         card.assignee,
                         card.reporter,
                         card.documentGroup
-                      )
-                    }
+                      );
+                      handleSetSelectedCard(card, props.columnId);
+                    }}
                     data-bs-toggle="modal"
                     data-bs-target="#modal-card-details"
                     style={{ border: `2px solid ${card.color}` }}

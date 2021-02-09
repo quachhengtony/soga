@@ -125,7 +125,7 @@ function CreateWorkpsaceModal(props) {
                         Simple
                       </span>
                       <span className="d-block text-muted">
-                        Basic channels and a main document group
+                        Basic rooms and a main document group
                       </span>
                     </span>
                   </span>
@@ -148,7 +148,7 @@ function CreateWorkpsaceModal(props) {
                         Advanced
                       </span>
                       <span className="d-block text-muted">
-                        Channels and document groups to streamline professional works
+                        Rooms and document groups to streamline professional works
                       </span>
                     </span>
                   </span>

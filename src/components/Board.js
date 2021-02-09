@@ -25,12 +25,47 @@ function Board() {
   const [cardReporter, setCardReporter] = useState("");
   const [cardDocumentGroup, setCardDocumentGroup] = useState("");
 
+  const [selectedCard, setSelectedCard] = useState([]);
+  const [selectedCardsColumnId, setSelectedCardsColumnId] = useState("");
 
-  // const handleChangeCardStatus = (columnId, cardId) => {
-  //   db.collection("workspaces").doc(workspaceId).collection("rooms").doc(roomId).collection("columns").doc(columnId).collection("cards").doc()
-  // }
+  const handleChangeCardStatus = (destinationColumn) => {
+    db.collection("workspaces")
+      .doc(workspaceId)
+      .collection("rooms")
+      .doc(roomId)
+      .collection("columns")
+      .doc(selectedCardsColumnId)
+      .collection("cards")
+      .doc(selectedCard.id)
+      .delete()
+      .then((doc) => {
+        console.log("Card deleted");
 
-
+        db.collection("workspaces")
+          .doc(workspaceId)
+          .collection("rooms")
+          .doc(roomId)
+          .collection("columns")
+          .doc(destinationColumn)
+          .collection("cards")
+          .add({
+            cardTitle: selectedCard.title,
+            cardBody: selectedCard.body,
+            cardPriority: selectedCard.priority,
+            cardAssignee: selectedCard.assignee,
+            cardDeadline: selectedCard.deadline,
+            cardColor: selectedCard.color,
+            cardReporter: selectedCard.reporter,
+            cardDocumentGroup: selectedCard.documentGroup,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          })
+          .then(() => console.log("Card added"))
+          .catch(error => console.log(error))
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const addColumn = () => {
     const columnName = prompt("Enter column name:");
@@ -255,6 +290,8 @@ function Board() {
                       setCardAssignee={setCardAssignee}
                       setCardReporter={setCardReporter}
                       setCardDocumentGroup={setCardDocumentGroup}
+                      setSelectedCard={setSelectedCard}
+                      setSelectedCardsColumnId={setSelectedCardsColumnId}
                     />
                     {provided.placeholder}
                   </div>
@@ -283,6 +320,7 @@ function Board() {
         cardReporter={cardReporter}
         cardDocumentGroup={cardDocumentGroup}
         columns={columns}
+        handleChangeCardStatus={handleChangeCardStatus}
       />
       <CreateCardModal columnId={columnId} />
     </div>

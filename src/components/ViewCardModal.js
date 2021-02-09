@@ -51,7 +51,7 @@ function ViewCardModal(props) {
                   Status:{" "}
                   <span className="text-muted">
                     {props.columns.map((column) => (
-                      <a href="javascript:void(0)">| {column.name} </a>
+                      <a href="javascript:void(0)" onClick={() => props.handleChangeCardStatus(column.id)}>| {column.name} </a>
                     ))}
                   </span>
                 </h4>
