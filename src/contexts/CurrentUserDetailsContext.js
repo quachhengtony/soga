@@ -28,7 +28,7 @@ export function CurrentUserDetailsProvider(props) {
 
   return (
     <CurrentUserDetailsContext.Provider value={currentUserDetails}>
-      {user && props.children}
+      {props.children}
     </CurrentUserDetailsContext.Provider>
   );
 }

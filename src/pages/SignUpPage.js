@@ -61,7 +61,13 @@ function SignUpPage() {
                 <div className="text-muted">{error}</div>
               </div>
             )}
-            <a href="."><img src="https://cdn.worldvectorlogo.com/logos/dropbox-3.svg" height={36} alt="Thoka" /></a>
+            <a href=".">
+              <img
+                src="https://cdn.worldvectorlogo.com/logos/dropbox-3.svg"
+                height={36}
+                alt="Thoka"
+              />
+            </a>
           </div>
           <form className="card card-md" onSubmit={handleSignUp}>
             <div className="card-body">
@@ -77,7 +83,7 @@ function SignUpPage() {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Trương Trung Bảo"
+                  placeholder="Name"
                   ref={nameRef}
                   required
                 />
@@ -87,17 +93,19 @@ function SignUpPage() {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Quản lí nhân sự"
+                  placeholder="Role"
                   ref={roleRef}
                   required
                 />
               </div>
               <div className="mb-3">
-                <label className="form-label">Business, organization, team</label>
+                <label className="form-label">
+                  Business, organization, team
+                </label>
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Thoka"
+                  placeholder="Business, organization, team"
                   ref={businessNameRef}
                   required
                 />
@@ -108,7 +116,7 @@ function SignUpPage() {
                 <input
                   type="email"
                   className="form-control"
-                  placeholder="truongtrungbao@gmail.com"
+                  placeholder="Email"
                   ref={emailRef}
                   required
                 />
@@ -222,7 +230,7 @@ function SignUpPage() {
           </div>
         </div>
       </div>
-      </div>
+    </div>
   );
 }
 

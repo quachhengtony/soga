@@ -6,7 +6,7 @@ function ListWorkspace({ id, name, date, author, number }) {
   return (
     <tr>
       <td>{number+1}</td>
-      <td onClick={() => history.push(`/workspace/${id}/room/undefined/chat`)}>
+      <td onClick={() => history.push(`/workspace/${id}/overview`)}>
         <a href="javascript:void(0)" className="text-reset">
           {name ? name : "..."}
         </a>

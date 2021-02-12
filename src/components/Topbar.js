@@ -296,7 +296,7 @@ function PrivateTopbar() {
                 </li>
               </ul>
               <div className="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
-                <form action="." method="get">
+                {/* <form action="." method="get">
                   <div className="input-icon">
                     <span className="input-icon-addon">
                       <svg
@@ -323,7 +323,7 @@ function PrivateTopbar() {
                       aria-label="Search in website"
                     />
                   </div>
-                </form>
+                </form> */}
               </div>
             </div>
           </div>

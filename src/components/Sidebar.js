@@ -321,7 +321,7 @@ function Sidebar() {
           <span class="badge bg-red-lt ms-auto">red</span>
         </a> */}
         <a href="javascript:void(0)" className="dropdown-item">
-          <span className="avatar avatar-xs rounded me-2">{currentUserName[0]}</span>
+          <span className="avatar avatar-xs rounded me-2">T</span>
           {currentUserName}
           <span class="badge bg-red-lt ms-auto">you</span>
         </a>

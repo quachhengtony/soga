@@ -4,6 +4,7 @@ import db from "../adapters/firebase";
 import { useParams } from "react-router-dom";
 import { useStateValue } from "../contexts/StateProvider";
 import firebase from "firebase";
+import { useCurrentUserDetails } from "../contexts/CurrentUserDetailsContext";
 
 function Settings() {
   const { workspaceId } = useParams();
@@ -12,8 +13,13 @@ function Settings() {
   const userEmail = useRef("");
   const [workspaceAuthor, setWorkspaceAuthor] = useState([]);
   const [workspaceUsers, setWorkspaceUsers] = useState([]);
+  const [workspaceDetails, setWorkspaceDetails] = useState([]);
+  const { currentUserName } = useCurrentUserDetails();
 
   const { user, currentDate } = useStateValue();
+
+
+
 
   const handleAddUsers = async () => {
     if (userEmail.current.value !== "") {
@@ -28,14 +34,15 @@ function Settings() {
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           date: currentDate
         })
-        // .then(() => {
-        //   db.collection("users").doc(userEmail.current.value).set({
-        //     timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        //   })
-        // })
         .then(() => {
           db.collection("users").doc(userEmail.current.value).collection("workspaces").doc(workspaceId).set({
             workspaceId: workspaceId,
+            workspaceName: workspaceDetails.workspaceName,
+            authorEmail: workspaceDetails.authorEmail,
+            authorName: workspaceDetails.authorName,
+            authorRole: workspaceDetails.authorRole,
+            authorBusinessName: workspaceDetails.authorBusinessName,
+            createdAt: workspaceDetails.date,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
           })
         })
@@ -60,6 +67,12 @@ function Settings() {
   };
 
   useEffect(() => {
+    db.collection("workspaces")
+      .doc(workspaceId)
+      .get()
+      .then((doc) => setWorkspaceDetails(doc.data()))
+      .catch((error) => console.log(error));
+
     db.collection("workspaces")
       .doc(workspaceId)
       .collection("rooms")
