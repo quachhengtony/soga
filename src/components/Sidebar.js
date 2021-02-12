@@ -6,6 +6,7 @@ import { useHistory, useParams } from "react-router-dom";
 import SelectRoom from "./SelectRoom";
 import CreateRoom from "./CreateRoom";
 import { useStateValue } from "../contexts/StateProvider";
+import { useCurrentUserDetails } from "../contexts/CurrentUserDetailsContext";
 
 function Sidebar() {
   const { workspaceId } = useParams();
@@ -15,6 +16,7 @@ function Sidebar() {
   const [workspaceName, setWorkspaceName] = useState("");
   const [rooms, setRooms] = useState([]);
   const [workspaceUsers, setWorkspaceUsers] = useState([]);
+  const { currentUserName, currentUserEmail, currentUserUUId } = useCurrentUserDetails();
 
   const push = (destination) => {
     history.push(destination);
@@ -71,7 +73,7 @@ function Sidebar() {
       <div className="left">
         <a
           href="javascript:void(0)"
-          onClick={() => history.push("/b/dashboard")}
+          onClick={() => history.push("/links")}
           class="btn btn-bitbucket btn-icon wpbtn"
           aria-label="Button"
         >
@@ -237,7 +239,7 @@ function Sidebar() {
 
       <div className="dropdown-menu dropdown-menu-demo right">
         <h6 className="dropdown-header">Overview</h6>
-        <a href="javascript:void(0)" className="dropdown-item">
+        <a href="javascript:void(0)" className="dropdown-item" onClick={() => history.push(`/workspace/${workspaceId}/overview`)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon dropdown-item-icon"
@@ -319,8 +321,8 @@ function Sidebar() {
           <span class="badge bg-red-lt ms-auto">red</span>
         </a> */}
         <a href="javascript:void(0)" className="dropdown-item">
-          <span className="avatar avatar-xs rounded me-2">QH</span>
-          {user.displayName}
+          <span className="avatar avatar-xs rounded me-2">{currentUserName[0]}</span>
+          {currentUserName}
           <span class="badge bg-red-lt ms-auto">you</span>
         </a>
         {/* <a href="javascript:void(0)" className="dropdown-item">
@@ -328,11 +330,11 @@ function Sidebar() {
           Quách Hêng Tôny
           <span class="badge bg-green ms-auto"></span>
         </a> */}
-        <a href="javascript:void(0)" className="dropdown-item">
+        {/* <a href="javascript:void(0)" className="dropdown-item">
           <span className="avatar avatar-xs rounded me-2">TQ</span>
           Tôny Quách
           <span class="badge bg-green ms-auto"></span>
-        </a>
+        </a> */}
         <div className="dropdown-divider" />
         <h6 className="dropdown-header">Actions</h6>
         <CreateRoom />

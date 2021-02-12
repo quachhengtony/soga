@@ -4,25 +4,32 @@ import { useHistory } from "react-router-dom";
 import "../styles/Inbox.css";
 import db from "../adapters/firebase";
 import { useStateValue } from "../contexts/StateProvider";
+import { useCurrentUserDetails } from "../contexts/CurrentUserDetailsContext";
 
 function Inbox() {
   const [myWorkspaces, setMyWorkspaces] = useState([]);
   const [linkWorkspaces, setLinkWorkspaces] = useState([]);
   const { user } = useStateValue();
   const history = useHistory();
+  const {
+    currentUserName,
+    currentUserEmail,
+    currentUserUUId,
+  } = useCurrentUserDetails();
 
   const handleDeleteWorkspaceFromUser = async (workspaceId) => {
-    await db.collection("users")
-    .doc(user.email)
-    .collection("workspaces")
-    .doc(workspaceId)
-    .delete()
-  }
+    await db
+      .collection("users")
+      .doc(currentUserEmail)
+      .collection("workspaces")
+      .doc(workspaceId)
+      .delete();
+  };
 
   useEffect(() => {
-    if (user) {
+    if (currentUserEmail) {
       db.collection("users")
-        .doc(user.email)
+        .doc(currentUserEmail)
         .collection("workspaces")
         .onSnapshot((snapshot) =>
           setLinkWorkspaces(snapshot.docs.map((doc) => doc.data()))
@@ -97,7 +104,25 @@ function Inbox() {
         <div className="container-xl --inbox-container-xl">
           {linkWorkspaces.map((linkWorkspace, index) => (
             <div key={index}>
-              <a href="javascript:void(0)" onClick={() => history.push(`/workspace/${linkWorkspace.workspaceId}/room/undefined/chat`)}>{linkWorkspace.workspaceId}</a> | <a href="javascript:void(0)" onClick={() => handleDeleteWorkspaceFromUser(linkWorkspace.workspaceId)}>Delete</a>
+              <a
+                href="javascript:void(0)"
+                onClick={() =>
+                  history.push(
+                    `/workspace/${linkWorkspace.workspaceId}/room/undefined/chat`
+                  )
+                }
+              >
+                {linkWorkspace.workspaceId}
+              </a>{" "}
+              |{" "}
+              <a
+                href="javascript:void(0)"
+                onClick={() =>
+                  handleDeleteWorkspaceFromUser(linkWorkspace.workspaceId)
+                }
+              >
+                Delete
+              </a>
             </div>
           ))}
         </div>

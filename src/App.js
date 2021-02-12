@@ -15,6 +15,10 @@ import RoomVideoConference from "./components/RoomVideoConference";
 import Inbox from "./components/Inbox";
 import PrivateRoute from "./components/PrivateRoute";
 import HomePage from "./pages/HomePage";
+import SignUpPage from "./pages/SignUpPage";
+import ActivitiesPage from "./pages/ActivitiesPage";
+import Footer from "./components/Footer";
+import WorkspaceOverview from "./components/WorkspaceOverview";
 
 function App() {
   return (
@@ -25,47 +29,39 @@ function App() {
             <Topbar />
             <HomePage />
           </Route>
-          <Route path="/login">
+          <Route path="/signin">
             <Topbar />
             <Login />
           </Route>
+          <Route path="/signup">
+            <SignUpPage />
+          </Route>
 
-          <PrivateRoute path="/f/account">
+          <PrivateRoute path="/profile-account">
             <PrivateTopbar />
             <Account />
           </PrivateRoute>
-          <PrivateRoute path="/f/notification">
+          <PrivateRoute path="/notifications">
             <PrivateTopbar />
           </PrivateRoute>
-          <PrivateRoute path="/f/inbox">
-            <PrivateTopbar />
-          </PrivateRoute>
-          <PrivateRoute path="/f/activity">
-            <PrivateTopbar />
-          </PrivateRoute>
-          <PrivateRoute path="/f/dashboard">
-            <PrivateTopbar />
-          </PrivateRoute>
-
-          <PrivateRoute path="/b/account">
-            <PrivateTopbar />
-            <Account />
-          </PrivateRoute>
-          <PrivateRoute path="/b/notification">
-            <PrivateTopbar />
-          </PrivateRoute>
-          <PrivateRoute path="/b/inbox">
+          <PrivateRoute path="/links">
             <PrivateTopbar />
             <Inbox />
+            <Footer />
           </PrivateRoute>
-          <PrivateRoute path="/f/activity">
+          <PrivateRoute path="/activities">
             <PrivateTopbar />
+            <ActivitiesPage />
           </PrivateRoute>
           <PrivateRoute path="/b/dashboard">
             <PrivateTopbar />
             <Manage />
           </PrivateRoute>
 
+          <PrivateRoute path="/workspace/:workspaceId/overview">
+            <Sidebar />
+            <WorkspaceOverview />
+          </PrivateRoute>
           <PrivateRoute path="/workspace/:workspaceId/room/undefined/chat">
             <Sidebar />
           </PrivateRoute>

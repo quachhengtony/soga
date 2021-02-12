@@ -1,0 +1,22 @@
+.workspaceoverview {
+    width: 78vw;
+    float: right;
+    padding: 0 25px 0;
+}
+
+.--workspaceoverview-d-flex {
+    justify-content: center;
+    align-items: center;
+}
+.--workspaceoverview-d-flex > a {
+    flex: 1;
+}
+
+.--workspaceoverview-card {
+    width: 300px;
+   
+}
+
+.--workspaceoverview-col-md-6 {
+    margin-right: 35px;
+}

@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import "../styles/Manage.css";
 import db from "../adapters/firebase";
 import { useStateValue } from "../contexts/StateProvider";
+import { useCurrentUserDetails } from "../contexts/CurrentUserDetailsContext";
 import ListWorkspace from "./ListWorkspace";
 import CreateWorkpsaceModal from "./CreateWorkpsaceModal";
 
@@ -13,10 +14,15 @@ function Manage() {
   const { user, currentDate } = useStateValue();
   const [isBusinessUser, setIsBusinessUser] = useState(false);
   const [workspaceUUID, setWorkspaceUUID] = useState("");
+  const {
+    currentUserName,
+    currentUserEmail,
+    currentUserUUId,
+  } = useCurrentUserDetails();
 
-  const handleCreateNewUUID = () => {
+  const handleCreateNewTemplateWorkspace = () => {
     setWorkspaceUUID(uuidv4());
-  }
+  };
 
   // const createWorkspaceHandler = async () => {
   //   const workspaceName = prompt("Choose a workspace name");
@@ -100,31 +106,60 @@ function Manage() {
   //   } else return;
   // };
 
+  // useEffect(() => {
+  //   if (!!user) {
+  //     db.collection("businessUsers")
+  //       .doc(user.email)
+  //       .get()
+  //       .then(doc => {
+  //         if (doc.exists) {
+  //           setIsBusinessUser(true);
+  //         } else {
+  //           setIsBusinessUser(false);
+  //         }
+  //       })
+  //       .catch(error => console.log(error));
+  //   }
+  //   db.collection("workspaces")
+  //     .where("authorId", "==", currentUserUUId)
+  //     .onSnapshot((snapshot) =>
+  //       setWorkspaces(
+  //         snapshot.docs.map((doc) => ({
+  //           id: doc.id,
+  //           name: doc.data().workspaceName,
+  //           date: doc.data().date,
+  //           author: doc.data().authorName,
+  //         }))
+  //       )
+  //     );
+  // }, []);
+
   useEffect(() => {
-    if (!!user) {
-      db.collection("businessAccounts")
-        .doc(user.uid)
+    if (currentUserEmail) {
+      db.collection("businessUsers")
+        .doc(currentUserEmail)
         .get()
-        .then(function (doc) {
+        .then((doc) => {
           if (doc.exists) {
             setIsBusinessUser(true);
+            db.collection("workspaces")
+              .where("authorEmail", "==", currentUserEmail)
+              .onSnapshot((snapshot) =>
+                setWorkspaces(
+                  snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    name: doc.data().workspaceName,
+                    date: doc.data().date,
+                    author: doc.data().authorName,
+                  }))
+                )
+              );
           } else {
             setIsBusinessUser(false);
           }
-        });
+        })
+        .catch((error) => console.log(error));
     }
-    db.collection("workspaces")
-      .where("authorId", "==", user.uid)
-      .onSnapshot((snapshot) =>
-        setWorkspaces(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            name: doc.data().workspaceName,
-            date: doc.data().date,
-            author: doc.data().authorName,
-          }))
-        )
-      );
   }, []);
 
   return (
@@ -149,12 +184,11 @@ function Manage() {
                           New blank workspace
                         </a>
                       </span>
-                      <a
-                        href="javascipt:void(0)"
+                      <button
                         className="btn btn-primary d-none d-sm-inline-block"
                         data-bs-toggle="modal"
                         data-bs-target="#modal-new-workspace"
-                        onClick={handleCreateNewUUID}
+                        onClick={handleCreateNewTemplateWorkspace}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -173,7 +207,7 @@ function Manage() {
                           <line x1={5} y1={12} x2={19} y2={12} />
                         </svg>
                         New template workspace
-                      </a>
+                      </button>
                       <a
                         href="#"
                         className="btn btn-primary d-sm-none btn-icon"

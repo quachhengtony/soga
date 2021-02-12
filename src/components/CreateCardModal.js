@@ -3,6 +3,7 @@ import db from "../adapters/firebase";
 import { useParams } from "react-router-dom";
 import { useStateValue } from "../contexts/StateProvider";
 import firebase from "firebase";
+import { useCurrentUserDetails } from "../contexts/CurrentUserDetailsContext";
 
 function CreateCardModal({ columnId }) {
   const { user } = useStateValue();
@@ -12,10 +13,12 @@ function CreateCardModal({ columnId }) {
   const cardAssignee = useRef("");
   const cardDeadline = useRef("");
   const [cardColor, setCardColor] = useState("");
-  const cardReporter = user.email;
+  // const cardReporter = user.email;
+  const cardReporter = "";
   const [assignees, setAssignees] = useState([]);
   const cardDocumentGroup = useRef("");
   const [storageGroups, setStorageGroups] = useState([]);
+  const { currentUserName, currentUserEmail } = useCurrentUserDetails();
 
   const { workspaceId, roomId } = useParams();
 
@@ -35,7 +38,7 @@ function CreateCardModal({ columnId }) {
           cardAssignee: cardAssignee.current.value,
           cardDeadline: cardDeadline.current.value,
           cardColor: cardColor,
-          cardReporter: cardReporter,
+          cardReporter: currentUserEmail,
           cardDocumentGroup: cardDocumentGroup.current.value,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })
@@ -172,7 +175,7 @@ function CreateCardModal({ columnId }) {
                     type="text"
                     // ref={cardDocumentGroup}
                     className="form-control"
-                    placeholder={user.displayName}
+                    placeholder={currentUserName}
                     disabled
                   />
                 </div>

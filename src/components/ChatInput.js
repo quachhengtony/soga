@@ -135,11 +135,13 @@ import { useHistory } from "react-router-dom";
 import "../styles/ChatInput.css";
 import db from "../adapters/firebase";
 import { useStateValue } from "../contexts/StateProvider";
+import { useCurrentUserDetails } from "../contexts/CurrentUserDetailsContext";
 
 function ChatInput({ roomName, roomId, workspaceId }) {
   const input = useRef("");
   const { user, currentDate } = useStateValue();
   const history = useHistory();
+  const { currentUserName, currentUserEmail, currentUserUUId } = useCurrentUserDetails();
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -152,8 +154,8 @@ function ChatInput({ roomName, roomId, workspaceId }) {
         .add({
           message: input.current.value,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          user: user.displayName,
-          userImage: user.photoURL,
+          user: currentUserName,
+          userImage: "https://www.pngrepo.com/download/26474/avatar.png",
           date: currentDate ? currentDate : "...",
         })
         .then(() => console.log("Message sent"))
@@ -173,8 +175,8 @@ function ChatInput({ roomName, roomId, workspaceId }) {
           .add({
             message: input.current.value,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            user: user.displayName,
-            userImage: user.photoURL,
+            user: currentUserName,
+            userImage: "https://www.pngrepo.com/download/26474/avatar.png",
             date: currentDate ? currentDate : "...",
           })
           .then(() => console.log("Message sent"))

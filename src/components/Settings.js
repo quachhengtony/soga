@@ -28,11 +28,11 @@ function Settings() {
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           date: currentDate
         })
-        .then(() => {
-          db.collection("users").doc(userEmail.current.value).set({
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-          })
-        })
+        // .then(() => {
+        //   db.collection("users").doc(userEmail.current.value).set({
+        //     timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        //   })
+        // })
         .then(() => {
           db.collection("users").doc(userEmail.current.value).collection("workspaces").doc(workspaceId).set({
             workspaceId: workspaceId,
@@ -127,16 +127,10 @@ function Settings() {
               {rooms.map((room) => (
                 <tr>
                   <td>
-                    {room.roomName || (
-                      <div class="skeleton-line skeleton-line-full">
-                        djbdskjavb
-                      </div>
-                    )}
+                    {room.roomName}
                   </td>
                   <td className="text-muted">
-                    {room.authorName || (
-                      <div class="skeleton-line skeleton-line-full"></div>
-                    )}
+                    {room.authorName}
                   </td>
                   <td className="text-muted">{room.date || <>...</>}</td>
                   <td>

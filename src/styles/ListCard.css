@@ -3,4 +3,5 @@
     width: auto;
     height: 100px;
     text-align: left;
+    border-radius: 0 !important;
 }

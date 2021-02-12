@@ -1,12 +1,14 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import db from "../adapters/firebase";
 import firebase from "firebase";
 import { v4 as uuidv4 } from "uuid";
 import { useStateValue } from "../contexts/StateProvider";
+import { useCurrentUserDetails } from "../contexts/CurrentUserDetailsContext";
 
 function CreateWorkpsaceModal(props) {
   const workspaceName = useRef("");
   const { user, currentDate } = useStateValue();
+  const { currentUserName, currentUserEmail, currentUserUUId, currentUserRole, currentUserBusinessName } = useCurrentUserDetails();
 
   const handleCreateWorkspace = async () => {
     if (workspaceName.current.value !== "") {
@@ -15,9 +17,11 @@ function CreateWorkpsaceModal(props) {
         .doc(props.workspaceUUID)
         .set({
           workspaceName: workspaceName.current.value,
-          authorName: user.displayName,
-          authorEmail: user.email,
-          authorId: user.uid,
+          authorName: currentUserName,
+          authorEmail: currentUserEmail,
+          authorId: currentUserUUId,
+          authorRole: currentUserRole,
+          authorBusinessName: currentUserBusinessName,
           date: currentDate,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })
@@ -27,9 +31,9 @@ function CreateWorkpsaceModal(props) {
             .collection("rooms")
             .add({
               roomName: "General",
-              authorName: user.displayName,
-              authorEmail: user.email,
-              authorId: user.uid,
+              authorName: currentUserName,
+              authorEmail: currentUserEmail,
+              authorId: currentUserUUId,
               date: currentDate,
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             });
@@ -41,8 +45,8 @@ function CreateWorkpsaceModal(props) {
             .doc("Main")
             .set({
               groupName: "Main",
-              authorName: user.displayName,
-              authorId: user.uid,
+              authorName: currentUserName,
+              authorId: currentUserUUId,
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             });
         })
@@ -62,7 +66,7 @@ function CreateWorkpsaceModal(props) {
             .doc("link")
             .collection("users")
             .add({
-              userEmail: user.email,
+              userEmail: currentUserEmail,
               isAdmin: true,
               date: currentDate,
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -155,6 +159,54 @@ function CreateWorkpsaceModal(props) {
                 </label>
               </div>
             </div>
+
+            <div className="form-selectgroup-boxes row mb-3">
+            <div className="col-lg-6">
+                <label className="form-selectgroup-item">
+                  <input
+                    type="radio"
+                    defaultValue={1}
+                    className="form-selectgroup-input"
+                  />
+                  <span className="form-selectgroup-label d-flex align-items-center p-3">
+                    <span className="me-3">
+                      <span className="form-selectgroup-check" />
+                    </span>
+                    <span className="form-selectgroup-label-content">
+                      <span className="form-selectgroup-title mb-1">
+                        More workspace templates
+                      </span>
+                      <span className="d-block text-muted">
+                        
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              {/* <div className="col-lg-6">
+                <label className="form-selectgroup-item">
+                  <input
+                    type="radio"
+                    defaultValue={1}
+                    className="form-selectgroup-input"
+                  />
+                  <span className="form-selectgroup-label d-flex align-items-center p-3">
+                    <span className="me-3">
+                      <span className="form-selectgroup-check" />
+                    </span>
+                    <span className="form-selectgroup-label-content">
+                      <span className="form-selectgroup-title strong mb-1">
+                        Advanced
+                      </span>
+                      <span className="d-block text-muted">
+                        Rooms and document groups to streamline professional works
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div> */}
+            </div>
+
             <div className="row">
               <div className="col-lg-8">
                 <div className="mb-3">

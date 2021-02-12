@@ -1,13 +1,15 @@
 import { useHistory } from "react-router-dom";
 import { useStateValue } from "../contexts/StateProvider";
-import { auth } from "../adapters/firebase";
+import db from "../adapters/firebase";
 import "../styles/Topbar.css";
+import { useState, useEffect } from "react";
+import { useCurrentUserDetails } from "../contexts/CurrentUserDetailsContext";
 
 function Topbar() {
   const history = useHistory();
 
   return (
-    <div className="topbar">
+    <div className="topbar --public">
       <header className="navbar navbar-expand-md navbar-light d-print-none --topbar-navbar">
         <div className="container-xl">
           <button
@@ -25,7 +27,7 @@ function Topbar() {
                 src="https://cdn.worldvectorlogo.com/logos/dropbox-3.svg"
                 width={110}
                 height={32}
-                alt="Tabler"
+                alt="Thoka"
                 className="navbar-brand-image"
               />
             </a>
@@ -62,13 +64,17 @@ function Topbar() {
                   <a
                     className="nav-link"
                     href="javascript:void(0)"
-                    onClick={() => history.push("/login")}
+                    onClick={() => history.push("/signin")}
                   >
-                    <span className="nav-link-title">Login</span>
+                    <span className="nav-link-title">Sign in</span>
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="javascript:void(0)">
+                  <a
+                    className="nav-link"
+                    href="javascript:void(0)"
+                    onClick={() => history.push("/signup")}
+                  >
                     <span className="nav-link-title">Sign up</span>
                   </a>
                 </li>
@@ -83,7 +89,21 @@ function Topbar() {
 
 function PrivateTopbar() {
   const history = useHistory();
-  const { user } = useStateValue();
+  const { user, signOut } = useStateValue();
+  const [error, setError] = useState("");
+  const [isSigningOut, setIsSigningOut] = useState(false);
+  const { currentUserName, currentUserRole } = useCurrentUserDetails();
+
+  const handleSignOut = async () => {
+    try {
+      setIsSigningOut(true);
+      await signOut;
+      history.push("/signin");
+    } catch {
+      setError("Failed to sign out!");
+    }
+    setIsSigningOut(false);
+  };
 
   return (
     <div className="topbar">
@@ -104,7 +124,7 @@ function PrivateTopbar() {
                 src="https://cdn.worldvectorlogo.com/logos/dropbox-3.svg"
                 width={110}
                 height={32}
-                alt="Tabler"
+                alt="Thoka"
                 className="navbar-brand-image"
               />
             </a>
@@ -163,25 +183,24 @@ function PrivateTopbar() {
                   }}
                 />
                 <div className="d-none d-xl-block ps-2">
-                  <div>{user ? user.displayName : "..."}</div>
-                  <div className="mt-1 small text-muted">Marketing</div>
+                  <div>{currentUserName ? currentUserName : "..."}</div>
+                  <div className="mt-1 small text-muted">
+                    {currentUserRole ? currentUserRole : "..."}
+                  </div>
                 </div>
               </a>
               <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <a className="dropdown-item">
-                  Set status
-                </a>
-                <a className="dropdown-item">
+                <a className="dropdown-item">Set status</a>
+                <a
+                  className="dropdown-item"
+                  onClick={() => history.push("/profile-account")}
+                >
                   Profile & account
                 </a>
-                <a className="dropdown-item">
-                  Billing
-                </a>
+                <a className="dropdown-item">Billing</a>
                 <div className="dropdown-divider" />
-                <a className="dropdown-item">
-                  Settings
-                </a>
-                <a onClick={() => auth.signOut()} className="dropdown-item">
+                <a className="dropdown-item">Settings</a>
+                <a onClick={handleSignOut} className="dropdown-item">
                   Logout
                 </a>
               </div>
@@ -226,7 +245,7 @@ function PrivateTopbar() {
                   <a
                     className="nav-link"
                     href="javascript:void(0)"
-                    onClick={() => history.push("/b/inbox")}
+                    onClick={() => history.push("/links")}
                   >
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <svg
@@ -246,14 +265,14 @@ function PrivateTopbar() {
                         <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
                       </svg>
                     </span>
-                    <span className="nav-link-title">Link</span>
+                    <span className="nav-link-title">Links</span>
                   </a>
                 </li>
                 <li className="nav-item">
                   <a
                     className="nav-link"
                     href="javascript:void(0)"
-                    onClick={() => history.push("/b/activity")}
+                    onClick={() => history.push("/activities")}
                   >
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <svg
@@ -272,7 +291,7 @@ function PrivateTopbar() {
                         <path d="M3 12h4l3 8l4 -16l3 8h4" />
                       </svg>
                     </span>
-                    <span className="nav-link-title">Activity</span>
+                    <span className="nav-link-title">Activities</span>
                   </a>
                 </li>
               </ul>

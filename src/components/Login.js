@@ -1,24 +1,43 @@
 import { auth, provider } from "../adapters/firebase";
 import { useHistory } from "react-router-dom";
+import { useStateValue } from "../contexts/StateProvider";
+import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 
 function Login() {
   const history = useHistory();
+  const { signIn } = useStateValue();
 
-  const loginHandler = () => {
-    auth
-      .signInWithPopup(provider)
-      .then(() => {
-        history.push("/account")
-      })
-      .catch(error => {
-        console.log(error)
-      });
-  };
+  const emailRef = useRef("");
+  const passwordRef = useRef("");
+  const [error, setError] = useState("");
+  const [isSigningIn, setIsSigninIn] = useState(false);
+
+  const handleSignIn = async e => {
+    e.preventDefault();
+
+    try {
+      setIsSigninIn(true);
+      await signIn(emailRef.current.value, passwordRef.current.value);
+      history.push("/links");
+    } catch {
+      setError("Failed to sign in.");
+    }
+    setIsSigninIn(false);
+  }
 
   return (
     <div className="flex-fill d-flex flex-column justify-content-center py-4">
       <div className="container-tight py-6">
         <div className="text-center mb-4">
+        {error && (
+            <div className="alert alert-danger" role="alert">
+              <h4 className="alert-title">I'm so sorry...</h4>
+              <div className="text-muted">
+                {error}
+              </div>
+            </div>
+          )}
           {/* <a href=".">
             <img
               src="https://cdn.worldvectorlogo.com/logos/dropbox-3.svg"
@@ -26,16 +45,16 @@ function Login() {
               alt=""
             />
           </a> */}
+          <a href="."><img src="https://cdn.worldvectorlogo.com/logos/dropbox-3.svg" height={36} alt="Thoka" /></a>
         </div>
         <form
           className="card card-md"
-          action="."
-          method="get"
           autoComplete="off"
+          onSubmit={handleSignIn}
         >
           <div className="card-body">
             <h2 className="card-title text-center mb-4">
-              Login to your account
+              Sign in to your account
             </h2>
             <div className="mb-3">
               <label className="form-label">Email address</label>
@@ -43,6 +62,7 @@ function Login() {
                 type="email"
                 className="form-control"
                 placeholder="Enter email"
+                ref={emailRef}
               />
             </div>
             <div className="mb-2">
@@ -58,6 +78,7 @@ function Login() {
                   className="form-control"
                   placeholder="Password"
                   autoComplete="off"
+                  ref={passwordRef}
                 />
                 <span className="input-group-text">
                   <a
@@ -88,14 +109,14 @@ function Login() {
             </div>
             <div className="mb-2">
               <label className="form-check">
-                <input type="checkbox" className="form-check-input" />
+                <input type="checkbox" className="form-check-input" checked/>
                 <span className="form-check-label">
                   Remember me on this device
                 </span>
               </label>
             </div>
             <div className="form-footer">
-              <button type="submit" className="btn btn-primary w-100">
+              <button type="submit" className="btn btn-primary w-100" disabled={isSigningIn}>
                 Login
               </button>
             </div>
@@ -104,7 +125,7 @@ function Login() {
           <div className="card-body">
             <div className="row">
               <div className="col">
-                <a href="javascript:void(0)" className="btn btn-white w-100" onClick={loginHandler}>
+                <button className="btn btn-white w-100">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="icon icon-tabler icon-tabler-brand-google"
@@ -121,7 +142,7 @@ function Login() {
                     <path d="M17.788 5.108a9 9 0 1 0 3.212 6.892h-8" />
                   </svg>
                   Login with Google
-                </a>
+                </button>
               </div>
               <div className="col">
                 <a href="javascript:void(0)" className="btn btn-white w-100">
@@ -149,7 +170,7 @@ function Login() {
         <div className="text-center text-muted mt-3">
           Don't have account yet?{" "}
           <a href="javascript:void(0)" tabIndex={-1}>
-            Sign up
+            <Link to="/signup">Sign up</Link>
           </a>
         </div>
       </div>

@@ -1,24 +1,11 @@
-// import React, { createContext, useContext, useReducer } from 'react';
-
-// export const StateContext = createContext();
-
-// export const StateProvider = ({ reducer, initialState, children }) => (
-//     <StateContext.Provider value={useReducer(reducer, initialState)}>
-//         {children}
-//     </StateContext.Provider>
-// );
-
-// export const useStateValue = () => useContext(StateContext);
-
-import React, { createContext, useState, useEffect, useContext } from "react";
-import { auth } from "../adapters/firebase";
+import { createContext, useState, useEffect, useContext } from "react";
+import db, { auth } from "../adapters/firebase";
 
 export const StateContext = createContext();
 
 export function StateProvider(props) {
   const [user, setUser] = useState(null);
   const [pending, setPending] = useState(true);
-
   const [currentDate, setCurrentDate] = useState("");
 
   const getCurrentDate = () => {
@@ -29,6 +16,18 @@ export function StateProvider(props) {
     today = dd + "/" + mm + "/" + yyyy;
     setCurrentDate(today);
   };
+
+  const signUp = (email, password) => {
+    return auth.createUserWithEmailAndPassword(email, password);
+  }
+
+  const signIn = (email, password) => {
+    return auth.signInWithEmailAndPassword(email, password);
+  }
+
+  const signOut = () => {
+    return auth.signOut();
+  }
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -42,9 +41,17 @@ export function StateProvider(props) {
     return <>Loading...</>;
   }
 
+  const value = {
+    user, 
+    currentDate,
+    signUp,
+    signIn,
+    signOut
+  }
+
   return (
-    <StateContext.Provider value={{ user, currentDate }}>
-      {props.children}
+    <StateContext.Provider value={value}>
+      {!pending && props.children}
     </StateContext.Provider>
   );
 }
