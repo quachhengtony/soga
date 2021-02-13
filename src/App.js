@@ -81,6 +81,20 @@ function App() {
             <Sidebar />
             <Timeline />
           </PrivateRoute>
+
+          <PrivateRoute path="/workspace/:workspaceId/reports">
+            <Sidebar />
+          </PrivateRoute>
+          <PrivateRoute path="/workspace/:workspaceId/search">
+            <Sidebar />
+          </PrivateRoute>
+          <PrivateRoute path="/workspace/:workspaceId/links">
+            <Sidebar />
+          </PrivateRoute>
+          <PrivateRoute path="/workspace/:workspaceId/account">
+            <Sidebar />
+          </PrivateRoute>
+
           <PrivateRoute path="/workspace/:workspaceId/storage">
             <Sidebar />
             <Storage />

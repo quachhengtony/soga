@@ -97,13 +97,23 @@ function PrivateTopbar() {
   const handleSignOut = async () => {
     try {
       setIsSigningOut(true);
-      await signOut;
+      await signOut();
       history.push("/signin");
     } catch {
       setError("Failed to sign out!");
     }
     setIsSigningOut(false);
   };
+
+  useEffect(() => {
+    let myNavItems = document.querySelectorAll(".nav-item");
+    myNavItems.forEach((navItem) => {
+      navItem.addEventListener("click", () => {
+        myNavItems.forEach((navItem) => navItem.classList.remove("active"));
+        navItem.classList.add("active");
+      });
+    });
+  }, []);
 
   return (
     <div className="topbar">
@@ -201,7 +211,7 @@ function PrivateTopbar() {
                 <div className="dropdown-divider" />
                 <a className="dropdown-item">Settings</a>
                 <a onClick={handleSignOut} className="dropdown-item">
-                  Logout
+                  Sign out
                 </a>
               </div>
             </div>

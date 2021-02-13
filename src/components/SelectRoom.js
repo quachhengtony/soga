@@ -55,7 +55,7 @@ function SelectRoom({ text, id }) {
         <line x1="17" y1="4" x2="13" y2="20" />
       </svg>
       {text || "..."}
-      <span class="badge bg-primary ms-auto">4</span>
+      <span class="badge bg-primary ms-auto">n</span>
     </a>
   );
 }

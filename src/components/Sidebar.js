@@ -96,7 +96,7 @@ function Sidebar() {
         </a>
         <a
           href="javascript:void(0)"
-          onClick={() => history.push(`/workspace/${workspaceId}/report`)}
+          onClick={() => history.push(`/workspace/${workspaceId}/reports`)}
           class="btn btn-bitbucket btn-icon wpbtn"
           aria-label="Button"
         >
@@ -191,7 +191,7 @@ function Sidebar() {
         </a>
         <a
           href="javascript:void(0)"
-          onClick={() => history.push("/b/account")}
+          onClick={() => history.push(`/workspace/${workspaceId}/links`)}
           class="btn btn-bitbucket btn-icon wpbtn"
           aria-label="Button"
         >
@@ -214,7 +214,7 @@ function Sidebar() {
         </a>
         <a
           href="javascript:void(0)"
-          onClick={() => history.push("/b/account")}
+          onClick={() => history.push(`/workspace/${workspaceId}/account`)}
           class="btn btn-bitbucket btn-icon wpbtn"
           aria-label="Button"
         >
