@@ -9,7 +9,6 @@
     "@atlaskit/color-picker": "^1.1.1",
     "@atlaskit/comment": "^10.0.6",
     "@atlaskit/dropdown-menu": "^10.1.2",
-    "@atlaskit/modal-dialog": "^11.2.4",
     "@atlaskit/side-navigation": "^0.7.9",
     "@atlaskit/textfield": "^4.0.10",
     "@ckeditor/ckeditor5-build-classic": "^23.1.0",

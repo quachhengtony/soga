@@ -19,8 +19,8 @@ function Login() {
     try {
       setIsSigninIn(true);
       await signIn(emailRef.current.value, passwordRef.current.value);
-      window.location.reload();
       history.push("/links");
+      window.location.reload();
     } catch {
       setError("Failed to sign in.");
     }

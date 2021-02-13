@@ -99,6 +99,7 @@ function PrivateTopbar() {
       setIsSigningOut(true);
       await signOut();
       history.push("/signin");
+      window.location.reload();
     } catch {
       setError("Failed to sign out!");
     }
